@@ -1,15 +1,39 @@
-# 💻 Minishell
+# 💻 Minisheel
 
 
 
 
-## Roadmap
+## 🔭 Roadmap
 
-- Creation du projet Minishell
+- Creation du projets Minisheel
 
 
 
-## Auteurs
+## 🎮 Lance notre Minishell !
+
+Copie le projet
+
+```bash
+  git clone https://github.com/NineSuper/Minishell
+```
+
+Rentre dans le dossier
+
+```bash
+  cd Minishell
+```
+
+Compile le projet
+```bash
+    make all
+```
+
+Lance l'executable
+
+```bash
+  ./minishell
+```
+## 📝 Auteurs
 
 - 🛡 [@jordancasadessus](https://www.github.com/jordancasadessus)
 - 🔱 [@Paloouf](https://www.github.com/Paloouf)
