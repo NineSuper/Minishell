@@ -6,7 +6,7 @@ SRC = main.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
-LFLAGS = 
+LFLAGS = -lreadline
 FLAGS = -Wall -Werror -Wextra
 
 # ------------------------------ Colors ------------------------------
@@ -41,7 +41,7 @@ NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de l
 MAKEFLAGS += --silent
 
 $(NAME): comp_start $(OBJ)
-	@$(CC) $(LFLAGS) $(OBJ) -o $(NAME)
+	@$(CC)  $(OBJ) $(LFLAGS) -o $(NAME)
 	@$(EXE_READY)
 
 all: $(NAME) norminette
