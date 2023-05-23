@@ -49,6 +49,7 @@ norminette:
 	$(NORM)
 	norminette *.c
 	$(NORM_H)
+	norminette -R checkDefine minishell.h
 	echo "\n"
 
 comp_start:

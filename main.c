@@ -6,13 +6,13 @@
 /*   By: tde-los- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/05/23 10:24:43 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:39:02 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
 
-int	main()
+int	main(int argc, char **argv)
 {
 	printf("chibre\n");
 }
