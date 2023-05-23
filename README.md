@@ -1,11 +1,11 @@
-# 💻 Minisheel
+# 💻 Minishell
 
 
 
 
 ## Roadmap
 
-- Creation du projets Minisheel
+- Creation du projet Minishell
 
 
 
