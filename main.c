@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/05/23 10:39:02 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:55:51 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stdio.h"
+
+/*
+Todo list :
+! Alerte "!"
+? Question "?"
+* Vert "*"
+todo: "todo"
+//finish "//"
+*/
 
 int	main(int argc, char **argv)
 {
