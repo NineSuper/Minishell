@@ -1,8 +1,8 @@
 INC=/usr/include
 INCLIB=$(INC)/../lib
 
-NAME = philo
-SRC = main.c error.c header.c ft_utils.c init_philo.c ft_usleep.c ft_routine.c
+NAME = minishell
+SRC = main.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
@@ -20,21 +20,13 @@ NO_COLOR        =       \033[0m
 
 # ------------------------------ Messages ------------------------------
 
-HEADER_TOP		=		echo "$(BOLD_YELLOW)  ____  ____  ____      __     __   ____     \n"
-
-HEADER_TOP_MID  =		"$(BOLD_CYAN)(_  _)(    \(  __)___ (  )   /  \ / ___) ___ \n"
-
-HEADER_MID		=		"$(BOLD_PURPLE)  )(   ) D ( ) _)(___)/ (_/\(  O )\___ \(___)\n"
-
-HEADER_BOT		=		"$(NO_COLOR)  (__) (____/(____)    \____/ \__/ (____/    \n"
-
 HEADER_NAME		=		$(HEADER_TOP) $(HEADER_TOP_MID) $(HEADER_MID)$(HEADER_BOT)
 
-HEADER_COMP     =       echo "\n🌐 $(BOLD_YELLOW)Philosophers $(NO_COLOR)by tde-los-\n"
+HEADER_COMP     =       echo "\n🌐 $(BOLD_YELLOW)Minishell $(NO_COLOR)by ltressen & jcasades & alsaez & tde-los-\n"
 
 COMP_START      =       echo "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de compilation...\n"
 
-EXE_READY       =       echo "\n📟 Compilation de $(BOLD_YELLOW)PHILOSOPHERS$(NO_COLOR) reussi !\n"
+EXE_READY       =       echo "\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
 CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
@@ -57,11 +49,9 @@ norminette:
 	$(NORM)
 	norminette *.c
 	$(NORM_H)
-	norminette -R CheckDefine philo.h
 	echo "\n"
 
 comp_start:
-	@$(HEADER_NAME)
 	@$(HEADER_COMP)
 	@$(COMP_START)
 
