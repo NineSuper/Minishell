@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/23 10:33:46 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:34:36 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@
 # include <readline/history.h>
 # include "libft/libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
-# include "libavfilter/gnl/get_next_line.h"
+# include "libft/gnl/get_next_line.h"
 
 #endif
