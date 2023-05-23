@@ -5,7 +5,7 @@
 
 ## Roadmap
 
-- Creation du projets Minishell
+- Creation du projet Minishell
 
 
 
