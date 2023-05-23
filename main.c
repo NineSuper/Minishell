@@ -18,7 +18,6 @@ Todo list :
 ? Question "?"
 * Vert "*"
 todo: "todo"
-//finish "//"
 */
 
 int	main(int argc, char **argv)
