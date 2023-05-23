@@ -2,7 +2,7 @@
 
 **Minishell** est le premier projet de **groupe** à faire en duo  durant le cursus [42](https://42.fr/).
 
-**MiniShell** vous présentera le monde des shells, qui fournissent une interface texte pratique pour interagir avec votre système. Les shells peuvent sembler très faciles à comprendre, mais ont un comportement très spécifique et défini dans presque tous les cas, dont la plupart devront être manipulés correctement.
+**Minishell** vous présentera le monde des shells, qui fournissent une interface texte pratique pour interagir avec votre système. Les shells peuvent sembler très faciles à comprendre, mais ont un comportement très spécifique et défini dans presque tous les cas, dont la plupart devront être manipulés correctement.
 
 ## 🔭 Roadmap
 
