@@ -25,7 +25,7 @@ Rentre dans le dossier
 
 Compile le projet
 ```bash
-    make all
+   make all
 ```
 
 Lance l'executable
