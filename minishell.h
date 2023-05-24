@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/24 12:05:25 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:36:34 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,20 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "kekw" // ? nom a definir plus tard
-/*
-! eaea
-? eae
-* vert
-todo eaeaw 
-//eeae a
-*/
+# define NAME "Minisheel" // ? nom a definir plus tard
+
+/*	STRUCTS	    */
+
+typedef struct s_env
+{
+	char *path;
+	char *lang;
+		
+}
+typedef struct s_data
+{
+	char ;
+	t_env *env;
+}	t_data;
 
 #endif

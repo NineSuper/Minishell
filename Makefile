@@ -41,7 +41,7 @@ NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de l
 MAKEFLAGS += --silent
 
 $(NAME): comp_start $(OBJ)
-	@$(CC)  $(OBJ) $(LFLAGS) -o $(NAME)
+	@$(CC) libft/*/*.c $(OBJ) $(LFLAGS) -o $(NAME)
 	@$(EXE_READY)
 
 all: $(NAME) norminette
