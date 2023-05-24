@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		prompt = readline("\033[1;36m➜ "NAME" >\033[0m ");
 		add_history(prompt);
-		if (!ft_strncmp(prompt, "pwd", 3))
+		if (!ft_strncmp(prompt, "pwd", 4))
 		{
 			ft_getpwd(data);
 			ft_printf("%s\n", data->pwd);
