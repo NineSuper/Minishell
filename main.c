@@ -12,7 +12,19 @@
 
 #include "minishell.h"
 
+<<<<<<< HEAD
 int	main(int argc, char **argv, char **env)
+=======
+/*
+Todo list :
+! Alerte "!"
+? Question "?"
+* Vert "*"
+todo: "todo"
+*/
+
+int	main(int argc, char **argv)
+>>>>>>> refs/remotes/origin/main
 {
 	int i=0;
 	char *lol;
