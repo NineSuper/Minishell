@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/24 15:36:34 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:48:58 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ typedef struct s_env
 {
 	char *path;
 	char *lang;
-		
-}
+	
+}	t_env;
 typedef struct s_data
 {
-	char ;
+	char *pwd;
 	t_env *env;
 }	t_data;
+
+void	ft_pwd(t_data *data);
+
 
 #endif
