@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/24 15:48:58 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:07:21 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
 # define NAME "Minisheel" // ? nom a definir plus tard
-
 /*	STRUCTS	    */
-
 typedef struct s_env
 {
 	char *path;
@@ -48,7 +46,6 @@ typedef struct s_data
 	t_env *env;
 }	t_data;
 
-void	ft_pwd(t_data *data);
-
+void	ft_getpwd(t_data *data);
 
 #endif
