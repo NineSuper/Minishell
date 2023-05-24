@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/23 11:42:17 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:05:25 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "uknow" // ? nom a definir plus tard
+# define NAME "kekw" // ? nom a definir plus tard
+/*
+! eaea
+? eae
+* vert
+todo eaeaw 
+//eeae a
+*/
 
 #endif
