@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/25 10:37:44 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/25 13:23:41 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "\033[1;36m☁️  Minishell "
+# define NAME "\033[1;36m☁️  Minichibre "
 /*	STRUCTS	    */
 typedef struct s_data
 {
