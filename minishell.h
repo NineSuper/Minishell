@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/24 16:07:21 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/25 09:50:28 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,13 @@
 /*      NAME        */
 # define NAME "Minisheel" // ? nom a definir plus tard
 /*	STRUCTS	    */
-typedef struct s_env
-{
-	char *path;
-	char *lang;
-	
-}	t_env;
 typedef struct s_data
 {
 	char *pwd;
-	t_env *env;
+	char **env_cpy;
 }	t_data;
 
 void	ft_getpwd(t_data *data);
+void	ft_getenv(t_data *data, char **env);
 
 #endif
