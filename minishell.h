@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/25 09:50:28 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/25 10:37:44 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "Minisheel" // ? nom a definir plus tard
+# define NAME "\033[1;36m☁️  Minishell "
 /*	STRUCTS	    */
 typedef struct s_data
 {
