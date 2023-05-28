@@ -23,9 +23,9 @@ NO_COLOR        =       \033[0m
 
 HEADER_NAME		=		$(HEADER_TOP) $(HEADER_TOP_MID) $(HEADER_MID)$(HEADER_BOT)
 
-HEADER_COMP     =       echo "\n🌐 $(BOLD_YELLOW)Minishell $(NO_COLOR)by ltressen & jcasades & alsaez & tde-los-\n"
+HEADER_COMP     =       echo "\n🌐 $(BOLD_YELLOW)Minishell $(NO_COLOR)by ltressen & jcasades & alsaez & tde-los-\n\n"
 
-COMP_START      =       echo "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de compilation...\n"
+COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de compilation...\n\n"
 
 EXE_READY       =       echo "\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
@@ -42,6 +42,7 @@ MAKEFLAGS += --silent
 
 $(NAME): comp_start $(OBJ)
 	@$(CC) libft/*/*.c $(OBJ) $(LFLAGS) -o $(NAME)
+	echo "\n"
 	@$(EXE_READY)
 
 all: $(NAME) norminette
@@ -55,7 +56,6 @@ norminette:
 
 comp_start:
 	@$(HEADER_COMP)
-	@$(COMP_START)
 
 clean:
 	$(CLEANED)
@@ -66,3 +66,7 @@ fclean:
 	$(FCLEANED)
 
 re: clean all
+
+%.o: %.c
+	@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Compilation des fichiers : %-33.33s\r$(NO_COLOR)" $@
+	@${CC} ${CFLAGS} -c $< -o $@
