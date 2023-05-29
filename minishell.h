@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/25 13:23:41 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:42:34 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ typedef struct s_data
 {
 	char *pwd;
 	char **env_cpy;
+	char *home;
 }	t_data;
 
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
+void	ft_cd(t_data *data, char *prompt, char **env);
+void	ft_gethome(t_data *data);
 
 #endif

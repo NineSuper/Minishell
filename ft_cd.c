@@ -1,46 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 12:41:34 by ltressen         ###   ########.fr       */
+/*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
+/*   Updated: 2023/05/29 12:42:20 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_getenv(t_data *data, char **env)
+void	ft_cd(t_data *data, char *prompt, char **env)
 {
-	int	i;
+	char **parse;
 
-	i = 0;
-	while(env[i])
-		i++;
-	data->env_cpy = malloc(sizeof(char *) * i);
-	i = 0;
-	while (env[i])
+	parse = ft_split(prompt, ' ');
+	if (!ft_strncmp(parse[0], "cd", 3))
 	{
-		data->env_cpy[i] = ft_strdup(env[i]);
-		i++;
-	}
-}
-
-void	ft_gethome(t_data *data)
-{
-	char **home_split;
-	int	i;
-
-	i = 0;
-	while (data->env_cpy[i])
-	{
-		if (!ft_strncmp(data->env_cpy[i], "HOME", 4))
+		if(parse[1])
+			chdir(parse[1]);
+		else
 		{
-			home_split = ft_split(data->env_cpy[i], '=');
-			data->home = ft_strdup(home_split[1]);
+			ft_gethome(data);
+			chdir(data->home);
 		}
-		i++;
 	}
+	free(parse);
 }

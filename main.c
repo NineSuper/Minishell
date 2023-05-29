@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/05/25 10:34:52 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:42:12 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,28 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	char *prompt;
+	int	i;
 
+	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	while (1)
 	{
 		prompt = ft_readline(data);
 		add_history(prompt);
+		ft_getenv(data, env);
 		if (!ft_strncmp(prompt, "pwd", 4))
 		{
 			ft_getpwd(data);
 			ft_printf("%s\n", data->pwd);
+		}		
+		if (!ft_strncmp(prompt, "env", 4))
+		{
+			ft_getenv(data, env);
+			while (data->env_cpy[i])
+				ft_printf("%s\n", data->env_cpy[i++]);
+			i = 0;
 		}
+		ft_cd(data, prompt, env);
 	}
 	free(data);
 	return (0);
