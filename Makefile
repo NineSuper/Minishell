@@ -25,9 +25,9 @@ HEADER_NAME		=		$(HEADER_TOP) $(HEADER_TOP_MID) $(HEADER_MID)$(HEADER_BOT)
 
 HEADER_COMP     =       echo "\n🌐 $(BOLD_YELLOW)Minishell $(NO_COLOR)by ltressen & jcasades & alsaez & tde-los-\n\n"
 
-COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de compilation...\n\n"
+COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de compilation...\r"
 
-EXE_READY       =       echo "\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
+EXE_READY       =       echo "\n\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
 CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
@@ -56,6 +56,7 @@ norminette:
 
 comp_start:
 	@$(HEADER_COMP)
+	@$(COMP_START)
 
 clean:
 	$(CLEANED)
