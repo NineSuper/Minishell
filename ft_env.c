@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 12:41:34 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/29 14:29:01 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_getenv(t_data *data, char **env)
 
 void	ft_gethome(t_data *data)
 {
-	char **home_split;
-	int	i;
+	char	**home_split;
+	int		i;
 
 	i = 0;
 	while (data->env_cpy[i])
@@ -39,7 +39,9 @@ void	ft_gethome(t_data *data)
 		if (!ft_strncmp(data->env_cpy[i], "HOME", 4))
 		{
 			home_split = ft_split(data->env_cpy[i], '=');
-			data->home = ft_strdup(home_split[1]);
+			if (home_split[1])
+				data->home = ft_strdup(home_split[1]);
+			break ;
 		}
 		i++;
 	}
