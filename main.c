@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/05/29 14:59:17 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:42:50 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		prompt = ft_readline(data);
 		add_history(prompt);
-		ft_getenv(data, env);
-		ft_parsing(data, prompt);
-		if (!ft_strncmp(prompt, "pwd", 4))
-		{
-			ft_getpwd(data);
-			ft_printf("%s\n", data->pwd);
-		}		
-		if (!ft_strncmp(prompt, "env", 4))
-		{
-			ft_getenv(data, env);
-			while (data->env_cpy[i])
-				ft_printf("%s\n", data->env_cpy[i++]);
-			i = 0;
-		}
+		ft_parsing(data, prompt, env);
 		ft_cd(data, prompt, env);
 	}
 	free(data);
