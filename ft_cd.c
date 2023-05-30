@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 14:58:42 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/05/30 09:59:20 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_cd(t_data *data, char *prompt, char **env)
 	char	**parse;
 
 	parse = ft_split(prompt, ' ');
+	
 	if (!ft_strncmp(parse[0], "cd", 3))
 	{
 		if (parse[1] && parse[1][0] != '~')

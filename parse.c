@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 15:48:26 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:25:44 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 	char **parsed;
 
 	parsed = ft_split(prompt, ' ');
+	if (!parsed[0])
+		return ;
 	i = 0;
 	if (!ft_strncmp(parsed[0], "pwd", 4))
 	{
@@ -31,8 +33,11 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 			ft_printf("%s\n", data->env_cpy[i++]);
 		i = 0;
 	}
+	if (!ft_strncmp(parsed[0], "cd", 3))
+		ft_cd(data, prompt, env);
 	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
+	free(parsed);
 }
 
 void	ft_echo(t_data *data, char *prompt)
@@ -40,20 +45,28 @@ void	ft_echo(t_data *data, char *prompt)
 	int	i;
 	int	j;
 	char **split;
-	char *to_print;
 	int	n_flag;
 
 	n_flag = 0;
 	i = 1;
-	j = 0;
 	split = ft_split(prompt, ' ');
-	while (split[i])
+	while (!ft_strncmp(split[i], "-n", 3))
 	{
-		if (!ft_strncmp(split[i], "-n", 3))
-			n_flag = 1;
-		else
-			to_print = ft_strjoin(to_print, split[i]);
+		n_flag = 26;
 		i++;
 	}
-	ft_printf("%s\n", to_print);
+	while (split[i])
+	{
+		if (!split[i + 1])
+		{
+			ft_printf("%s", split[i]);
+			if (n_flag)
+				ft_printf("\033[47m\e[1;30m%%\033[m");
+			ft_printf("\n");
+		}
+		else
+			ft_printf("%s ", split[i]);
+		i++;
+	}
+	free(split);
 }
