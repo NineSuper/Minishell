@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/30 12:41:13 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:11:00 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_data
 {
 	char *pwd;
 	char **env_cpy;
+	int	env_len;
 	char *home;
 }	t_data;
 
@@ -47,5 +48,9 @@ void	ft_cd(t_data *data, char *prompt, char **env);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
 void	ft_echo(t_data *data, char *prompt);
+void	ft_exit(t_data *data, char *prompt);
+void	ft_freesplit(char **split);
+void	ft_export(t_data *data, char *prompt);
+int	ft_lenvar(char *varName);
 
 #endif
