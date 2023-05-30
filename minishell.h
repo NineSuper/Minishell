@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 12:42:34 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:35:03 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
 void	ft_cd(t_data *data, char *prompt, char **env);
 void	ft_gethome(t_data *data);
+void	ft_parsing(t_data *data, char *prompt, char **env);
+void	ft_echo(t_data *data, char *prompt);
 
 #endif
