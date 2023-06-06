@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/31 11:19:48 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/06 15:01:29 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "\033[1;36m☁️  Minisheel "
+# define NAME "\033[1;36m☁️  Minichibre "
 /*	STRUCTS	    */
 typedef struct s_data
 {
@@ -42,6 +42,7 @@ typedef struct s_data
 	char *home;
 }	t_data;
 
+char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
 void	ft_cd(t_data *data, char *prompt, char **env);
@@ -53,5 +54,6 @@ void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
 void	ft_unset(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
+void	ft_ctrl_c(int signal);
 
 #endif
