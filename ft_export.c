@@ -6,11 +6,43 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/31 11:50:49 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:46:19 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_env_alpha(t_data *data)
+{
+	int	i;
+	int	j;
+	int	pos;
+	char	**new_cpy;
+
+	i = 0;
+	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
+	while (i < data->env_len)
+	{
+		pos = 0;
+		j = 0;	
+		while (j < data->env_len)
+		{
+			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], 10000) > 0)
+				pos++;
+			j++;
+		}
+		new_cpy[pos] = ft_strdup(data->env_cpy[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->env_len)
+	{
+		ft_printf("%s\n", new_cpy[i]);
+		free(new_cpy[i]);
+		i++;
+	}
+	free(new_cpy);
+}
 
 void	ft_export(t_data *data, char *prompt)
 {
@@ -22,6 +54,9 @@ void	ft_export(t_data *data, char *prompt)
 	j = 0;
 	sp = ft_split(prompt, ' ');
 	i = 1;
+
+	if (!sp[1])
+		ft_env_alpha(data);
 	while (sp[i])
 	{
 		while (data->env_cpy[j])
@@ -36,22 +71,24 @@ void	ft_export(t_data *data, char *prompt)
 		}
 		if (!data->env_cpy[j])
 		{
-			ft_printf("ptdr\n");
 			data->env_len++;
-			new_cpy = malloc(sizeof(char *) * data->env_len + 1);
+			new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
 			j = 0;
 			while (data->env_cpy[j])
 			{
-				new_cpy[j] = data->env_cpy[j];
+				new_cpy[j] = ft_strdup(data->env_cpy[j]);
+				free (data->env_cpy[j]);
 				j++;
 			}
 			free(data->env_cpy);
-			new_cpy[j] = sp[i];
-			new_cpy[++j] = NULL;
+			new_cpy[j] = ft_strdup(sp[i]);
+			free(sp[i]);
 			data->env_cpy = new_cpy;
 		}
 		i++;
 	}
+	free(sp[0]);
+	free(sp);
 }
 
 void	ft_unset(t_data *data, char *prompt)
@@ -62,46 +99,44 @@ void	ft_unset(t_data *data, char *prompt)
 	int	j;
 	int	k;
 
-	j = 0;
 	sp = ft_split(prompt, ' ');
 	i = 1;
 	while (sp[i])
 	{
+		j = 0;
 		while (data->env_cpy[j])
 		{
 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i])))
-			{
-				ft_printf("ptdr2\n");
 				break ;
-			}
 			j++;
 		}
 		if (data->env_cpy[j])
-		{
-			ft_printf("ptdr\n");
-			new_cpy = malloc(sizeof(char *) * data->env_len);
+		{	
+			data->env_len--;
+			new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
 			j = 0;
 			k = 0;
-			while (data->env_cpy[j])
+			while (k < data->env_len)
 			{
 				if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i])))
 				{
-					ft_printf("ptdr3\n");
 					free(data->env_cpy[j]);
-					ft_printf("ptdr3\n");
 					j++;
 				}
-				ft_printf("%s", data->env_cpy[j]);
-				new_cpy[k] = data->env_cpy[j];
+				else if (data->env_cpy[j])
+				{
+					new_cpy[k] = ft_strdup(data->env_cpy[j]);
+					free (data->env_cpy[j]);
+				}
 				j++;
 				k++;
 			}
-			ft_printf("ptdr3\n");
 			free(data->env_cpy);
-			new_cpy[++k] = NULL;
 			data->env_cpy = new_cpy;
 		}
 		i++;
+		free(sp[0]);
+		free(sp);
 	}
 }
 
