@@ -6,11 +6,43 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/06 10:52:48 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:46:19 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_env_alpha(t_data *data)
+{
+	int	i;
+	int	j;
+	int	pos;
+	char	**new_cpy;
+
+	i = 0;
+	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
+	while (i < data->env_len)
+	{
+		pos = 0;
+		j = 0;	
+		while (j < data->env_len)
+		{
+			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], 10000) > 0)
+				pos++;
+			j++;
+		}
+		new_cpy[pos] = ft_strdup(data->env_cpy[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->env_len)
+	{
+		ft_printf("%s\n", new_cpy[i]);
+		free(new_cpy[i]);
+		i++;
+	}
+	free(new_cpy);
+}
 
 void	ft_export(t_data *data, char *prompt)
 {
@@ -22,6 +54,9 @@ void	ft_export(t_data *data, char *prompt)
 	j = 0;
 	sp = ft_split(prompt, ' ');
 	i = 1;
+
+	if (!sp[1])
+		ft_env_alpha(data);
 	while (sp[i])
 	{
 		while (data->env_cpy[j])
