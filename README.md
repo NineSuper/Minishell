@@ -7,6 +7,7 @@
 ## 🔭 Roadmap
 
 - Création du projet Minishell
+- Parsing : Regarder tous les args du prompt -> les separer en fonction des pipes -> traiter les commandes et leurs args 
 
 ## 🎮 Lance notre Minishell !
 
