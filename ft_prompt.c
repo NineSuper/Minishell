@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/06 15:35:39 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:13:36 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*ft_readline(void)
 	name = ft_strjoin(name, split[i]);
 	name = ft_strjoin(name, "]\033[1;36m > \033[0m");
 	prompt = readline(name);
-	i = 0;
     ft_freesplit(split);
 	free(temp);
 	return (prompt);
