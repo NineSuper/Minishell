@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/31 17:27:26 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:52:48 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_unset(t_data *data, char *prompt)
 	sp = ft_split(prompt, ' ');
 	i = 1;
 	while (sp[i])
-	{	
+	{
 		j = 0;
 		while (data->env_cpy[j])
 		{
@@ -81,28 +81,27 @@ void	ft_unset(t_data *data, char *prompt)
 			new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
 			j = 0;
 			k = 0;
-			while (data->env_cpy[j])
+			while (k < data->env_len)
 			{
 				if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i])))
-//				{
-//					free(data->env_cpy[j]);
+				{
+					free(data->env_cpy[j]);
 					j++;
-//				}
-				if (data->env_cpy[j])
+				}
+				else if (data->env_cpy[j])
 				{
 					new_cpy[k] = ft_strdup(data->env_cpy[j]);
-//					free (data->env_cpy[j]);
+					free (data->env_cpy[j]);
 				}
 				j++;
 				k++;
 			}
-//			free(data->env_cpy);
+			free(data->env_cpy);
 			data->env_cpy = new_cpy;
 		}
 		i++;
-		ft_printf("%d", data->env_len);
-//		free(sp[0]);
-//		free(sp);
+		free(sp[0]);
+		free(sp);
 	}
 }
 
