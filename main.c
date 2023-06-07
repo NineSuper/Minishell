@@ -6,11 +6,17 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/07 10:58:01 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:28:18 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handler_ctrl_d(char *prompt)
+{
+	ft_printf("exit\n");
+	exit(1);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -19,6 +25,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	char *prompt;
 	int	i;
+	pid_t pid;
 	struct sigaction sig;
 
 	sig.sa_handler = ft_ctrl_c;
@@ -30,6 +37,7 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
+	pid = fork();
 	while (1)
 	{
 		prompt = ft_readline();
@@ -39,3 +47,5 @@ int	main(int argc, char **argv, char **env)
 	free(data);
 	return (0);
 }
+
+
