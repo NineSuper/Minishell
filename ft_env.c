@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/30 14:55:59 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:08:20 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ void	ft_getenv(t_data *data, char **env)
 	while(env[i])
 		i++;
 	data->env_len = i;
-	data->env_cpy = malloc(sizeof(char *) * i + 1);
+	data->env_cpy = ft_calloc(i + 1 ,sizeof(char *));
 	i = 0;
 	while (env[i])
 	{
 		data->env_cpy[i] = ft_strdup(env[i]);
 		i++;
 	}
-	data->env_cpy[i] = NULL;
 }
 
 void	ft_gethome(t_data *data)
