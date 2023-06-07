@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/07 10:59:31 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:40:24 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 		ft_export(data, prompt);
 	if (!ft_strncmp(parsed[0], "unset", 6))
 		ft_unset(data, prompt);
+	if (parsed[0][0] == '.')
+		execve(data->pwd, prompt, env);
 	ft_freesplit(parsed);
 }
 

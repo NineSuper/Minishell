@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/07 13:28:18 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:41:50 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
-	pid = fork();
 	while (1)
 	{
 		prompt = ft_readline();
@@ -47,5 +46,7 @@ int	main(int argc, char **argv, char **env)
 	free(data);
 	return (0);
 }
+
+
 
 
