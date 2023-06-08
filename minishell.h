@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/06 17:32:48 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:09:21 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@
 /*	STRUCTS	    */
 typedef struct s_data
 {
-	char *pwd;
-	char **env_cpy;
-	int	env_len;
-	char *home;
+	char	**env_cpy;
+	char	*home;
+	char	*pwd;
+	char	*arg;
+	int		env_len;
 }	t_data;
 
 char	*ft_readline(void);
