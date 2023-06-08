@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/29 15:35:03 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:32:48 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,21 @@ typedef struct s_data
 {
 	char *pwd;
 	char **env_cpy;
+	int	env_len;
 	char *home;
 }	t_data;
 
+char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
 void	ft_cd(t_data *data, char *prompt, char **env);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
-void	ft_echo(t_data *data, char *prompt);
+void	ft_exit(t_data *data, char *prompt);
+void	ft_freesplit(char **split);
+void	ft_export(t_data *data, char *prompt);
+void	ft_unset(t_data *data, char *prompt);
+int	ft_echo(t_data *data, char *prompt);
+int	ft_lenvar(char *varName);
 
 #endif
