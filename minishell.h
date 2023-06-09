@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/08 14:09:21 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:44:29 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
-void	ft_cd(t_data *data, char *prompt, char **env);
+void	ft_cd(t_data *data, char *prompt);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
 void	ft_exit(t_data *data, char *prompt);

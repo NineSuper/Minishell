@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/07 10:35:24 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:44:27 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 		i = 0;
 	}
 	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt, env);
+		ft_cd(data, prompt);
 	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
 	if (!ft_strncmp(parsed[0], "exit", 5))

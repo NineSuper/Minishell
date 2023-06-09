@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/08 16:35:25 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:19:27 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ int	ft_check_n(char **tab)
 }
 /*
 todo echo $? = 0 si la commande passe est bonne sinon 127 si error
-todo ARG=abcd; echo $ARG -> Minishell abcd
-? ARG="1234 5"; echo $ARG -> Minishell 1234 5
-! ARG=1234 5; echo $ARG -> Minishell error
-? Chercher les arguments ARG=abc; dans le prompt avant "echo $ARG"
-? Comparer ARG=; avec $ARG
-? Imprimer la chaine ARG= a l'endroit echo $ARG
 */
 
 int	ft_arg_echo(t_data *data, char *arg)
