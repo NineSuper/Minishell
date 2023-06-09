@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/09 12:50:36 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:23:14 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	ft_dollar_cd(t_data *data, char *arg)
 			while (data->env_cpy[i][j] != '=')
 				j++;
 			if (chdir(data->env_cpy[i] + j + 1) == -1)
-				ft_printf("cd: no such file or directory: %s\n", data->env_cpy[i] + j + 1);
+				ft_printf("cd: no such file or directory: %s\n", \
+					data->env_cpy[i] + j + 1);
 			return (0);
 		}
 		i++;
