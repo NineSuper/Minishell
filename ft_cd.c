@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/07 12:31:39 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/08 12:34:46 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ void	ft_changepwd(t_data *data, char *old_pwd)
 		i++;
 	ft_getpwd(data);
 	str = ft_strjoin("PWD=", data->pwd);
-	ft_strlcpy(data->env_cpy[i], str, ft_strlen(str) + 1);
+	data->env_cpy[i] = ft_strdup(str);
+	i = 0;
 	while (ft_strncmp(data->env_cpy[i], "OLDPWD", 6))
 		i++;
 	str = ft_strjoin("OLDPWD=", old_pwd);
-	ft_strlcpy(data->env_cpy[i], str, ft_strlen(str) + 1);
+	data->env_cpy[i] = ft_strdup(str);
 	free(old_pwd);
 	free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/07 12:15:52 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:17:08 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "\033[1;36m☁️  Minichill "
+# define NAME "\033[1;36m☁️  Minisherpa "
 /*	STRUCTS	    */
 typedef struct s_data
 {
@@ -55,6 +55,6 @@ void	ft_unset(t_data *data, char *prompt);
 int	ft_echo(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
-void	handler_ctrl_d(char *prompt);
+int	is_exec(char **parsed);
 
 #endif
