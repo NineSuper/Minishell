@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/06 15:01:29 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/12 13:44:30 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_data
 	char **env_cpy;
 	int	env_len;
 	char *home;
+	char	**cmd;
+	char	**cmd_full;
+	int	pipenum;
+	int	**pipes;
+	int	fd1;
+	int	fd2;
 }	t_data;
 
 char	*ft_readline(void);
@@ -55,5 +61,5 @@ void	ft_export(t_data *data, char *prompt);
 void	ft_unset(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
-
+void    ft_parsingg(t_data *data, char *prompt);
 #endif
