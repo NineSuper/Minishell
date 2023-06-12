@@ -42,6 +42,16 @@ typedef struct s_data
 	char *home;
 }	t_data;
 
+typedef struct s_cmd
+{
+	char *cmd;
+	char *opt;
+	char *arg;
+	char **promp;
+	int	env_len;
+}	t_cmd;
+
+
 char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
@@ -52,6 +62,7 @@ void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
 void	ft_unset(t_data *data, char *prompt);
+void	ft_error_cmd(char *str);
 int	ft_echo(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 
