@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/06 14:56:44 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:43:50 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_readline(void)
 	int		i;
 
 	i = 0;
-	name = ft_calloc(1, sizeof(char));
+	name = NULL;
 	name = ft_strjoin(NAME, "\033[1;32m[");
 	temp = getcwd(NULL, 0);
 	split = ft_split(temp, '/');
@@ -36,5 +36,6 @@ char	*ft_readline(void)
 		free(split[i++]);
 	free(split);
 	free(temp);
+	free(name);
 	return (prompt);
 }

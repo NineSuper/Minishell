@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/08 12:34:46 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:50:27 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	ft_cd(t_data *data, char *prompt, char **env)
 		}
 	}
 	ft_changepwd(data, pwd_copy);
+	ft_freesplit(parse);
 }

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   new_parse.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/12 15:04:06 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:37:28 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_first_parse(t_data *data, char *prompt)
 	while (data->cmd_full[i])
 	{
 		tmp = ft_split(data->cmd_full[i], ' ');
-		data->cmd[i] = ft_strdup(tmp[0]);
+		if (tmp[0])
+			data->cmd[i] = ft_strdup(tmp[0]);
 		j = 0;
 		while (tmp[j])
 		{
@@ -89,6 +90,8 @@ void	ft_execve(t_data *data, int i)
 		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 			ft_printf("%d, %s\n", errno, strerror(errno));
 	}
+	else
+		return ;
 }
 
 void	ft_exec(t_data *data, int i)
@@ -96,6 +99,8 @@ void	ft_exec(t_data *data, int i)
 	int	j;
 
 	j = 0;
+	if (!data->cmd[0])
+		return ;
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 		ft_cd(data, data->cmd_full[i], data->env_cpy);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
@@ -151,27 +156,22 @@ void	ft_parsingg(t_data *data, char *prompt)
 {
 	int	i;
 	int	fd;
-	pid_t	pid;
+	
 	i = 0;
 	ft_first_parse(data, prompt);
 	ft_second_parse(data);
 	data->fd1 = open(".tmp1", O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	data->fd2 = open(".tmp2", O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (data->pipenum == 1)
+		ft_exec(data, 0);
+	else
 	{
-		pid = fork();
-		if (pid == 0)
-			ft_exec(data, 0);
-		if (pid != 0)
+		while (data->cmd_full[i])
 		{
-			wait(pid);
-			ft_exit(data, NULL);
+			ft_piping(data, i);
+			i++;
 		}
-		return ;
 	}
-	while (data->cmd_full[i])
-	{
-		ft_piping(data, i);
-		i++;
-	}
+	ft_freesplit(data->cmd_full);
+	ft_freesplit(data->cmd);
 }
