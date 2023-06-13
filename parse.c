@@ -6,33 +6,17 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/30 15:10:43 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:54:49 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_parse(t_data * data, char *prompt, char **env)
-{
-	t_cmd cmd;
-	char **parsed;
-
-	parsed = ft_split(prompt, '|');
-	cmd.promp = ft_split(parsed[0], ' ');
-	cmd.cmd = cmd.promp[0];
-	if (cmd.promp[1] && cmd.promp[1][0] == '-')
-		cmd.opt = cmd.promp[1];
-	ft_freesplit(parsed);
-
-}
-
 void	ft_parsing(t_data *data, char *prompt, char **env)
 {
-	t_cmd cmd;
 	int	i;
 	char **parsed;
 
-	ft_parse(data, prompt, env);
 	parsed = ft_split(prompt, ' ');
 	if (!parsed[0])
 		return ;
@@ -42,37 +26,31 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 		ft_getpwd(data);
 		ft_printf("%s\n", data->pwd);
 	}		
-	else if (!ft_strncmp(parsed[0], "env", 4))
+	if (!ft_strncmp(parsed[0], "env", 4))
 	{
-		//ft_getenv(data, env);
 		while (data->env_cpy[i])
 			ft_printf("%s\n", data->env_cpy[i++]);
 		i = 0;
 	}
-	else if (!ft_strncmp(parsed[0], "cd", 3))
+	if (!ft_strncmp(parsed[0], "cd", 3))
 		ft_cd(data, prompt, env);
-	else if (!ft_strncmp(parsed[0], "echo", 5))
+	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
-	else if (!ft_strncmp(parsed[0], "exit", 5))
+	if (!ft_strncmp(parsed[0], "exit", 5))
 		ft_exit(data, prompt);
-	else if (!ft_strncmp(parsed[0], "export", 7))
+	if (!ft_strncmp(parsed[0], "export", 7))
 		ft_export(data, prompt);
-	else
-		ft_error_cmd(parsed[0]); 
+	if (!ft_strncmp(parsed[0], "unset", 6))
+		ft_unset(data, prompt);
 	ft_freesplit(parsed);
 }
 
 void	ft_exit(t_data *data, char *prompt)
 {
-	ft_printf("exit\n");
+	free(data->home);
 	ft_freesplit(data->env_cpy);
 	free(data);
 	exit(EXIT_SUCCESS);
-}
-
-void	ft_error_cmd(char *str)
-{
-	ft_printf("Command : %s not found. \n", str);
 }
 
 void	ft_freesplit(char **split)
@@ -83,4 +61,35 @@ void	ft_freesplit(char **split)
 	while(split[i])
 		free(split[i++]);
 	free(split);
+}
+
+void	ft_echo(t_data *data, char *prompt)
+{
+	int	i;
+	int	j;
+	char **split;
+	int	n_flag;
+
+	n_flag = 0;
+	i = 1;
+	split = ft_split(prompt, ' ');
+	while (!ft_strncmp(split[i], "-n", 3))
+	{
+		n_flag = 26;
+		i++;
+	}
+	while (split[i])
+	{
+		if (!split[i + 1])
+		{
+			ft_printf("%s", split[i]);
+			if (n_flag)
+				ft_printf("\033[47m\e[1;30m%%\033[m");
+			ft_printf("\n");
+		}
+		else
+			ft_printf("%s ", split[i]);
+		i++;
+	}
+	ft_freesplit(split);
 }
