@@ -1,4 +1,4 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   new_parse.c                                        :+:      :+:    :+:   */
@@ -83,12 +83,17 @@ char	*ft_chk_cmd(t_data *data, int i)
 void	ft_execve(t_data *data, int i)
 {
 	char	*cmd;
+	pid_t	pid;
 
 	cmd = ft_chk_cmd(data, i);
 	if (cmd)
 	{
-		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
-			ft_printf("%d, %s\n", errno, strerror(errno));
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
+				ft_printf("%d, %s\n", errno, strerror(errno));
+		}
 	}
 	else
 		return ;

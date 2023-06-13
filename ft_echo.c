@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/07 10:55:08 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:59:11 by alsaez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	ft_check_n(char **tab)
 	return (i);
 }
 
-int	ft_echo(t_data *data, char *prompt)
+/*
+void	ft_echo(t_data *data, char *prompt)
 {
     char	**split;
     int		i;
@@ -42,11 +43,11 @@ int	ft_echo(t_data *data, char *prompt)
 
 	split = ft_split(prompt, ' ');
 	if (!split[1])
-		return (ft_printf("\n"));
+		return ;
 	i = ft_check_n(split);
 	flag = i;
 	if (!split[i])
-		return (0);
+		return ;
 	while (split[i])
 	{
 		if (split[i + 1])
@@ -58,4 +59,4 @@ int	ft_echo(t_data *data, char *prompt)
 	if (flag < 2)
 		ft_printf("\n");
 	ft_freesplit(split);
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/08 16:55:05 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:59:45 by alsaez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **env)
 	sigemptyset(&sig.sa_mask);
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
-
 	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
