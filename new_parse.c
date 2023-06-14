@@ -106,20 +106,25 @@ char	*ft_chk_cmd(t_data *data, int i)
 void	ft_execve(t_data *data, int i)
 {
 	char	*cmd;
-	//pid_t	pid;
+	pid_t	pid;
 
-	//if (pid == 0)
-	//{
+	pid = fork();
+	if (pid == 0)
+	{
 		cmd = ft_chk_cmd(data, i);
 		if (cmd)
 		{	
 			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 				ft_printf("%d, %s\n", errno, strerror(errno));
+
 		//	exit(1);
 		}
 		else
-			exit(EXIT_SUCCESS) ;
-	//}
+		{
+			ft_printf("%s: command bad\n", data->cmd[i]);
+		}
+	}
+	waitpid(pid, 0, 0);
 }
 
 void	ft_exec(t_data *data, int i)
@@ -127,39 +132,41 @@ void	ft_exec(t_data *data, int i)
 	int	j;
 
 	j = 0;
+	
 	if (!data->cmd[0])
 		exit(1) ;
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 	{
 		ft_cd(data, data->cmd_full[i], data->env_cpy);
-		exit(1);
+		//exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
 	{
 		ft_echo(data, data->cmd_full[i]);
-		exit(1);
+		//exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "export", 7))
 	{
 		ft_export(data, data->cmd_full[i]);
-		exit(1);
+		//exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "unset", 6))
 	{
 		ft_unset(data, data->cmd_full[i]);
-		exit(1);
+		//exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "env", 4))
 	{
 		while (data->env_cpy[j])
 			ft_printf("%s\n", data->env_cpy[j++]);
-		exit(1);
+		//exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "pwd", 4))
 	{
+		ft_printf("ptdr\n");
 		ft_getpwd(data);
 		ft_printf("%s\n", data->pwd);
-		exit(1);
+		//exit(1);
 	}		
 	else if (!ft_strncmp(data->cmd[i], "exit", 5))
 	{
@@ -173,35 +180,39 @@ void	ft_exec(t_data *data, int i)
 
 void	ft_piping(t_data *data, int i)
 {
-	pid_t	pid;
+//	pid_t	pid;
 	
-	pid = fork();
-	if (pid == 0)
-	{
+//	pid = fork();
+//	if (pid == 0)
+//	{
 		if (i == 0)
 		{
-			dup2(data->fd1, 0);
+			dup2(data->fd2, 0);
 			dup2(data->pipes[0][1], 1);
-			ft_exec(data, i);
-			close(data->pipes[0][1]);
 		}
 		else if (i == data->pipenum - 1) 
 		{
 			dup2(data->pipes[(i + 1) % 2][0], 0);
 			dup2(data->fd2, 1);
-			ft_exec(data, i);
-			close(data->pipes[(i + 1) % 2][0]);	
 		}
 		else
 		{
 			dup2(data->pipes[(i + 1) % 2][0], 0);
 			dup2(data->pipes[i % 2][1], 1);
-			ft_exec(data, i);
-			close(data->pipes[i % 2][1]);
-			close(data->pipes[(i + 1) % 2][0]);
-		}	
-		//ft_exec(data, i);	
-	}	
+		}
+		close(data->pipes[i % 2][1]);
+		close(data->pipes[(i + 1) % 2][0]);
+		close(data->pipes[i % 2][0]);
+		close(data->pipes[(i + 1) % 2][1]);
+		ft_exec(data, i);	
+		//free(data->pipes[(i + 1) % 2]);
+		//pipe(data->pipes[(i + 1) % 2]);
+		//exit(1);	
+//	}
+	data->fd1 = data->pipes[1][0];
+
+	//waitpid(pid, NULL, 0);
+		
 }
 
 void	single_cmd(t_data *data)
@@ -210,8 +221,10 @@ void	single_cmd(t_data *data)
 
 	pid = fork();
 	if (pid == 0)
+	{
 		ft_exec(data, 0);
-	wait(NULL);
+		exit(1);
+	}
 }
 /*void	delete_tmpfile(char *file, t_data *data)
 {
@@ -241,7 +254,7 @@ void	ft_parsingg(t_data *data, char *prompt)
 	if (data->pipenum == 1 && !ft_strncmp(data->cmd[0], "exit", 5))
 		ft_exit(data, NULL);
 	if (data->pipenum == 1)
-		single_cmd(data);
+		ft_exec(data, 0);
 	else
 	{
 		while (data->cmd_full[i])
