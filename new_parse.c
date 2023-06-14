@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/12 15:37:28 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:30:31 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_first_parse(t_data *data, char *prompt)
 		if (tmp[0])
 			data->cmd[i] = ft_strdup(tmp[0]);
 		j = 0;
+//		ft_freesplit(tmp);
 		while (tmp[j])
 		{
 			free(tmp[j]);
