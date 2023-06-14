@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/13 08:57:58 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/14 10:30:46 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_exit(t_data *data, char *prompt)
 	free(data->home);
 	ft_freesplit(data->env_cpy);
 	free(data);
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void	ft_freesplit(char **split)
