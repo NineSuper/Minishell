@@ -182,23 +182,26 @@ void	ft_piping(t_data *data, int i)
 		{
 			dup2(data->fd1, 0);
 			dup2(data->pipes[0][1], 1);
+			ft_exec(data, i);
+			close(data->pipes[0][1]);
 		}
 		else if (i == data->pipenum - 1) 
 		{
 			dup2(data->pipes[(i + 1) % 2][0], 0);
-			dup2(data->fd2, 1);	
+			dup2(data->fd2, 1);
+			ft_exec(data, i);
+			close(data->pipes[(i + 1) % 2][0]);	
 		}
 		else
 		{
 			dup2(data->pipes[(i + 1) % 2][0], 0);
 			dup2(data->pipes[i % 2][1], 1);
-		}
-		close(data->pipes[i % 2][1]);
-		close(data->pipes[(i + 1) % 2][0]);
-		close(data->pipes[0][1]);
-		close(data->pipes[i % 2][0]);		
-		ft_exec(data, i);	
-	}
+			ft_exec(data, i);
+			close(data->pipes[i % 2][1]);
+			close(data->pipes[(i + 1) % 2][0]);
+		}	
+		//ft_exec(data, i);	
+	}	
 }
 
 void	single_cmd(t_data *data)
