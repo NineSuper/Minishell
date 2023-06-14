@@ -105,28 +105,27 @@ static void ft_pipe(t_data *data, int n)
 	int		i;
 
 	i = -1;
-	pid = fork();
 	while (++i < n)
 	{
-		if (pid == 0)
+		if (i == 0)
 		{
-			if (i == 0)
-			{
-				dup2(data->fd1, 0);
-				dup2(data->pipes[0][1], 1);
-			}
-			else if (i == data->pipenum - 1) 
-			{
-				dup2(data->pipes[(i + 1) % 2][0], 0);
-				dup2(data->fd2, 1);	
-			}
-			else
-			{
-				dup2(data->pipes[(i + 1) % 2][0], 0);
-				dup2(data->pipes[i % 2][1], 1);
-			}
-			ft_exec(data, i);
+			dup2(data->fd1, 0);
+			dup2(data->pipes[0][1], 1);
 		}
+		else if (i == data->pipenum - 1) 
+		{
+			dup2(data->pipes[(i + 1) % 2][0], 0);
+			dup2(data->fd2, 1);	
+		}
+		else
+		{
+			dup2(data->pipes[(i + 1) % 2][0], 0);
+			dup2(data->pipes[i % 2][1], 1);
+		}
+		pid = fork();
+		if (pid == 0)
+			ft_exec(data, i);
+		exit(1);
 	}
 }
 
