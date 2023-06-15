@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/12 15:28:49 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:51:19 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
-	prompt = "cd";
-	ft_cd(data, prompt);
-	/*while (1)
+	while (1)
 	{
 		prompt = ft_readline();
-		add_history(prompt);
+		if (prompt[0])
+			add_history(prompt);
 		ft_parsing(data, prompt, env);
-	}*/
+	}
 	ft_exit(data, prompt);
 	return (0);
 }
