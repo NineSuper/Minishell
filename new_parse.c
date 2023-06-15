@@ -15,20 +15,22 @@
 void	ft_execve(t_data *data, int i)
 {
 	char	*cmd;
-	//pid_t	pid;
+	pid_t	pid;
 
-	//if (pid == 0)
-	//{
 		cmd = ft_chk_cmd(data, i);
 		if (cmd)
 		{	
-			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
-				ft_printf("%d, %s\n", errno, strerror(errno));
-		//	exit(1);
+			pid = fork();
+			if (pid == 0)
+			{
+				if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
+					ft_printf("%d, %s\n", errno, strerror(errno));
+			}
+			else
+				waitpid(-1, NULL, 0);
 		}
 		else
 			exit(EXIT_SUCCESS) ;
-	//}
 }
 
 void	ft_exec(t_data *data, int i)
@@ -39,66 +41,60 @@ void	ft_exec(t_data *data, int i)
 	if (!data->cmd[0])
 		exit(1) ;
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
-	{
+	{	
 		ft_cd(data, data->cmd_full[i], data->env_cpy);
-		exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
 	{
 		ft_echo(data, data->cmd_full[i]);
-		exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "export", 7))
 	{
 		ft_export(data, data->cmd_full[i]);
-		exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "unset", 6))
 	{
 		ft_unset(data, data->cmd_full[i]);
-		exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "env", 4))
 	{
 		while (data->env_cpy[j])
 			ft_printf("%s\n", data->env_cpy[j++]);
-		exit(1);
 	}
 	else if (!ft_strncmp(data->cmd[i], "pwd", 4))
 	{
 		ft_getpwd(data);
 		ft_printf("%s\n", data->pwd);
-		exit(1);
 	}		
 	else if (!ft_strncmp(data->cmd[i], "exit", 5))
 	{
-		
 		ft_exit(data, NULL);
 		kill(0, SIGKILL);
 	}
 	else
 		ft_execve(data, i);
 }
-/*void	is_builtin(t_data *data, char *cmd, int i)
+
+int	is_builtin(char *cmd)
 {
 	if (!ft_strncmp(cmd, "cd", 3))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "echo", 5))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "export", 7))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "unset", 6))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "env", 4))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "pwd", 4))
-		data->builtin[i] = 1;
+		return (1);
 	else if (!ft_strncmp(cmd, "exit", 5))
-		data->builtin[i] = 1;
+		return (1);
 	else
-		data->builtin[i] = 0;
+		return (0);
 }
-*/
+
 static void ft_pipe(t_data *data, int n)
 {
 	pid_t	pid;
@@ -125,7 +121,8 @@ static void ft_pipe(t_data *data, int n)
 		pid = fork();
 		if (pid == 0)
 			ft_exec(data, i);
-		exit(1);
+		else
+			waitpid(-1, NULL, 0);
 	}
 }
 
@@ -163,11 +160,13 @@ void	ft_first_parse(t_data *data, char *prompt)
 
 void	ft_second_parse(t_data *data)
 {
-	data->pipes = malloc(sizeof (int *) * 2);
+	data->pipes = malloc(sizeof (int *) * 3);
 	data->pipes[0] = malloc(sizeof (int) * 2);
 	pipe(data->pipes[0]);
 	data->pipes[1] = malloc(sizeof (int) * 2);
 	pipe(data->pipes[1]);
+	data->pipes[2] = malloc(sizeof (int) * 2);
+	pipe(data->pipes[2]);
 }
 
 char	*ft_chk_cmd(t_data *data, int i)
@@ -202,43 +201,34 @@ char	*ft_chk_cmd(t_data *data, int i)
 
 void	ft_piping(t_data *data, int i)
 {
-	pid_t	pid;
-	
-	pid = fork();
-	if (pid == 0)
+	if (i == 0)
 	{
-		if (i == 0)
-		{
-			dup2(data->fd1, 0);
-			dup2(data->pipes[0][1], 1);
-		}
-		else if (i == data->pipenum - 1) 
-		{
-			dup2(data->pipes[(i + 1) % 2][0], 0);
-			dup2(data->fd2, 1);	
-		}
-		else
-		{
-			dup2(data->pipes[(i + 1) % 2][0], 0);
-			dup2(data->pipes[i % 2][1], 1);
-		}
-		close(data->pipes[i % 2][1]);
-		close(data->pipes[(i + 1) % 2][0]);
-		close(data->pipes[0][1]);
-		close(data->pipes[i % 2][0]);		
-		ft_exec(data, i);	
+		dup2(data->fd1, 0);
+		dup2(data->pipes[0][1], 1);
 	}
+	else if (i == data->pipenum - 1) 
+	{
+		dup2(data->pipes[(i + 1) % 2][0], 0);
+		dup2(data->fd2, 1);	
+	}
+	else
+	{
+		dup2(data->pipes[(i + 1) % 2][0], 0);
+		dup2(data->pipes[i % 2][1], 1);
+	}
+	close(data->pipes[i % 2][1]);
+	close(data->pipes[(i + 1) % 2][0]);
+	close(data->pipes[0][1]);
+	close(data->pipes[i % 2][0]);		
+	ft_exec(data, i);	
 }
+
 
 void	single_cmd(t_data *data)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-		ft_exec(data, 0);
-	wait(NULL);
+			ft_exec(data, 0);
 }
+
 /*void	delete_tmpfile(char *file, t_data *data)
 {
 	char	**argv;
@@ -262,16 +252,14 @@ void	ft_parsingg(t_data *data, char *prompt)
 	i = 0;
 	ft_first_parse(data, prompt);
 	ft_second_parse(data);
-	data->fd1 = open(".tmp1", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	data->fd2 = open(".tmp2", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (data->pipenum == 1 && !ft_strncmp(data->cmd[0], "exit", 5))
 		ft_exit(data, NULL);
 	if (data->pipenum == 1)
 		single_cmd(data);
 	else
 	{
-		ft_pipe(data, data->pipenum);
-		/*while (data->cmd_full[i])
+		//ft_pipe(data, data->pipenum);
+		while (data->cmd_full[i])
 		{
 			ft_piping(data, i);
 			i++;
@@ -291,7 +279,7 @@ void	ft_parsingg(t_data *data, char *prompt)
 		close(data->pipes[1][0]);
 		close(data->pipes[1][1]);
 		close(data->fd1);
-		close(data->fd2); */
+		close(data->fd2); 
 	}
 	
 	ft_freesplit(data->cmd_full);

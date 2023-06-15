@@ -34,6 +34,7 @@
 /*      NAME        */
 # define NAME "\033[1;36m☁️  Minichibre "
 /*	STRUCTS	    */
+
 typedef struct s_data
 {
 	char *pwd;
@@ -68,5 +69,6 @@ void	ft_piping(t_data *data, int i);
 char	*ft_chk_cmd(t_data *data, int i);
 void	ft_ctrl_c(int signal);
 int	ft_lenvar(char *varName);
+int		is_builtin(char *cmd);
 void    ft_parsingg(t_data *data, char *prompt);
 #endif
