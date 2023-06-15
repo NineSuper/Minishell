@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/13 06:14:09 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:42:01 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 void	ft_changepwd(t_data *data, char *old_pwd)
 {
 	char	*str;
+	char	*str2;
 	int		i;
 
 	i = 0;
-	while (ft_strncmp(data->env_cpy[i], "PWD", 3))
-		i++;
 	ft_getpwd(data);
 	str = ft_strjoin("PWD=", data->pwd);
-	data->env_cpy[i] = ft_strdup(str);
+	while (ft_strncmp(data->env_cpy[i], "PWD", 3))
+		i++;
+	free(data->env_cpy[i]);
+	data->env_cpy[i] = str;
 	i = 0;
 	while (ft_strncmp(data->env_cpy[i], "OLDPWD", 6))
 		i++;
-	str = ft_strjoin("OLDPWD=", old_pwd);
-	data->env_cpy[i] = ft_strdup(str);
-	free(str);
+	str2 = ft_strjoin("OLDPWD=", old_pwd);
+	free(data->env_cpy[i]);
+	data->env_cpy[i] = str2;
 }
 
 int	ft_dollar_cd(t_data *data, char *arg)
