@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/14 10:30:46 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:11:07 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 		i = 0;
 	}
 	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt, env);
+		ft_cd(data, prompt);
 	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
 	if (!ft_strncmp(parsed[0], "exit", 5))

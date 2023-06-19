@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/19 11:00:20 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:17:20 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ typedef struct s_data
 	int	fd1;
 	int	fd2;
 	int	*builtin;
+	int	old_pipe[2];
+	int	new_pipe[2];
 }	t_data;
 
 char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
-void	ft_cd(t_data *data, char *prompt, char **env);
+void	ft_cd(t_data *data, char *prompt);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
 int	ft_echo(t_data *data, char *prompt);
