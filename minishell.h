@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/12 17:02:02 by alsaez           ###   ########.fr       */
+/*   Updated: 2023/06/19 12:17:20 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 /*      NAME        */
 # define NAME "\033[1;36m☁️  Minichibre "
 /*	STRUCTS	    */
-
 typedef struct s_data
 {
 	char *pwd;
@@ -47,28 +46,26 @@ typedef struct s_data
 	int	**pipes;
 	int	fd1;
 	int	fd2;
+	int	*builtin;
+	int	old_pipe[2];
+	int	new_pipe[2];
 }	t_data;
 
 char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
-void	ft_cd(t_data *data, char *prompt, char **env);
+void	ft_cd(t_data *data, char *prompt);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
-void	ft_echo(t_data *data, char *prompt);
+int	ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
 void	ft_unset(t_data *data, char *prompt);
-void	ft_execve(t_data *data, int i);
-void	ft_exec(t_data *data, int i);
-void	ft_second_parse(t_data *data);
-void	ft_first_parse(t_data *data, char *prompt);
-void	single_cmd(t_data *data);
-void	ft_piping(t_data *data, int i);
-char	*ft_chk_cmd(t_data *data, int i);
-void	ft_ctrl_c(int signal);
 int	ft_lenvar(char *varName);
-int		is_builtin(char *cmd);
+void	ft_ctrl_c(int signal);
 void    ft_parsingg(t_data *data, char *prompt);
+void	delete_tmpfile(char *file, t_data *data);
+char	*ft_chk_cmd(t_data *data, int i);
+
 #endif
