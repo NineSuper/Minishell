@@ -106,13 +106,13 @@ int	ft_first_parse(t_data *data, char *prompt)
 		i++;
 	}
 	
-	data->builtin = malloc((i + 1) * 4);
-	i = 0;
-	while (data->cmd[i])
-	{
-		is_builtin(data, data->cmd[i], i);
-		i++;
-	}
+	// data->builtin = malloc((i + 1) * 4);
+	// i = 0;
+	// while (data->cmd[i])
+	// {
+	// 	is_builtin(data, data->cmd[i], i);
+	// 	i++;
+	// }
 	//free(data->builtin);
 	return (i);
 }
@@ -121,29 +121,15 @@ int	ft_first_parse(t_data *data, char *prompt)
 void	ft_second_parse(t_data *data)
 {
 	int	i;
-
 	i = 0;
 
-	//ft_printf("%d\n", data->pipenum);
 	data->pipes = ft_calloc(data->pipenum, sizeof(int *));
-	//malloc(sizeof(int *) * (data->pipenum));
-
 	while (i < data->pipenum - 1)
 	{
 		data->pipes[i] = malloc(sizeof(int) * 2);
 		pipe(data->pipes[i]);
 		i++;
 	}
-	
-
-	// pipe(pipe);
-	// data->pipes = malloc(sizeof (int *) * 3);
-	// //data->pipes[0] = malloc(sizeof (int) * 2);
-	// pipe(data->pipes[0]);
-	// //data->pipes[1] = malloc(sizeof (int) * 2);
-	// pipe(data->pipes[1]);
-	// //data->pipes[2] = malloc(sizeof (int) * 2);
-	// pipe(data->pipes[2]);
 }
 
 char	*ft_chk_cmd(t_data *data, int i)
@@ -224,37 +210,18 @@ void	single_cmd(t_data *data)
 	waitpid(-1, NULL, 0);
 }
 
-/*void	delete_tmpfile(char *file, t_data *data)
-{
-	char	**argv;
-	pid_t	pid;
-
-	argv = malloc(sizeof(char *) * 3);
-	argv[0] = "/bin/rm";
-	ft_getpwd(data);
-	argv[1] = ft_strjoin(ft_strjoin(data->pwd, "/"), file);
-	argv[2] = NULL;
-	pid = fork();
-	if (pid == 0)
-		execve("/bin/rm", argv, NULL);
-}*/
-
 void	ft_parsingg(t_data *data, char *prompt)
 {
 	int	i;
-	int	fd;
-	char	*line;
-	pid_t pid;
 	
 	i = 0;
-	line = ft_calloc(1000000, 1);
-	data->fd1 = open(".tmp1", O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (!ft_first_parse(data, prompt))
 		return ;
-	ft_second_parse(data);
+	if (data->pipenum > 1)
+		ft_second_parse(data);
 	if (data->pipenum == 1 && !ft_strncmp(data->cmd[0], "exit", 5))
-		ft_exit(data, NULL);
-	else if (data->pipenum == 1 && data->builtin[i])
+		ft_exit(data, prompt);
+	else if (data->pipenum == 1 && ((!ft_strncmp(data->cmd[i], "cd", 3) || !ft_strncmp(data->cmd[i], "echo", 5) || !ft_strncmp(data->cmd[i], "export", 7) || !ft_strncmp(data->cmd[i], "unset", 6) || !ft_strncmp(data->cmd[i], "env", 4) || !ft_strncmp(data->cmd[i], "pwd", 4))))
 		ft_exec(data, i, 0);
 	else if (data->pipenum == 1)
 		single_cmd(data);
@@ -262,19 +229,10 @@ void	ft_parsingg(t_data *data, char *prompt)
 	{
 		while (data->cmd_full[i])
 		{
-			pid = ft_piping(data, i);
+			ft_piping(data, i);
 			i++;
-			ft_printf("%d\n", pid);
-			//kill(0, SIGCHLD);
 		}
 		close_pipes(data);
-		// i = 0;
-		// while (data->pipes[i])
-		// {
-		// 	free(data->pipes[i]);
-		// 	i++;
-		// }
-		//waitpid(-1, NULL, 0);
 	}
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
