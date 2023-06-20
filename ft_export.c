@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/06 12:46:19 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:14:11 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_export(t_data *data, char *prompt)
 	free(sp);
 }
 
-void	ft_unset(t_data *data, char *prompt)
+/*void	ft_unset(t_data *data, char *prompt)
 {
 	int	i;
 	char	**sp;
@@ -138,14 +138,14 @@ void	ft_unset(t_data *data, char *prompt)
 		free(sp[0]);
 		free(sp);
 	}
-}
+}*/
 
 int	ft_lenvar(char *varName)
 {
 	int	i;
 
 	i = 0;
-	while (varName[i] != '=' && varName[i] != '\0')
+	while (varName[i] != '=' && varName[i])
 		i++;
 	return (i);
 }

@@ -6,11 +6,13 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/15 10:42:01 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:36:09 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// todo lorsqu'il y'a plus la valeur PWD / OLDPWD les rajouter a la fin de ENV
 
 void	ft_changepwd(t_data *data, char *old_pwd)
 {

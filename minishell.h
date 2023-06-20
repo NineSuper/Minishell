@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/09 12:44:29 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:15:10 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_parsing(t_data *data, char *prompt, char **env);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
-void	ft_unset(t_data *data, char *prompt);
+int	ft_unset(t_data *data, char *prompt);
 int	ft_echo(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 
