@@ -21,10 +21,9 @@ void	ft_execve(t_data *data, int i)
 		cmd = ft_chk_cmd(data, i);
 		if (cmd)
 		{
-				if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
-					exit(1);
-					//ft_printf("%d, %s\n", errno, strerror(errno));
-			//waitpid(0, &status, 0);
+			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
+				exit(1);
+			exit(1);		//ft_printf("%d, %s\n", errno, strerror(errno));
 		}
 		else
 			exit(1) ;
@@ -62,6 +61,7 @@ void	ft_exec(t_data *data, int i, int flag)
 	}
 	if ((!ft_strncmp(data->cmd[i], "cd", 3) || !ft_strncmp(data->cmd[i], "echo", 5) || !ft_strncmp(data->cmd[i], "export", 7) || !ft_strncmp(data->cmd[i], "unset", 6) || !ft_strncmp(data->cmd[i], "env", 4) || !ft_strncmp(data->cmd[i], "pwd", 4)) && flag == 1)
 		exit(1);
+
 }
 
 void	is_builtin(t_data *data, char *cmd, int i)
@@ -120,8 +120,21 @@ int	ft_first_parse(t_data *data, char *prompt)
 
 void	ft_second_parse(t_data *data)
 {
-	pipe(data->old_pipe);
-	pipe(data->new_pipe);
+	int	i;
+
+	i = 0;
+
+	//ft_printf("%d\n", data->pipenum);
+	data->pipes = ft_calloc(data->pipenum, sizeof(int *));
+	//malloc(sizeof(int *) * (data->pipenum));
+
+	while (i < data->pipenum - 1)
+	{
+		data->pipes[i] = malloc(sizeof(int) * 2);
+		pipe(data->pipes[i]);
+		i++;
+	}
+	
 
 	// pipe(pipe);
 	// data->pipes = malloc(sizeof (int *) * 3);
@@ -162,60 +175,42 @@ char	*ft_chk_cmd(t_data *data, int i)
 	ft_freesplit(spt);
 	return (NULL);
 }
+void	close_pipes(t_data *data)
+{
+	int	i;
 
-void	ft_piping(t_data *data, int i)
+	i = 0;
+	while (data->pipes[i])
+	{
+		close(data->pipes[i][0]);
+		close(data->pipes[i][1]);
+		i++;
+	}
+}
+pid_t	ft_piping(t_data *data, int i)
 {
 	pid_t	pid;
-	char *line;
 
-	line = ft_calloc(1000000, 1);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (i == 0)
 		{
-			close(data->new_pipe[0]);
-			dup2(data->fd1, 1);
-			dup2(data->fd2, 0); 
-			ft_exec(data, i, 1);
-			close(data->new_pipe[1]);
+			dup2(data->pipes[i][1], 1);	
 		}
 		else if (i == data->pipenum - 1) 
 		{
-			close(data->old_pipe[1]);
-			dup2(data->old_pipe[0], 0);
-			ft_exec(data, i, 1);
-			close(data->old_pipe[0]);
+			dup2(data->pipes[i - 1][0], 0);
 		}
 		else
 		{
-			close(data->old_pipe[1]);
-			close(data->new_pipe[0]);
-			dup2(data->old_pipe[0], 0);
-			dup2(data->new_pipe[1], 1);
-			ft_exec(data, i, 1);
-			close(data->old_pipe[0]);
-			close(data->new_pipe[1]);
+			dup2(data->pipes[i- 1][0], 0);
+			dup2(data->pipes[i][1], 1);
 		}
-		read(data->new_pipe[0], line, 1000000);
-		//ft_printf("%s\n", line);
-		write(data->fd1, line, ft_strlen(line));
-		read(data->old_pipe[0], line, 1000000);
-		//ft_printf("%s\n", line);
-		write(data->fd1, line, ft_strlen(line));
-		data->old_pipe[0] = data->new_pipe[0];
-		data->old_pipe[1] = data->new_pipe[1];
-		
-		
+		close_pipes(data);
+		ft_exec(data, i, 1);
 	}
-	
-	//waitpid(pid, NULL, 0);
-	// ft_exec(data, i);
-	// close(data->pipes[i % 2][1]);
-	// close(data->pipes[(i + 1) % 2][0]);
-	// close(data->pipes[0][1]);
-	// close(data->pipes[i % 2][0]);		
-		
+	return (pid);
 }
 
 
@@ -249,9 +244,11 @@ void	ft_parsingg(t_data *data, char *prompt)
 	int	i;
 	int	fd;
 	char	*line;
+	pid_t pid;
+	
 	i = 0;
 	line = ft_calloc(1000000, 1);
-	data->fd1 = open(".tmp1", O_CREAT | O_APPEND | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	data->fd1 = open(".tmp1", O_CREAT | O_TRUNC | O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (!ft_first_parse(data, prompt))
 		return ;
 	ft_second_parse(data);
@@ -263,18 +260,22 @@ void	ft_parsingg(t_data *data, char *prompt)
 		single_cmd(data);
 	else
 	{
-		//ft_pipe(data, data->pipenum);
 		while (data->cmd_full[i])
 		{
-			ft_piping(data, i);
-			
+			pid = ft_piping(data, i);
 			i++;
+			ft_printf("%d\n", pid);
+			//kill(0, SIGCHLD);
 		}
-		
-		ft_printf("mdr\n");
-		
+		close_pipes(data);
+		// i = 0;
+		// while (data->pipes[i])
+		// {
+		// 	free(data->pipes[i]);
+		// 	i++;
+		// }
+		//waitpid(-1, NULL, 0);
 	}
-	
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
