@@ -22,7 +22,11 @@ void	ft_execve(t_data *data, int i)
 		if (cmd)
 		{
 			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
+			{
+				free(cmd);
 				exit(1);
+			}
+			free(cmd);
 			exit(1);		//ft_printf("%d, %s\n", errno, strerror(errno));
 		}
 		else
@@ -94,7 +98,7 @@ int	ft_first_parse(t_data *data, char *prompt)
 	data->cmd_full=ft_split(prompt, '|');
 	while (data->cmd_full[i])
 		i++;
-	data->pipenum = i;
+	data->pipenum = i;	
 	data->cmd = ft_calloc((i + 1), sizeof(char *));
 	i = 0;
 	while (data->cmd_full[i])
@@ -112,15 +116,6 @@ int	ft_first_parse(t_data *data, char *prompt)
 		ft_freesplit(tmp);
 		i++;
 	}
-	
-	// data->builtin = malloc((i + 1) * 4);
-	// i = 0;
-	// while (data->cmd[i])
-	// {
-	// 	is_builtin(data, data->cmd[i], i);
-	// 	i++;
-	// }
-	//free(data->builtin);
 	return (i);
 }
 
@@ -145,6 +140,7 @@ char	*ft_chk_cmd(t_data *data, int i)
 	char	**spt;
 	int	j;
 	char	*new_cmd;
+	char	*temp;
 
 	j = 0;
 	while (ft_strncmp("PATH", data->env_cpy[j], 4))
@@ -155,12 +151,15 @@ char	*ft_chk_cmd(t_data *data, int i)
 	while (spt[j])
 	{
 		new_cmd = ft_strjoin(spt[j], "/");
-		if (access(ft_strjoin(new_cmd, data->cmd[i]), 0) == 0)
+		temp = ft_strjoin(new_cmd, data->cmd[i]);
+		if (access(temp, 0) == 0)
 		{
 			ft_freesplit(pbl);
 			ft_freesplit(spt);
-			return (ft_strjoin(new_cmd, data->cmd[i]));
+			free(new_cmd);
+			return (temp);
 		}
+		free(temp);
 		free(new_cmd);
 		j++;
 	}
