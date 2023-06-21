@@ -247,8 +247,8 @@ void	ft_parsingg(t_data *data, char *prompt)
 			waitpid(-1, NULL, 0);
 			i++;
 		}
+		ft_freesplit((char **)data->pipes);
 	}
-	
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }

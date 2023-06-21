@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/20 15:55:09 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:52:00 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,21 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 
 void	ft_exit(t_data *data, char *prompt)
 {
+	if (prompt)
+		free(prompt);
+	else
+	{
+		free(data->home);
+		ft_freesplit(data->env_cpy);
+		free(data);
+		exit(1);
+	}
 	free(data->home);
 	ft_freesplit(data->env_cpy);
 	ft_freesplit(data->cmd);
 	ft_freesplit(data->cmd_full);
 	free(data->pipes);
 	free(data);
-	free(prompt);
-	//rl_clear_history();
 	exit(1);
 }
 
