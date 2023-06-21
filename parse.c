@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/12 15:54:49 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/19 11:11:07 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 		i = 0;
 	}
 	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt, env);
+		ft_cd(data, prompt);
 	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
 	if (!ft_strncmp(parsed[0], "exit", 5))
@@ -50,7 +50,7 @@ void	ft_exit(t_data *data, char *prompt)
 	free(data->home);
 	ft_freesplit(data->env_cpy);
 	free(data);
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void	ft_freesplit(char **split)
@@ -61,35 +61,4 @@ void	ft_freesplit(char **split)
 	while(split[i])
 		free(split[i++]);
 	free(split);
-}
-
-void	ft_echo(t_data *data, char *prompt)
-{
-	int	i;
-	int	j;
-	char **split;
-	int	n_flag;
-
-	n_flag = 0;
-	i = 1;
-	split = ft_split(prompt, ' ');
-	while (!ft_strncmp(split[i], "-n", 3))
-	{
-		n_flag = 26;
-		i++;
-	}
-	while (split[i])
-	{
-		if (!split[i + 1])
-		{
-			ft_printf("%s", split[i]);
-			if (n_flag)
-				ft_printf("\033[47m\e[1;30m%%\033[m");
-			ft_printf("\n");
-		}
-		else
-			ft_printf("%s ", split[i]);
-		i++;
-	}
-	ft_freesplit(split);
 }

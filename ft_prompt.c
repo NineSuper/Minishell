@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/12 15:43:50 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/07 09:59:52 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_readline(void)
 	int		i;
 
 	i = 0;
-	name = NULL;
+	name = ft_calloc(1, sizeof(char));
 	name = ft_strjoin(NAME, "\033[1;32m[");
 	temp = getcwd(NULL, 0);
 	split = ft_split(temp, '/');
@@ -31,11 +31,7 @@ char	*ft_readline(void)
 	name = ft_strjoin(name, split[i]);
 	name = ft_strjoin(name, "]\033[1;36m > \033[0m");
 	prompt = readline(name);
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
+    ft_freesplit(split);
 	free(temp);
-	free(name);
 	return (prompt);
 }
