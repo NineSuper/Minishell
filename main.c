@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/20 15:50:13 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:04:30 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	main(int argc, char **argv, char **env)
 			add_history(prompt);
 		ft_parsingg(data, prompt);
 		free(prompt);
-		//kill(0, SIGCHLD);
-		waitpid(-1, NULL, 0);
 	}
 	free(data);
 	return (0);

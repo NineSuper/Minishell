@@ -102,6 +102,13 @@ int	ft_first_parse(t_data *data, char *prompt)
 		tmp = ft_split(data->cmd_full[i], ' ');
 		if (tmp[0])
 			data->cmd[i] = ft_strdup(tmp[0]);
+		else
+		{
+			ft_freesplit(data->cmd_full);
+			ft_freesplit(data->cmd);
+			ft_freesplit(tmp);
+			return (i);
+		}
 		ft_freesplit(tmp);
 		i++;
 	}
@@ -213,6 +220,7 @@ void	single_cmd(t_data *data)
 void	ft_parsingg(t_data *data, char *prompt)
 {
 	int	i;
+	int pid;
 	
 	i = 0;
 	if (!ft_first_parse(data, prompt))
@@ -229,11 +237,18 @@ void	ft_parsingg(t_data *data, char *prompt)
 	{
 		while (data->cmd_full[i])
 		{
-			ft_piping(data, i);
+			pid = ft_piping(data, i);
 			i++;
 		}
 		close_pipes(data);
+		i = 0;
+		while (i < data->pipenum)
+		{
+			waitpid(-1, NULL, 0);
+			i++;
+		}
 	}
+	
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
