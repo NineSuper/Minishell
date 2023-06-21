@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_cmds.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 16:23:37 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/20 15:17:56 by ltressen         ###   ########.fr       */
+/*   Created: 2023/06/06 10:40:14 by ltressen          #+#    #+#             */
+/*   Updated: 2023/06/06 15:04:22 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_ctrl_c(int signal)
 {
-	char	*str;
-	int		i;
-	int		j;
-	int		len;
-
-	i = 0;
-	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
+	if (signal == SIGINT)
 	{
-		str[j] = s1[i];
-		j++;
-		i++;
+		ft_printf("\n");
+		ft_readline();
 	}
-	i = 0;
-	while (s2[i] != '\0')
-	{
-		str[j++] = s2[i];
-		i++;
-	}
-	str[len] = '\0';
-	return (str);
+	else if (signal == SIGQUIT)
+		ft_printf("");
 }

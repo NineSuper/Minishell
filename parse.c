@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/07 10:35:24 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:55:09 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 	}		
 	if (!ft_strncmp(parsed[0], "env", 4))
 	{
-		//ft_getenv(data, env);
 		while (data->env_cpy[i])
 			ft_printf("%s\n", data->env_cpy[i++]);
 		i = 0;
 	}
 	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt, env);
+		ft_cd(data, prompt);
 	if (!ft_strncmp(parsed[0], "echo", 5))
 		ft_echo(data, prompt);
 	if (!ft_strncmp(parsed[0], "exit", 5))
@@ -48,9 +47,15 @@ void	ft_parsing(t_data *data, char *prompt, char **env)
 
 void	ft_exit(t_data *data, char *prompt)
 {
+	free(data->home);
 	ft_freesplit(data->env_cpy);
+	ft_freesplit(data->cmd);
+	ft_freesplit(data->cmd_full);
+	free(data->pipes);
 	free(data);
-	exit(EXIT_SUCCESS);
+	free(prompt);
+	//rl_clear_history();
+	exit(1);
 }
 
 void	ft_freesplit(char **split)
@@ -58,7 +63,7 @@ void	ft_freesplit(char **split)
 	int	i;
 
 	i = 0;
-	while (split[i])
+	while(split[i])
 		free(split[i++]);
 	free(split);
 }
