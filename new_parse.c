@@ -105,20 +105,11 @@ int	ft_first_parse(t_data *data, char *prompt)
 		ft_freesplit(tmp);
 		i++;
 	}
-	
-	// data->builtin = malloc((i + 1) * 4);
-	// i = 0;
-	// while (data->cmd[i])
-	// {
-	// 	is_builtin(data, data->cmd[i], i);
-	// 	i++;
-	// }
-	//free(data->builtin);
 	return (i);
 }
 
 
-void	ft_second_parse(t_data *data)
+void	ft_second_parse(t_data *data)2
 {
 	int	i;
 	i = 0;
@@ -232,11 +223,8 @@ void	ft_parsingg(t_data *data, char *prompt)
 		{
 			pid = ft_piping(data, i);
 			i++;
-			if (i < data->pipenum)
-				kill(0, SIGCHLD);
 		}
 		close_pipes(data);
-		//kill(0, SIGCHLD);
 	}
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);

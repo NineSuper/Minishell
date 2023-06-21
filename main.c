@@ -33,13 +33,10 @@ int	main(int argc, char **argv, char **env)
 	ft_printf("%d\n", getpid());
 	while (1)
 	{
-		kill(0, SIGCHLD);
 		prompt = ft_readline();
 		if (prompt[0])
 			add_history(prompt);
 		ft_parsingg(data, prompt);
-		waitpid(-1, NULL, 0);
-		//kill(0, SIGCHLD);
 		free(prompt);
 	}
 	free(data);
