@@ -53,119 +53,103 @@ void	ft_opentrunk(t_data *data, int i, int j)
 
 }
 
-char	*ft_reparg(t_data *data, int i, int j)
-{
-	char *res;
-	int k;
 
-	k = j;
-	while(data->cmd_full[i][j] != ' ')
-		j++;
-	res = malloc(j);
-	while (data->cmd_full[i][k] != ' ')
-	{
-		res = data->cmd_full[i][k];
-		k++;
-	}
-	if (!ft_strncmp(res, ))
-	
-
-}
 
 void	ft_third_parse(t_data *data, int i)
 {
 	char	*new_cmd;
+	char	*arg;
 	int	j;
 	int	k;
 
 	j = 0;
 	k = 0;
-	new_cmd = ft_calloc(ft_strlen(data->cmd_full[i]), 1);
+	new_cmd = ft_calloc(ft_strlen(data->cmd_full[i]) + 1, 1);
 	// !!! Penser a realloc new_cmd avec une taille supplementaire apres injection des nouveaux arguments !!!//
 	while (data->cmd_full[i][j])
 	{
-		if (data->cmd_full[i][j] == ' ')
-		{
-			new_cmd[k] = ' ';
-			k++;
-			j++;
-			while (data->cmd_full[i][j] == ' ')
-				j++;
-		}
-		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>' && data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' ') 
+		// if (data->cmd_full[i][j] == ' ')
+		// {
+		// 	new_cmd[k] = ' ';
+		// 	k++;
+		// 	j++;
+		// 	while (data->cmd_full[i][j] == ' ')
+		// 		j++;
+		// }
+		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>' && data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' ' && data->cmd_full[i][j]) 
 		{
 			new_cmd[k] = data->cmd_full[i][j];
 			j++;
 			k++;
 		}
-		if (data->cmd_full[i][j] == '<')
-		{
-			if (data->cmd_full[i][j + 1] == '<')
-			{
-				ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
-				j++;
-				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-					j++;
-			}
-			else
-			{
-				ft_input(data, i , j); //fonction pour redirect l'entree
-				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-					j++;
-			}
-		}
-		if (data->cmd_full[i][j] == '>')
-		{
-			if (data->cmd_full[i][j + 1] == '>')
-			{
-				ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
-				j++;
-				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-					j++;
-			}
-			else
-			{
-				ft_opentrunk(data, i , j); //fonction pour dup/open en TRUNC et ecrire dans un fichier
-				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-					j++;
-			}
-		}
-		if (data->cmd_full[i][j] == '\'')
-		{
-			j++;
-			while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
-			{
-				new_cmd[k] == data->cmd_full[i][j];
-				k++;
-				j++;
-			}
-			if (data->cmd_full[i][j] != '\0')
-			{
-				ft_printf("error");
-				exit(1);
-			}
-		}
-		if (data->cmd_full[i][j] == '"')
-		{
-			j++;
-			while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
-			{
-				if (data->cmd_full[i][j] != '$')
-					new_cmd = ft_reparg(data, i , j);
-				new_cmd[k] == data->cmd_full[i][j];
-				k++;
-				j++;
-			}
-			if (data->cmd_full[i][j] != '\0')
-			{
-				ft_printf("error");
-				exit(1);
-			}
-		}
+		// if (data->cmd_full[i][j] == '<')
+		// {
+		// 	if (data->cmd_full[i][j + 1] == '<')
+		// 	{
+		// 		ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
+		// 		j++;
+		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+		// 			j++;
+		// 	}
+		// 	else
+		// 	{
+		// 		ft_input(data, i , j); //fonction pour redirect l'entree
+		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+		// 			j++;
+		// 	}
+		// }
+		// if (data->cmd_full[i][j] == '>')
+		// {
+		// 	if (data->cmd_full[i][j + 1] == '>')
+		// 	{
+		// 		ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
+		// 		j++;
+		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+		// 			j++;
+		// 	}
+		// 	else
+		// 	{
+		// 		ft_opentrunk(data, i , j); //fonction pour dup/open en TRUNC et ecrire dans un fichier
+		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+		// 			j++;
+		// 	}
+		// }
+		// if (data->cmd_full[i][j] == '\'')
+		// {
+		// 	j++;
+		// 	while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
+		// 	{
+		// 		new_cmd[k] == data->cmd_full[i][j];
+		// 		k++;
+		// 		j++;
+		// 	}
+		// 	if (data->cmd_full[i][j] != '\0')
+		// 	{
+		// 		ft_printf("error");
+		// 		exit(1);
+		// 	}
+		// }
+		// if (data->cmd_full[i][j] == '"')
+		// {
+		// 	j++;
+		// 	while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+		// 	{
+		// 		if (data->cmd_full[i][j] == '$')
+		// 			arg = ft_reparg(data, i , j);
+		// 		new_cmd[k] == data->cmd_full[i][j];
+		// 		k++;
+		// 		j++;
+		// 	}
+		// 	if (data->cmd_full[i][j] != '\0')
+		// 	{
+		// 		ft_printf("error");
+		// 		exit(1);
+		// 	}
+		// }
 		if (data->cmd_full[i][j] == '$')
 		{
-			if (data->cmd_full[i][j + 1] != '?')	
-				new_cmd = ft_reparg(data, i, j); //fonction pour check & replace l'argument
+			if (data->cmd_full[i][j + 1] != '?')
+				arg = ft_reparg(data, i, j); //fonction pour check & replace l'argument
 			else
 				new_cmd = data->oldstatus; //oldstatus = $?, a recup dans cette variable
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
@@ -173,6 +157,7 @@ void	ft_third_parse(t_data *data, int i)
 		}
 	}
 	data->cmd_full[i] = ft_strdup(new_cmd);
+	ft_printf("%s\n", data->cmd_full[i]);
 }
 
 
