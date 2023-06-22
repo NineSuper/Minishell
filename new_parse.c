@@ -88,6 +88,8 @@ void	is_builtin(t_data *data, char *cmd, int i)
 		data->builtin[i] = 0;
 }
 
+
+
 int	ft_first_parse(t_data *data, char *prompt)
 {
 	int	i;
@@ -165,6 +167,8 @@ char	*ft_chk_cmd(t_data *data, int i)
 	}
 	ft_freesplit(pbl);
 	ft_freesplit(spt);
+	dup2(data->term, 1);
+	ft_printf("cpt\n");
 	return (NULL);
 }
 void	close_pipes(t_data *data)

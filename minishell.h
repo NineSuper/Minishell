@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/19 12:17:20 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:03:34 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	int	**pipes;
 	int	fd1;
 	int	fd2;
+	int	term;
 	int	*builtin;
 	int	old_pipe[2];
 	int	new_pipe[2];
