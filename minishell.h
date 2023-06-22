@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/22 14:03:34 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:16:30 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data
 	int	fd2;
 	int	term;
 	int	*builtin;
+	char	*oldstatus;
 	int	old_pipe[2];
 	int	new_pipe[2];
 }	t_data;

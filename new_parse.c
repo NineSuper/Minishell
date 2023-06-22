@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/19 11:15:26 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:10:47 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,156 @@ void	ft_execve(t_data *data, int i)
 			exit(1) ;
 }
 
+void	ft_limit(t_data *data, int i, int j)
+{
+
+}
+
+void	ft_input(t_data *data, int i, int j)
+{
+
+}
+
+void	ft_openapp(t_data *data, int i, int j)
+{
+
+}
+
+void	ft_opentrunk(t_data *data, int i, int j)
+{
+
+}
+
+char	*ft_reparg(t_data *data, int i, int j)
+{
+	char *res;
+	int k;
+
+	k = j;
+	while(data->cmd_full[i][j] != ' ')
+		j++;
+	res = malloc(j);
+	while (data->cmd_full[i][k] != ' ')
+	{
+		res = data->cmd_full[i][k];
+		k++;
+	}
+	if (!ft_strncmp(res, ))
+	
+
+}
+
+void	ft_third_parse(t_data *data, int i)
+{
+	char	*new_cmd;
+	int	j;
+	int	k;
+
+	j = 0;
+	k = 0;
+	new_cmd = ft_calloc(ft_strlen(data->cmd_full[i]), 1);
+	// !!! Penser a realloc new_cmd avec une taille supplementaire apres injection des nouveaux arguments !!!//
+	while (data->cmd_full[i][j])
+	{
+		if (data->cmd_full[i][j] == ' ')
+		{
+			new_cmd[k] = ' ';
+			k++;
+			j++;
+			while (data->cmd_full[i][j] == ' ')
+				j++;
+		}
+		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>' && data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' ') 
+		{
+			new_cmd[k] = data->cmd_full[i][j];
+			j++;
+			k++;
+		}
+		if (data->cmd_full[i][j] == '<')
+		{
+			if (data->cmd_full[i][j + 1] == '<')
+			{
+				ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
+				j++;
+				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+					j++;
+			}
+			else
+			{
+				ft_input(data, i , j); //fonction pour redirect l'entree
+				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+					j++;
+			}
+		}
+		if (data->cmd_full[i][j] == '>')
+		{
+			if (data->cmd_full[i][j + 1] == '>')
+			{
+				ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
+				j++;
+				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+					j++;
+			}
+			else
+			{
+				ft_opentrunk(data, i , j); //fonction pour dup/open en TRUNC et ecrire dans un fichier
+				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
+					j++;
+			}
+		}
+		if (data->cmd_full[i][j] == '\'')
+		{
+			j++;
+			while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
+			{
+				new_cmd[k] == data->cmd_full[i][j];
+				k++;
+				j++;
+			}
+			if (data->cmd_full[i][j] != '\0')
+			{
+				ft_printf("error");
+				exit(1);
+			}
+		}
+		if (data->cmd_full[i][j] == '"')
+		{
+			j++;
+			while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+			{
+				if (data->cmd_full[i][j] != '$')
+					new_cmd = ft_reparg(data, i , j);
+				new_cmd[k] == data->cmd_full[i][j];
+				k++;
+				j++;
+			}
+			if (data->cmd_full[i][j] != '\0')
+			{
+				ft_printf("error");
+				exit(1);
+			}
+		}
+		if (data->cmd_full[i][j] == '$')
+		{
+			if (data->cmd_full[i][j + 1] != '?')	
+				new_cmd = ft_reparg(data, i, j); //fonction pour check & replace l'argument
+			else
+				new_cmd = data->oldstatus; //oldstatus = $?, a recup dans cette variable
+			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
+				j++;
+		}
+	}
+	data->cmd_full[i] = ft_strdup(new_cmd);
+}
+
+
+
 void	ft_exec(t_data *data, int i, int flag)
 {
 	int	j;
 
 	j = 0;
+	ft_third_parse(data, i);
 	if (!data->cmd[0])
 		exit(1) ;
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
@@ -59,10 +204,7 @@ void	ft_exec(t_data *data, int i, int flag)
 	else if (!ft_strncmp(data->cmd[i], "exit", 5))
 		ft_exit(data, NULL);
 	else
-	{
 		ft_execve(data, i);
-		//exit(1);
-	}
 	if ((!ft_strncmp(data->cmd[i], "cd", 3) || !ft_strncmp(data->cmd[i], "echo", 5) || !ft_strncmp(data->cmd[i], "export", 7) || !ft_strncmp(data->cmd[i], "unset", 6) || !ft_strncmp(data->cmd[i], "env", 4) || !ft_strncmp(data->cmd[i], "pwd", 4)) && flag == 1)
 		exit(1);
 
@@ -70,6 +212,7 @@ void	ft_exec(t_data *data, int i, int flag)
 
 void	is_builtin(t_data *data, char *cmd, int i)
 {
+
 	if (!ft_strncmp(cmd, "cd", 3))
 		data->builtin[i] = 1;
 	else if (!ft_strncmp(cmd, "echo", 5))
@@ -87,8 +230,6 @@ void	is_builtin(t_data *data, char *cmd, int i)
 	else
 		data->builtin[i] = 0;
 }
-
-
 
 int	ft_first_parse(t_data *data, char *prompt)
 {
@@ -168,7 +309,7 @@ char	*ft_chk_cmd(t_data *data, int i)
 	ft_freesplit(pbl);
 	ft_freesplit(spt);
 	dup2(data->term, 1);
-	ft_printf("cpt\n");
+	ft_printf("cpt");
 	return (NULL);
 }
 void	close_pipes(t_data *data)
