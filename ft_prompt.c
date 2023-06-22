@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/07 09:59:52 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:23:17 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,32 @@ char	*ft_readline(void)
 	int		i;
 
 	i = 0;
-	name = ft_calloc(1, sizeof(char));
+	//name = ft_calloc(1, sizeof(char));
 	name = ft_strjoin(NAME, "\033[1;32m[");
 	temp = getcwd(NULL, 0);
 	split = ft_split(temp, '/');
 	while (split[i])
 		i++;
 	i--;
-	name = ft_strjoin(name, split[i]);
-	name = ft_strjoin(name, "]\033[1;36m > \033[0m");
-	prompt = readline(name);
-    ft_freesplit(split);
+	if (i == -1)
+	{
+		ft_freesplit(split);
+		split = malloc(sizeof(char *) * 2);
+		split[0] = ft_strdup("/");
+		split[1] = NULL;
+		i++;
+	}
 	free(temp);
+	temp = ft_strdup(name);
+	free(name);
+	name = ft_strjoin(temp, split[i]);
+	free(temp);
+	temp = ft_strdup(name);
+	free(name);
+	name = ft_strjoin(temp, "]\033[1;36m > \033[0m");
+	prompt = readline(name);
+	ft_freesplit(split);
+	free(temp);
+	free(name);
 	return (prompt);
 }

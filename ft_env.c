@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/31 17:08:20 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:27:36 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	ft_gethome(t_data *data)
 		{
 			home_split = ft_split(data->env_cpy[i], '=');
 			if (home_split[1])
+			{
+				if (data->home)
+					free(data->home);
 				data->home = ft_strdup(home_split[1]);
+			}
 			break ;
 		}
 		i++;
