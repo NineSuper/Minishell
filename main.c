@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/20 15:50:13 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:04:04 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
-	ft_printf("%d\n", getpid());
+	data->term = dup(1);
 	while (1)
 	{
 		prompt = ft_readline();
+		if (!prompt)
+			ft_exit(data, prompt);
 		if (prompt[0])
 			add_history(prompt);
 		ft_parsingg(data, prompt);
