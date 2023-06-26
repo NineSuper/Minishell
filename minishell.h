@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/26 10:33:58 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:23:28 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void    ft_parsingg(t_data *data, char *prompt);
 void	delete_tmpfile(char *file, t_data *data);
 char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_strjoinc(char const *s1, char s2);
-
+char    **ft_neosplit(char const *str, char c);
 #endif

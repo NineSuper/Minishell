@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/22 15:10:47 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/26 16:24:27 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ void	ft_exec(t_data *data, int i, int flag)
 		ft_execve(data, i);
 	if ((!ft_strncmp(data->cmd[i], "cd", 3) || !ft_strncmp(data->cmd[i], "echo", 5) || !ft_strncmp(data->cmd[i], "export", 7) || !ft_strncmp(data->cmd[i], "unset", 6) || !ft_strncmp(data->cmd[i], "env", 4) || !ft_strncmp(data->cmd[i], "pwd", 4)) && flag == 1)
 		exit(1);
-
 }
 
 void	is_builtin(t_data *data, char *cmd, int i)
