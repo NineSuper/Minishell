@@ -54,7 +54,6 @@ char	*ft_reparg(t_data *data, int i, int j)
 					l++;
 				}
 				res[k] = '\0';
-				//ft_printf("%s",res);
 				return (res);
 			}
 		}
@@ -63,5 +62,4 @@ char	*ft_reparg(t_data *data, int i, int j)
 	if (res)
 		free(res);
 	return (ft_calloc(1, 1));
-
 }

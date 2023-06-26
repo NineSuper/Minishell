@@ -47,7 +47,7 @@ void	ft_openapp(t_data *data, int i, int j)
 {
 
 }
-
+/*
 void	ft_opentrunk(t_data *data, int i, int j)
 {
 	int		len;
@@ -56,7 +56,7 @@ void	ft_opentrunk(t_data *data, int i, int j)
 	if (data->cmd_full[i][j] == '"')
 	{
 		j++;
-		if (data->cmd_full[i][j] == '>')
+		if (data->cmd_full[i][j] == '$')
 		{
 			j++;
 			while (data->cmd_full[i][j] == ' ')
@@ -78,7 +78,7 @@ void	ft_opentrunk(t_data *data, int i, int j)
 		j++;
 
 }
-
+*/
 
 
 void	ft_third_parse(t_data *data, int i)
@@ -112,7 +112,7 @@ k = 0;
 	// 			j++;
 	// 	}
 	// }
-	if (data->cmd_full[i][j] == '>')
+/*	if (data->cmd_full[i][j] == '>')
 	{
 		if (data->cmd_full[i][j + 1] == '>')
 		{
@@ -130,7 +130,7 @@ k = 0;
 			while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
 				j++;
 		}
-	}
+	}*/
 	// if (data->cmd_full[i][j] == '\'')
 	// {
 	// 	j++;
