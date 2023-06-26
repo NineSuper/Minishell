@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/20 15:40:36 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:23:17 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ char	*ft_readline(void)
 	while (split[i])
 		i++;
 	i--;
+	if (i == -1)
+	{
+		ft_freesplit(split);
+		split = malloc(sizeof(char *) * 2);
+		split[0] = ft_strdup("/");
+		split[1] = NULL;
+		i++;
+	}
 	free(temp);
 	temp = ft_strdup(name);
 	free(name);
@@ -37,7 +45,7 @@ char	*ft_readline(void)
 	free(name);
 	name = ft_strjoin(temp, "]\033[1;36m > \033[0m");
 	prompt = readline(name);
-   	ft_freesplit(split);
+	ft_freesplit(split);
 	free(temp);
 	free(name);
 	return (prompt);

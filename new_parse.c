@@ -148,16 +148,14 @@ void	ft_third_parse(t_data *data, int i)
 		// }
 		if (data->cmd_full[i][j] == '$')
 		{
-			if (data->cmd_full[i][++j] != '?')
-				new_cmd = ft_reparg(data, i, j); //fonction pour check & replace l'argument
+			if (data->cmd_full[i][j + 1] != '?')
+				arg = ft_reparg(data, i, j); //fonction pour check & replace l'argument
 			else
 				new_cmd = data->oldstatus; //oldstatus = $?, a recup dans cette variable
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
 		}
-		j++;
 	}
-	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
 	ft_printf("%s\n", data->cmd_full[i]);
 }
@@ -169,7 +167,7 @@ void	ft_exec(t_data *data, int i, int flag)
 	int	j;
 
 	j = 0;
-	//ft_third_parse(data, i);
+	ft_third_parse(data, i);
 	if (!data->cmd[0])
 		exit(1) ;
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
@@ -383,3 +381,5 @@ void	ft_parsingg(t_data *data, char *prompt)
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
+
+
