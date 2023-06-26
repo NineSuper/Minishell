@@ -2,7 +2,18 @@ INC=/usr/include
 INCLIB=$(INC)/../lib
 
 NAME = minishell
-SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c ft_reparg.c
+SRC = main.c  \
+		ft_pwd.c \
+		ft_env.c \
+		ft_cd.c  \
+		parse.c  \
+		ft_export.c \
+		ft_prompt.c \
+		ft_echo.c \
+		ft_cmds.c \
+		new_parse.c \
+		mini_utilis.c \
+		ft_reparg.c 
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
@@ -66,7 +77,7 @@ fclean:
 	rm -f $(NAME) $(OBJ) *~ core *.core
 	$(FCLEANED)
 
-re: clean all
+re: fclean all
 
 %.o: %.c
 	@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Compilation des fichiers : %-33.33s\r$(NO_COLOR)" $@
