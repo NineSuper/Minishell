@@ -68,19 +68,21 @@ void	ft_third_parse(t_data *data, int i)
 	// !!! Penser a realloc new_cmd avec une taille supplementaire apres injection des nouveaux arguments !!!//
 	while (data->cmd_full[i][j])
 	{
-		// if (data->cmd_full[i][j] == ' ')
-		// {
-		// 	new_cmd[k] = ' ';
-		// 	k++;
-		// 	j++;
-		// 	while (data->cmd_full[i][j] == ' ')
-		// 		j++;
-		// }
+		
 		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>' && data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' ' && data->cmd_full[i][j]) 
 		{
+			//ft_printf("%c", data->cmd_full[i][j]);
 			new_cmd[k] = data->cmd_full[i][j];
 			j++;
 			k++;
+		}
+		if (data->cmd_full[i][j] == ' ')
+		{
+			new_cmd[k] = ' ';
+			k++;
+			j++;
+			while (data->cmd_full[i][j] == ' ')
+				j++;
 		}
 		// if (data->cmd_full[i][j] == '<')
 		// {
@@ -149,15 +151,21 @@ void	ft_third_parse(t_data *data, int i)
 		if (data->cmd_full[i][j] == '$')
 		{
 			if (data->cmd_full[i][j + 1] != '?')
-				arg = ft_reparg(data, i, j); //fonction pour check & replace l'argument
+			{
+				arg = ft_reparg(data, i, j); 
+				new_cmd = ft_strjoin(new_cmd, arg);//fonction pour check & replace l'argument
+			}
 			else
 				new_cmd = data->oldstatus; //oldstatus = $?, a recup dans cette variable
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
+			
 		}
+		//j++;
 	}
+	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
-	ft_printf("%s\n", data->cmd_full[i]);
+	ft_printf("cmd : %s\n", new_cmd);
 }
 
 
@@ -294,7 +302,7 @@ char	*ft_chk_cmd(t_data *data, int i)
 	ft_freesplit(pbl);
 	ft_freesplit(spt);
 	dup2(data->term, 1);
-	ft_printf("cpt");
+	//ft_printf("cpt");
 	return (NULL);
 }
 void	close_pipes(t_data *data)
