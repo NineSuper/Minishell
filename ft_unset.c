@@ -6,15 +6,11 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:35:30 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/20 14:36:25 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/26 11:48:46 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-todo si $ARG existe dans ENV alors : unset: arg: invalid parameter name
-*/
 
 void	ft_cpy_env(t_data *data, int i)
 {
@@ -45,7 +41,8 @@ int	ft_arg_unset(t_data *data, char *arg)
 	while (data->env_cpy[++i])
 		if (!ft_strncmp(data->env_cpy[i], arg, ft_strlen(arg)))
 			break ;
-	ft_cpy_env(data, i);
+	if (data->env_cpy[i])
+		ft_cpy_env(data, i);
 }
 
 int	ft_unset(t_data *data, char *prompt)
@@ -56,7 +53,11 @@ int	ft_unset(t_data *data, char *prompt)
 	split = ft_split(prompt, ' ');
 	i = 0;
 	if (!split[1])
+	{
+		ft_freesplit(split);
 		return (printf("unset: not enough arguments\n"));
+	}
 	while (split[++i])
 		ft_arg_unset(data, split[i]);
+	ft_freesplit(split);
 }
