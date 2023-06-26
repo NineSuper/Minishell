@@ -18,7 +18,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	char *prompt;
-	int	i;
 	struct sigaction sig;
 
 	sig.sa_handler = ft_ctrl_c;
@@ -26,8 +25,6 @@ int	main(int argc, char **argv, char **env)
 	sigemptyset(&sig.sa_mask);
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
-
-	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
 	data->term = dup(1);

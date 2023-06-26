@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utilis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/26 10:39:38 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/26 10:48:36 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_strjoinc(char const *s1, char s2)
+char	*ft_strjoinc(char *s1, char s2)
 {
 	char	*str;
 	int		i;
@@ -29,5 +29,6 @@ char	*ft_strjoinc(char const *s1, char s2)
 	str[i] = s2;
 	i++;
 	str[i] = '\0';
+	free(s1);
 	return (str);
 }

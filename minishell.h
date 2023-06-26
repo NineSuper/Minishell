@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/22 16:36:03 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:06:23 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	char	*oldstatus;
 	int	old_pipe[2];
 	int	new_pipe[2];
+	int	errnum;
 }	t_data;
 
 char	*ft_readline(void);
@@ -70,5 +71,6 @@ void    ft_parsingg(t_data *data, char *prompt);
 void	delete_tmpfile(char *file, t_data *data);
 char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_reparg(t_data *data, int i, int j);
+char	*ft_strjoinc(char *s1, char s2);
 
 #endif
