@@ -155,6 +155,7 @@ void	ft_third_parse(t_data *data, int i)
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
 		}
+		j++;
 	}
 	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
@@ -382,5 +383,3 @@ void	ft_parsingg(t_data *data, char *prompt)
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
-
-
