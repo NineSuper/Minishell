@@ -2,7 +2,7 @@ INC=/usr/include
 INCLIB=$(INC)/../lib
 
 NAME = minishell
-SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c
+SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c mini_utilis.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
