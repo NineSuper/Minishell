@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:35:29 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/26 11:23:43 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:40:48 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_reparg(t_data *data, int i, int j)
 	res = malloc(j - k + 1);
 	j = 0;
 	k++;
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k] != '"' && data->cmd_full[i][k] != '\'' && data->cmd_full[i][k])
 	{
 		res[j] = data->cmd_full[i][k];
 		k++;
@@ -54,7 +54,6 @@ char	*ft_reparg(t_data *data, int i, int j)
 					l++;
 				}
 				res[k] = '\0';
-				//ft_printf("%s",res);
 				return (res);
 			}
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utilis.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/26 16:48:23 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:51:14 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strjoinc(char *s1, char s2)
 	return (str);
 }
 
+
 static int	check_quote(char *str)
 {
 	while (*str)
@@ -44,7 +45,6 @@ static int	check_quote(char *str)
 				str++;
 			if (!*str)
 				return (0);
-			str++;
 		}
 		if (*str == 39)
 		{
@@ -53,7 +53,6 @@ static int	check_quote(char *str)
 				str++;
 			if (!str)
 				return (0);
-			str++;
 		}
 		str++;
 	}
@@ -66,11 +65,11 @@ static int	count_words(const char *str, char c)
 	int	trigger;
 	char	d;
 
-	i = 1;
+	i = 0;
 	trigger = 0;
 	while (*str)
-	{		
-		if (*str != c)
+	{
+		if (*str != c && trigger == 0 || *str == 34 || *str == 39)
 		{
 			if (*str == 34 || *str == 39)
 			{
@@ -78,14 +77,16 @@ static int	count_words(const char *str, char c)
 				str++;
 				while (*str != d)
 					str++;
+				str++;
+				if (!*str)
+					return (i);
 			}
-			trigger = 0;
-		}
-		else if (*str == c && trigger == 0)
-		{
+			if (trigger == 0)
+				i++;
 			trigger = 1;
-			i++;
 		}
+		else if (*str == c)
+			trigger = 0;
 		str++;
 	}
 	return (i);
@@ -97,7 +98,7 @@ static char	*word_dup(const char *str, int start, int finish)
 	int		i;
 
 	i = 0;
-	word = malloc((finish - start) * sizeof(char));
+	word = malloc((finish - start + 1) * sizeof(char));
 	while (start < finish)
 		word[i++] = str[start++];
 	word[i] = '\0';
@@ -111,7 +112,6 @@ char	**ft_neosplit(char *str, char c)
 	int	index;
 	char	d;	
 	char	**split;
-
 	if (check_quote(str) == 1)
 	{
 		split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
@@ -120,17 +120,15 @@ char	**ft_neosplit(char *str, char c)
 		i = 0;
 		j = 0;
 		index = -1;
-		while (i < ft_strlen(str))
+		while (i <= ft_strlen(str))
 		{
 			if (str[i] != c && index < 0)
-			{
-				if (str[i] == 34 || str[i] == 39)
-				{
-					d = str[i++];
-					while (str[i] != d)
-						i++;
-				}	
 				index = i;
+			if (str[i] == 34 || str[i] == 39)
+			{
+				d = str[i++];
+				while (str[i] != d)
+					i++;
 			}
 			else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
 			{
@@ -139,8 +137,7 @@ char	**ft_neosplit(char *str, char c)
 			}
 			i++;
 		}
-		ft_printf("%s", split[0]);
-		split[j] = NULL;
+		split[j] = 0;
 		return (split);
 	}
 	else
