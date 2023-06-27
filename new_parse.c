@@ -239,6 +239,7 @@ int	ft_first_parse(t_data *data, char *prompt)
 
 	i = 0;
 	data->cmd_full=ft_neosplit(prompt, '|');
+	ft_printf("%s", data->cmd_full[0]);
 	while (data->cmd_full[i])
 		i++;
 	data->pipenum = i;	

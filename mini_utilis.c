@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/27 10:54:16 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:47:41 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ static int	count_words(const char *str, char c)
 				d = *str;
 				str++;
 				while (*str != d && *str)
-					str++;
+					str++;	
 				str++;
+				if (!*str)
+					return (i);
 			}
 			trigger = 1;
 			i++;
@@ -113,7 +115,7 @@ char	**ft_neosplit(char *str, char c)
 	char	d;	
 	char	**split;
 
-	if (check_quote(str) == 1)
+	if (check_quote(str) == 0)
 	{
 		split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
 		if (!str || !split)
@@ -125,22 +127,30 @@ char	**ft_neosplit(char *str, char c)
 		{
 			if (str[i] != c && index < 0)
 			{
-				if (*str == 34 || *str == 39)
-				{
-					d = str[++i];
-					while (str[i] != d)
-						i++;
-				}	
 				index = i;
+				if (str[i] == 34 || str[i] == 39)
+				{
+					d = str[i];
+					i++;
+					while (str[i] != d && str[i])
+					{
+						//ft_printf("%c", str[i]);
+						i++;
+					}
+					
+				}	
+				
 			}
 			else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
 			{
-				split[j++] = word_dup(str, index, i);
+				split[j] = word_dup(str, index, i);
+				j++;
 				index = -1;
 			}
 			i++;
 		}
 		split[j] = 0;
+	//	ft_printf("%s\n", split[0]);
 		return (split);
 	}
 	else
