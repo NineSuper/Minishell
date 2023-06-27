@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/27 13:47:41 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:51:14 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strjoinc(char *s1, char s2)
 	return (str);
 }
 
+
 static int	check_quote(char *str)
 {
 	while (*str)
@@ -42,20 +43,16 @@ static int	check_quote(char *str)
 			str++;
 			while (*str && *str != 34)
 				str++;
-			str++;
 			if (!*str)
 				return (0);
-			//str++;
 		}
 		if (*str == 39)
 		{
 			str++;
 			while (*str && *str != 39)
 				str++;
-			str++;
-			if (!*str)
+			if (!str)
 				return (0);
-			//str++;
 		}
 		str++;
 	}
@@ -71,21 +68,22 @@ static int	count_words(const char *str, char c)
 	i = 0;
 	trigger = 0;
 	while (*str)
-	{		
-		if (*str != c && trigger == 0)
+	{
+		if (*str != c && trigger == 0 || *str == 34 || *str == 39)
 		{
 			if (*str == 34 || *str == 39)
 			{
 				d = *str;
 				str++;
-				while (*str != d && *str)
-					str++;	
+				while (*str != d)
+					str++;
 				str++;
 				if (!*str)
 					return (i);
 			}
+			if (trigger == 0)
+				i++;
 			trigger = 1;
-			i++;
 		}
 		else if (*str == c)
 			trigger = 0;
@@ -114,8 +112,7 @@ char	**ft_neosplit(char *str, char c)
 	int	index;
 	char	d;	
 	char	**split;
-
-	if (check_quote(str) == 0)
+	if (check_quote(str) == 1)
 	{
 		split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
 		if (!str || !split)
@@ -126,33 +123,23 @@ char	**ft_neosplit(char *str, char c)
 		while (i <= ft_strlen(str))
 		{
 			if (str[i] != c && index < 0)
-			{
 				index = i;
-				if (str[i] == 34 || str[i] == 39)
-				{
-					d = str[i];
+			if (str[i] == 34 || str[i] == 39)
+			{
+				d = str[i++];
+				while (str[i] != d)
 					i++;
-					while (str[i] != d && str[i])
-					{
-						//ft_printf("%c", str[i]);
-						i++;
-					}
-					
-				}	
-				
 			}
 			else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
 			{
-				split[j] = word_dup(str, index, i);
-				j++;
+				split[j++] = word_dup(str, index, i);
 				index = -1;
 			}
 			i++;
 		}
 		split[j] = 0;
-	//	ft_printf("%s\n", split[0]);
 		return (split);
 	}
 	else
-		return (ft_split(str, c));
+		return (NULL);
 }

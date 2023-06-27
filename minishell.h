@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/27 09:19:53 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:51:21 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_reparg(t_data *data, int i, int j);
 char	*ft_strjoinc(char *s1, char s2);
 char	**ft_neosplit(char *str, char c);
+void	ft_opentrunk(t_data *data, int i, int j);
 
 #endif

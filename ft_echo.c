@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/27 10:12:15 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:46:53 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,8 @@ int	ft_echo(t_data *data, char *prompt)
 		return (ft_freesplit(split), 0);
 	while (split[i])
 	{
-		if (split[i][0] == '$')
-		{
-			ft_arg_echo(data, split[i]);
-		}
-		else if (split[i + 1])
+
+		if (split[i + 1])
 			ft_printf("%s ", split[i]);
 		else
 			ft_printf("%s", split[i]);
