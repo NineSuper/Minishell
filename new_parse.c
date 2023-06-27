@@ -136,23 +136,24 @@ void	ft_third_parse(t_data *data, int i)
 		// 		exit(1);
 		// 	}
 		// }
-		// if (data->cmd_full[i][j] == '"')
-		// {
-		// 	j++;
-		// 	while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
-		// 	{
-		// 		if (data->cmd_full[i][j] == '$')
-		// 			arg = ft_reparg(data, i , j);
-		// 		new_cmd[k] == data->cmd_full[i][j];
-		// 		k++;
-		// 		j++;
-		// 	}
-		// 	if (data->cmd_full[i][j] != '\0')
-		// 	{
-		// 		ft_printf("error");
-		// 		exit(1);
-		// 	}
-		// }
+		if (data->cmd_full[i][j] == '"')
+		{
+			j++;
+			while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+			{
+				if (data->cmd_full[i][j] == '$')
+					arg = ft_reparg(data, i , j);
+				new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j]);
+				j++;
+			}
+			if (data->cmd_full[i][j] == '\0')
+			{
+				ft_printf("error");
+				exit(1);
+			}
+			else
+				j++;
+		}
 		if (data->cmd_full[i][j] == '$')
 		{
 			if (data->cmd_full[i][j + 1] != '?')
@@ -237,7 +238,7 @@ int	ft_first_parse(t_data *data, char *prompt)
 	char	**tmp;
 
 	i = 0;
-	data->cmd_full=ft_split(prompt, '|');
+	data->cmd_full=ft_neosplit(prompt, '|');
 	while (data->cmd_full[i])
 		i++;
 	data->pipenum = i;	
@@ -285,6 +286,8 @@ char	*ft_chk_cmd(t_data *data, int i)
 	char	*temp;
 
 	j = 0;
+	if (data->cmd_full[i][j] == '.')
+		return(data->cmd[i]);
 	while (ft_strncmp("PATH", data->env_cpy[j], 4))
 		j++;
 	pbl = ft_split(data->env_cpy[j], '=');
