@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:35:29 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/26 11:23:43 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/26 14:38:05 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*ft_reparg(t_data *data, int i, int j)
 					l++;
 				}
 				res[k] = '\0';
-				//ft_printf("%s",res);
 				return (res);
 			}
 		}
