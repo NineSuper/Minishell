@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/26 16:48:23 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:09:25 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static int	check_quote(char *str)
 			while (*str && *str != 39)
 				str++;
 			if (!str)
+			{
+				ft_printf("ici");
 				return (0);
+			}
 			str++;
 		}
 		str++;
@@ -69,7 +72,7 @@ static int	count_words(const char *str, char c)
 	i = 0;
 	trigger = 0;
 	while (*str)
-	{		
+	{
 		if (*str != c && trigger == 0)
 		{
 			if (*str == 34 || *str == 39)
@@ -110,8 +113,7 @@ char	**ft_neosplit(char *str, char c)
 	int	index;
 	char	d;	
 	char	**split;
-
-	if (check_quote(str) == 0)
+	if (check_quote(str) == 1)
 	{
 		split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
 		if (!str || !split)
@@ -138,7 +140,6 @@ char	**ft_neosplit(char *str, char c)
 			}
 			i++;
 		}
-		ft_printf("%s", split[0]);
 		split[j] = 0;
 		return (split);
 	}
