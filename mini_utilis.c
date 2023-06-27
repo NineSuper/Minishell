@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/26 19:09:25 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:53:08 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strjoinc(char *s1, char s2)
 	return (str);
 }
 
+
 static int	check_quote(char *str)
 {
 	while (*str)
@@ -44,7 +45,6 @@ static int	check_quote(char *str)
 				str++;
 			if (!*str)
 				return (0);
-			str++;
 		}
 		if (*str == 39)
 		{
@@ -52,11 +52,7 @@ static int	check_quote(char *str)
 			while (*str && *str != 39)
 				str++;
 			if (!str)
-			{
-				ft_printf("ici");
 				return (0);
-			}
-			str++;
 		}
 		str++;
 	}
@@ -73,7 +69,7 @@ static int	count_words(const char *str, char c)
 	trigger = 0;
 	while (*str)
 	{
-		if (*str != c && trigger == 0)
+		if (*str != c && trigger == 0 || *str == 34 || *str == 39)
 		{
 			if (*str == 34 || *str == 39)
 			{
@@ -82,9 +78,12 @@ static int	count_words(const char *str, char c)
 				while (*str != d)
 					str++;
 				str++;
+				if (!*str)
+					return (i);
 			}
+			if (trigger == 0)
+				i++;
 			trigger = 1;
-			i++;
 		}
 		else if (*str == c)
 			trigger = 0;
@@ -124,14 +123,12 @@ char	**ft_neosplit(char *str, char c)
 		while (i <= ft_strlen(str))
 		{
 			if (str[i] != c && index < 0)
-			{
-				if (*str == 34 || *str == 39)
-				{
-					d = str[i++];
-					while (str[i] != d)
-						i++;
-				}	
 				index = i;
+			if (str[i] == 34 || str[i] == 39)
+			{
+				d = str[i++];
+				while (str[i] != d)
+					i++;
 			}
 			else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
 			{
@@ -141,6 +138,8 @@ char	**ft_neosplit(char *str, char c)
 			i++;
 		}
 		split[j] = 0;
+		ft_printf("%s\n", split[0]);
+		 ft_printf("%s", split[1]);
 		return (split);
 	}
 	else

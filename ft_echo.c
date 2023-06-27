@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/09 11:19:27 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:12:15 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,17 @@ int	ft_echo(t_data *data, char *prompt)
 
 	split = ft_split(prompt, ' ');
 	if (!split[1])
-		return (ft_printf("\n"));
+		return (ft_freesplit(split), ft_printf("\n"));
 	i = ft_check_n(split);
 	flag = i;
 	if (!split[i])
-		return (0);
+		return (ft_freesplit(split), 0);
 	while (split[i])
 	{
 		if (split[i][0] == '$')
+		{
 			ft_arg_echo(data, split[i]);
+		}
 		else if (split[i + 1])
 			ft_printf("%s ", split[i]);
 		else
@@ -87,5 +89,5 @@ int	ft_echo(t_data *data, char *prompt)
 	}
 	if (flag < 2)
 		ft_printf("\n");
-	ft_freesplit(split);
+	return (ft_freesplit(split), 0);
 }
