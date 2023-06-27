@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/20 12:15:10 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/26 12:51:08 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data
 	int		env_len;
 }	t_data;
 
+char	*ft_quote(t_data *data, char *str);
 char	*ft_readline(void);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);

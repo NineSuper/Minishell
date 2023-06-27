@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/05/31 17:08:20 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:47:30 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_getenv(t_data *data, char **env)
 	int	i;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 		i++;
 	data->env_len = i;
 	data->env_cpy = ft_calloc(i + 1 ,sizeof(char *));
@@ -31,20 +31,18 @@ void	ft_getenv(t_data *data, char **env)
 
 void	ft_gethome(t_data *data)
 {
-	char	**home_split;
+	char	**split;
 	int		i;
 
-	i = 0;
-	while (data->env_cpy[i])
+	i = -1;
+	split = ft_split(data->pwd, '/');
+	data->home = ft_calloc(1, sizeof(char) + 1);
+	data->home[0] = '/';
+	while (split[++i] && i < 3)
 	{
-		if (!ft_strncmp(data->env_cpy[i], "HOME", 4))
-		{
-			home_split = ft_split(data->env_cpy[i], '=');
-			if (home_split[1])
-				data->home = ft_strdup(home_split[1]);
-			break ;
-		}
-		i++;
+		data->home = ft_strjoin(data->home, split[i]);
+		if (i < 2)
+			data->home = ft_strjoin(data->home, "/");
 	}
-	ft_freesplit(home_split);
+	ft_freesplit(split);
 }

@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/23 12:02:49 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:47:33 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	ft_cd(t_data *data, char *prompt)
 	char	*pwd_cpy;
 
 	parse = ft_split(prompt, ' ');
-	ft_gethome(data);
 	ft_getpwd(data);
+	ft_gethome(data);
 	pwd_cpy = ft_strdup(data->pwd);
 	if (!parse[1])
 		chdir(data->home);

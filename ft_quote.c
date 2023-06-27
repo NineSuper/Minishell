@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:40:33 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/26 13:21:54 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:01:04 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	ft_check_quote(char *str)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	j = 0;
 	c = str[0];
 	if (str[0] == 39 || str[0] == '"')
 		j++;
 	while (str[++i])
-		if (i > 1 && str[i] == c)
+		if (str[i] == c)
 			j++;
 	if (j % 2 != 0)
 		return (0);
@@ -52,16 +52,10 @@ char	*ft_simple_quote(t_data *data, char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] == 39)
+	while (*++str == 39)
 		i++;
-	src = malloc(sizeof(char) * (ft_strlen(str) - (i + i)) + 1);
-	while (str[i])
-	{
-		src[i] = str[i];
-		i++;
-	}
-	src[i] = '\0';
-	printf("SRC : %s\n", src);
+	src = malloc(sizeof(char) * ft_strlen(str) - i);
+	ft_strlcpy(src, str, ft_strlen(str) - i);
 	return (src);
 }
 
