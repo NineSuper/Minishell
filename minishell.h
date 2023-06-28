@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/28 12:58:23 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:39:17 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
-void	ft_unset(t_data *data, char *prompt);
+int	ft_unset(t_data *data, char *prompt);
+//void	ft_unset(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
 void    ft_parsingg(t_data *data, char *prompt);
