@@ -23,13 +23,11 @@ void	ft_execve(t_data *data, int i)
 		{
 			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 			{
-				//data->errnum = errno;
 				ft_printf("%d %s\n", errno, strerror(errno));
 				perror("Error is :");
 				free(cmd);
 				exit(1);
 			}
-			//ft_printf("%d", data->errnum);
 			free(cmd);
 			exit(1);		//ft_printf("%d, %s\n", errno, strerror(errno));
 		}
@@ -37,29 +35,14 @@ void	ft_execve(t_data *data, int i)
 			exit(1) ;
 }
 
-void	ft_limit(t_data *data, int i, int j)
-{
-
-}
-
-void	ft_input(t_data *data, int i, int j)
-{
-
-}
-
-void	ft_openapp(t_data *data, int i, int j)
-{
-
-}
-
-
-void	ft_third_parse(t_data *data, int i)
+int	ft_third_parse(t_data *data, int i)
 {
 	char	*new_cmd;
 	char	*temp;
 	char	*arg;
 	int	j;
 	int	k;
+	int	fd;
 
 	j = 0;
 	k = 0;
@@ -83,37 +66,32 @@ void	ft_third_parse(t_data *data, int i)
 			while (data->cmd_full[i][j] == ' ')
 				j++;
 		}
-		// if (data->cmd_full[i][j] == '<')
-		// {
-		// 	if (data->cmd_full[i][j + 1] == '<')
-		// 	{
-		// 		ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
-		// 		j++;
-		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-		// 			j++;
-		// 	}
-		// 	else
-		// 	{
-		// 		ft_input(data, i , j); //fonction pour redirect l'entree
-		// 		while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-		// 			j++;
-		// 	}
-		// }
+		if (data->cmd_full[i][j] == '<')
+		{
+			if (data->cmd_full[i][j + 1] == '<')
+			{
+				j = ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
+				j++;
+			}
+			else
+			{
+				j = ft_input(data, i , j); //fonction pour redirect l'entree
+				if (j == 0)
+					return(0);
+				j++;
+			}
+		}
 		if (data->cmd_full[i][j] == '>')
 		{
 			if (data->cmd_full[i][j + 1] == '>')
 			{
-				ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
+				j = ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
 				j++;
-				while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-					j++;
 			}
 			else
 			{
-				ft_opentrunk(data, i , j);
-				j++; //fonction pour dup/open en TRUNC et ecrire dans un fichier
-				//while (data->cmd_full[i][j + 1] != '>' && data->cmd_full[i][j + 1] != '<' && data->cmd_full[i][j + 1] != ' ')
-				//	j++;
+				j = ft_opentrunk(data, i , j);
+				j++; 
 			}
 		}
 		if (data->cmd_full[i][j] == '\'')
@@ -151,13 +129,6 @@ void	ft_third_parse(t_data *data, int i)
 					while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"')
 						j++;
 				}
-				// if (data->cmd_full[i][j] == '\0')
-				// {
-				// 	ft_printf("error");
-				// 	exit(1);
-				// }
-				// else
-				// 	j++;
 				j++;
 			}
 		
@@ -182,6 +153,7 @@ void	ft_third_parse(t_data *data, int i)
 	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
 	free(new_cmd);
+	return (1);
 }
 
 
@@ -191,9 +163,10 @@ void	ft_exec(t_data *data, int i, int flag)
 	int	j;
 
 	j = 0;
-	ft_third_parse(data, i);
+	if (!ft_third_parse(data, i))
+		exit(1);
 	if (!data->cmd[0])
-		exit(1) ;
+		exit(1);
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 		ft_cd(data, data->cmd_full[i]);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
@@ -406,6 +379,8 @@ void	ft_parsingg(t_data *data, char *prompt)
 		}
 		ft_freesplit((char **)data->pipes);
 	}
+	dup2(data->term, 1);
+	dup2(data->termo, 0);
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
