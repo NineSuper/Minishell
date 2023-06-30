@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/28 13:48:30 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:20:20 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	ft_parsing(t_data *data, char *prompt, char **env)
 {
-	int	i;
-	char **parsed;
+	int		i;
+	char	**parsed;
 
+	(void)env;
 	parsed = ft_split(prompt, ' ');
 	if (!parsed[0])
 		return ;
@@ -71,7 +72,7 @@ void	ft_freesplit(char **split)
 	int	i;
 
 	i = 0;
-	while(split[i])
+	while (split[i])
 		free(split[i++]);
 	free(split);
 }

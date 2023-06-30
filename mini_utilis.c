@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/28 14:13:28 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:19:05 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char	*ft_strjoinc(char *s1, char s2)
 	free(s1);
 	return (str);
 }
-
 
 static int	check_quote(char *str)
 {
@@ -61,15 +60,15 @@ static int	check_quote(char *str)
 
 static int	count_words(const char *str, char c)
 {
-	int	i;
-	int	trigger;
+	int		i;
+	int		trigger;
 	char	d;
 
 	i = 0;
 	trigger = 0;
 	while (*str)
 	{
-		if (*str != c && trigger == 0 || *str == 34 || *str == 39)
+		if ((*str != c && trigger == 0) || *str == 34 || *str == 39)
 		{
 			if (*str == 34 || *str == 39)
 			{
@@ -107,11 +106,12 @@ static char	*word_dup(const char *str, int start, int finish)
 
 char	**ft_neosplit(char *str, char c)
 {
-	int	i;
-	int	j;
-	int	index;
+	int		i;
+	int		j;
+	int		index;
 	char	d;	
 	char	**split;
+
 	if (str[0])
 	{
 		if (check_quote(str) == 1)
@@ -122,7 +122,7 @@ char	**ft_neosplit(char *str, char c)
 			i = 0;
 			j = 0;
 			index = -1;
-			while (i <= ft_strlen(str))
+			while ((size_t)i <= ft_strlen(str))
 			{
 				if (str[i] != c && index < 0)
 					index = i;
@@ -132,7 +132,8 @@ char	**ft_neosplit(char *str, char c)
 					while (str[i] != d)
 						i++;
 				}
-				else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
+				else if ((str[i] == c
+						|| (size_t)i == ft_strlen(str)) && index >= 0)
 				{
 					split[j++] = word_dup(str, index, i);
 					index = -1;

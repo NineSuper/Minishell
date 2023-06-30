@@ -2,7 +2,7 @@ INC=/usr/include
 INCLIB=$(INC)/../lib
 
 NAME = minishell
-SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c ft_reparg.c mini_utilis.c ft_redirect.c ft_unset.c
+SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c ft_reparg.c mini_utilis.c ft_redirect.c ft_unset.c new_parse_deux.c new_parse_trois.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
@@ -41,7 +41,7 @@ NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de l
 MAKEFLAGS += --silent
 
 $(NAME): comp_start $(OBJ)
-	@$(CC) libft/*/*.c $(OBJ) $(LFLAGS) -o $(NAME)
+	@$(CC) $(FLAGS) libft/*/*.c $(OBJ) $(LFLAGS) -o $(NAME)
 	echo "\n"
 	@$(EXE_READY)
 
@@ -70,4 +70,4 @@ re: clean all
 
 %.o: %.c
 	@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Compilation des fichiers : %-33.33s\r$(NO_COLOR)" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${FLAGS} -c $< -o $@
