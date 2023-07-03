@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/22 15:10:47 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:08:59 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,5 +398,3 @@ void	ft_parsingg(t_data *data, char *prompt)
 	ft_freesplit(data->cmd_full);
 	ft_freesplit(data->cmd);
 }
-
-
