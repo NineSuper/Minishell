@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:35:09 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 13:29:30 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:25:24 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_execve(t_data *data, int i)
 {
 	char	*cmd;
 
-	cmd = ft_chk_cmd(data, i);
+	cmd = ft_chk_cmd(data, i, 0);
 	if (cmd)
 	{
 		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)

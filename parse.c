@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 15:40:11 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:42:49 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,13 @@ void	ft_freesplit(char **split)
 	while (split[i])
 		free(split[i++]);
 	free(split);
+}
+
+char	*ft_strjoinfree(char *s1, char *s2)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
+	free(s1);
+	return (str);
 }

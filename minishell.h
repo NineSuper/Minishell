@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 15:40:21 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:59:39 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_data
 	int		old_pipe[2];
 	int		new_pipe[2];
 	int		errnum;
+	char	*path;
 	t_arg	args;
 }	t_data;
 
@@ -82,7 +83,7 @@ int		ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
 void	ft_parsingg(t_data *data, char *prompt);
 void	delete_tmpfile(char *file, t_data *data);
-char	*ft_chk_cmd(t_data *data, int i);
+char	*ft_chk_cmd(t_data *data, int i, int j);
 char	*ft_reparg(t_data *data, int i, int j);
 char	*ft_strjoinc(char *s1, char s2);
 char	**ft_neosplit(char *str, char c, int i, int j);
@@ -100,5 +101,9 @@ void	ft_execve(t_data *data, int i);
 void	ft_error(t_data *data, char *error);
 void	ft_init(t_data *data, char **env);
 int		check_quote(char *str);
+int		ft_no_built(char *str);
+void	ft_getpath(t_data *data);
+char	*ft_strjoinfree(char *s1, char *s2);
+void	ft_go_pipe(t_data *data, int i);
 
 #endif
