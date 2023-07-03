@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 11:01:27 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:01:47 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:59:53 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_exec(t_data *data, int i, int flag)
 
 	j = 0;
 	if (!ft_third_parse(data, i))
-		exit(1);
+		exit(0);
 	if (!data->cmd[0])
-		exit(1);
+		exit(0);
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 		ft_cd(data, data->cmd_full[i]);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
@@ -48,7 +48,7 @@ void	ft_exec(t_data *data, int i, int flag)
 			|| !ft_strncmp(data->cmd[i], "env", 4)
 			|| !ft_strncmp(data->cmd[i], "pwd", 4))
 		&& flag == 1)
-		exit(1);
+		exit(0);
 }
 
 void	is_builtin(t_data *data, char *cmd, int i)

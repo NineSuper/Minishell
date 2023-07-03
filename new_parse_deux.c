@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:57:41 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:57 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:17:24 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	ft_parsingg(t_data *data, char *prompt)
 
 char	*ft_chk_cmd(t_data *data, int i)
 {
-	char	**pbl;
 	char	**spt;
 	int		j;
 	char	*new_cmd;
@@ -110,10 +109,9 @@ char	*ft_chk_cmd(t_data *data, int i)
 	j = 0;
 	if (data->cmd_full[i][j] == '.')
 		return (data->cmd[i]);
-	while (ft_strncmp("PATH", data->env_cpy[j], 4))
-		j++;
-	pbl = ft_split(data->env_cpy[j], '=');
-	spt = ft_split(pbl[1], ':');
+	if (data->cmd_full[i][j] == '/')
+		return (data->cmd[i]);
+	spt = ft_split(data->path, ':');
 	j = 0;
 	while (spt[j])
 	{
@@ -121,7 +119,6 @@ char	*ft_chk_cmd(t_data *data, int i)
 		temp = ft_strjoin(new_cmd, data->cmd[i]);
 		if (access(temp, 0) == 0)
 		{
-			ft_freesplit(pbl);
 			ft_freesplit(spt);
 			free(new_cmd);
 			return (temp);
@@ -130,7 +127,6 @@ char	*ft_chk_cmd(t_data *data, int i)
 		free(new_cmd);
 		j++;
 	}
-	ft_freesplit(pbl);
 	ft_freesplit(spt);
 	dup2(data->term, 1);
 	return (NULL);

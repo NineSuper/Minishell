@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:35:09 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:04 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:59:53 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,29 @@ void	ft_execve(t_data *data, int i)
 	{
 		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 		{
-			ft_printf("%d %s\n", errno, strerror(errno));
-			perror("Error is :");
+			data->errnum = errno;
+			perror("Error");
 			free(cmd);
-			exit(1);
+			exit(0);
 		}
 		free(cmd);
-		exit(1);
+		exit(0);
 	}
 	else
-		exit(1);
+		exit(0);
 }
 
 int	ft_third_parse(t_data *data, int i)
 {
 	char	*new_cmd;
 	char	*arg;
+	char	*error;
 	int		j;
 	int		k;
 
 	j = 0;
 	k = 0;
+	error = ft_itoa(data->errnum >> 8);
 	new_cmd = ft_calloc(1, 1);
 	while (data->cmd_full[i][j])
 	{
@@ -116,13 +118,12 @@ int	ft_third_parse(t_data *data, int i)
 					if (data->cmd_full[i][j + 1] != '?')
 					{
 						arg = ft_reparg(data, i, j);
-						new_cmd = ft_strjoin(new_cmd, arg);
+						new_cmd = ft_strjoinfree(new_cmd, arg);
 						if (arg)
 							free(arg);
 					}
 					else
-						new_cmd = ft_strjoin(new_cmd,
-								ft_itoa(data->errnum >> 8));
+						new_cmd = ft_strjoinfree(new_cmd, error);
 					while (data->cmd_full[i][j] != ' '
 					&& data->cmd_full[i][j] != '"')
 						j++;
@@ -135,16 +136,17 @@ int	ft_third_parse(t_data *data, int i)
 			if (data->cmd_full[i][j + 1] != '?')
 			{
 				arg = ft_reparg(data, i, j);
-				new_cmd = ft_strjoin(new_cmd, arg);
+				new_cmd = ft_strjoinfree(new_cmd, arg);
 				if (arg)
 					free(arg);
 			}
 			else
-				new_cmd = ft_strjoin(new_cmd, ft_itoa(data->errnum >> 8));
+				new_cmd = ft_strjoinfree(new_cmd, error);
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
 		}
 	}
+	free(error);
 	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
 	free(new_cmd);

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:24 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:08:30 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 	int		termo;
 	int		*builtin;
 	char	*oldstatus;
+	char	*path;
 	int		old_pipe[2];
 	int		new_pipe[2];
 	int		errnum;
@@ -95,5 +96,7 @@ void	is_builtin(t_data *data, char *cmd, int i);
 void	ft_exec(t_data *data, int i, int flag);
 int		ft_third_parse(t_data *data, int i);
 void	ft_execve(t_data *data, int i);
+char	*ft_strjoinfree(char *s1, char *s2);
+void	ft_getpath(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:35:30 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/29 13:52:54 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:13:33 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	ft_arg_unset(t_data *data, char *arg)
 			break ;
 	if (data->env_cpy[i])
 		ft_cpy_env(data, i);
+	free(arg);
 	return (0);
 }
 
