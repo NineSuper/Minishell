@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/21 14:37:39 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:23:54 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	*data;
+	t_data				*data;
+	char				*prompt;
+	struct sigaction	sig;
+
 	(void)argc;
 	(void)argv;
-	char *prompt;
-	int	i;
-	struct sigaction sig;
-
 	sig.sa_handler = ft_ctrl_c;
 	sig.sa_flags = SA_SIGINFO;
 	sigemptyset(&sig.sa_mask);
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
-
-	i = 0;
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
+	ft_getpwd(data);
+	ft_gethome(data);
+	data->term = dup(1);
+	data->termo = dup(0);
 	while (1)
 	{
 		prompt = ft_readline();
