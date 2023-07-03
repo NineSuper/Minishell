@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:35:30 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/27 12:22:32 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/07/03 11:13:33 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_arg_unset(t_data *data, char *arg)
 			break ;
 	if (data->env_cpy[i])
 		ft_cpy_env(data, i);
+	free(arg);
+	return (0);
 }
 
 int	ft_unset(t_data *data, char *prompt)
@@ -60,4 +62,5 @@ int	ft_unset(t_data *data, char *prompt)
 	while (split[++i])
 		ft_arg_unset(data, split[i]);
 	ft_freesplit(split);
+	return (0);
 }

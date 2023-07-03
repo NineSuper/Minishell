@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/27 13:37:54 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:23:54 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,33 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	*data;
+	t_data				*data;
+	char				*prompt;
+	struct sigaction	sig;
+
 	(void)argc;
 	(void)argv;
-	char *prompt;
-	int	i;
-
-	i = 0;
+	sig.sa_handler = ft_ctrl_c;
+	sig.sa_flags = SA_SIGINFO;
+	sigemptyset(&sig.sa_mask);
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
 	data = ft_calloc(1, sizeof(t_data));
 	ft_getenv(data, env);
+	ft_getpwd(data);
+	ft_gethome(data);
+	data->term = dup(1);
+	data->termo = dup(0);
 	while (1)
 	{
 		prompt = ft_readline();
+		if (!prompt)
+			ft_exit(data, prompt);
 		if (prompt[0])
 			add_history(prompt);
-		ft_parsing(data, prompt, env);
+		ft_parsingg(data, prompt);
+		free(prompt);
 	}
-	ft_exit(data, prompt);
+	free(data);
 	return (0);
 }
