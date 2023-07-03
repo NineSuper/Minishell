@@ -6,45 +6,11 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 10:27:39 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:40:11 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_parsing(t_data *data, char *prompt, char **env)
-{
-	int		i;
-	char	**parsed;
-
-	(void)env;
-	parsed = ft_split(prompt, ' ');
-	if (!parsed[0])
-		return ;
-	i = 0;
-	if (!ft_strncmp(parsed[0], "pwd", 4))
-	{
-		ft_getpwd(data);
-		ft_printf("%s\n", data->pwd);
-	}		
-	if (!ft_strncmp(parsed[0], "env", 4))
-	{
-		while (data->env_cpy[i])
-			ft_printf("%s\n", data->env_cpy[i++]);
-		i = 0;
-	}
-	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt);
-	if (!ft_strncmp(parsed[0], "echo", 5))
-		ft_echo(data, prompt);
-	if (!ft_strncmp(parsed[0], "exit", 5))
-		ft_exit(data, prompt);
-	if (!ft_strncmp(parsed[0], "export", 7))
-		ft_export(data, prompt);
-	if (!ft_strncmp(parsed[0], "unset", 6))
-		ft_unset(data, prompt);
-	ft_freesplit(parsed);
-}
 
 void	ft_exit(t_data *data, char *prompt)
 {
