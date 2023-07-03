@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:24 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:38:59 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@
 /*      NAME        */
 # define NAME "\033[1;36m☁️  Minichibre "
 /*	STRUCTS	    */
+
 typedef struct s_arg
 {
 	char	**argq;
 	int		*flaq;
 }	t_arg;
+
 typedef struct s_data
 {
 	char	*pwd;
@@ -65,6 +67,7 @@ typedef struct s_data
 }	t_data;
 
 char	*ft_readline(void);
+char	*ft_readlines(char *temp, char *name, char *split);
 void	ft_getpwd(t_data *data);
 void	ft_getenv(t_data *data, char **env);
 void	ft_cd(t_data *data, char *prompt);
@@ -74,8 +77,8 @@ int		ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
+void	ft_new_export(t_data *data, char *c);
 int		ft_unset(t_data *data, char *prompt);
-//void	ft_unset(t_data *data, char *prompt);
 int		ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
 void	ft_parsingg(t_data *data, char *prompt);
@@ -83,11 +86,11 @@ void	delete_tmpfile(char *file, t_data *data);
 char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_reparg(t_data *data, int i, int j);
 char	*ft_strjoinc(char *s1, char s2);
-char	**ft_neosplit(char *str, char c);
+char	**ft_neosplit(char *str, char c, int i, int j);
 int		ft_opentrunk(t_data *data, int i, int j);
 int		ft_openapp(t_data *data, int i, int j);
-int		ft_input(t_data *data, int i, int j);
-int		ft_limit(t_data *data, int i, int j);
+int		ft_input(t_data *data, int i, int j, int l);
+int		ft_limit(t_data *data, int i, int j, int l);
 char	*ft_get_arg(t_data *data, int j, char *res);
 void	ft_second_parse(t_data *data);
 int		ft_first_parse(t_data *data, char *prompt);
@@ -95,5 +98,8 @@ void	is_builtin(t_data *data, char *cmd, int i);
 void	ft_exec(t_data *data, int i, int flag);
 int		ft_third_parse(t_data *data, int i);
 void	ft_execve(t_data *data, int i);
+void	ft_error(t_data *data, char *error);
+void	ft_init(t_data *data, char **env);
+int		check_quote(char *str);
 
 #endif

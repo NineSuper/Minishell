@@ -6,11 +6,20 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/30 10:23:54 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:49:02 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_init(t_data *data, char **env)
+{
+	ft_getenv(data, env);
+	ft_getpwd(data);
+	ft_gethome(data);
+	data->term = dup(1);
+	data->termo = dup(0);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -26,11 +35,7 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGINT, &sig, NULL);
 	sigaction(SIGQUIT, &sig, NULL);
 	data = ft_calloc(1, sizeof(t_data));
-	ft_getenv(data, env);
-	ft_getpwd(data);
-	ft_gethome(data);
-	data->term = dup(1);
-	data->termo = dup(0);
+	ft_init(data, env);
 	while (1)
 	{
 		prompt = ft_readline();
@@ -41,6 +46,5 @@ int	main(int argc, char **argv, char **env)
 		ft_parsingg(data, prompt);
 		free(prompt);
 	}
-	free(data);
 	return (0);
 }

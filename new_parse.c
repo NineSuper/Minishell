@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:35:09 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 11:02:04 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:29:30 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ int	ft_third_parse(t_data *data, int i)
 		{
 			if (data->cmd_full[i][j + 1] == '<')
 			{
-				j = ft_limit(data, i, j);
+				j = ft_limit(data, i, j + 2, 0);
 				j++;
 			}
 			else
 			{
-				j = ft_input(data, i, j);
+				j = ft_input(data, i, j + 1, 0);
 				if (j == 0)
 					return (0);
 				j++;
