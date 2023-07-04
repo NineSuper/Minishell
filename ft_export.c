@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 11:58:36 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 10:40:53 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,4 @@ void	ft_export(t_data *data, char *prompt)
 			ft_new_export(data, sp[i]);
 	}
 	ft_freesplit(sp);
-}
-
-int	ft_lenvar(char *varName)
-{
-	int	i;
-
-	i = 0;
-	while (varName[i] != '=' && varName[i] != '\0')
-		i++;
-	return (i);
 }
