@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_neosplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 10:29:54 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:29:27 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,6 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 				i++;
 		}
 		else if ((str[i] == c || (size_t)i == ft_strlen(str)) && index >= 0)
-		{
-			split[j++] = word_dup(str, index, i);
-			index = -1;
-		}
-		else if ((str[i] == c
-				|| (size_t)i == ft_strlen(str)) && index >= 0)
 		{
 			split[j++] = word_dup(str, index, i);
 			index = -1;
