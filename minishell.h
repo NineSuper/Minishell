@@ -6,7 +6,11 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/28 13:39:17 by ltressen         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/03 12:08:30 by ltressen         ###   ########.fr       */
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +44,17 @@
 typedef struct s_arg
 {
 	char	**argq;
-	int	*flaq;
+	int		*flaq;
 }	t_arg;
 typedef struct s_data
 {
-	char *pwd;
-	char **env_cpy;
-	int	env_len;
-	char *home;
+	char	*pwd;
+	char	**env_cpy;
+	int		env_len;
+	char	*home;
 	char	**cmd;
 	char	**cmd_full;
+<<<<<<< HEAD
 	int	pipenum;
 	int	**pipes;
 	int	fd1;
@@ -57,10 +62,20 @@ typedef struct s_data
 	int	term;
 	int	termo;
 	int	*builtin;
+=======
+	int		pipenum;
+	int		**pipes;
+	int		fd1;
+	int		fd2;
+	int		term;
+	int		termo;
+	int		*builtin;
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	char	*oldstatus;
-	int	old_pipe[2];
-	int	new_pipe[2];
-	int	errnum;
+	char	*path;
+	int		old_pipe[2];
+	int		new_pipe[2];
+	int		errnum;
 	t_arg	args;
 }	t_data;
 
@@ -70,23 +85,45 @@ void	ft_getenv(t_data *data, char **env);
 void	ft_cd(t_data *data, char *prompt);
 void	ft_gethome(t_data *data);
 void	ft_parsing(t_data *data, char *prompt, char **env);
-int	ft_echo(t_data *data, char *prompt);
+int		ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
+<<<<<<< HEAD
 int	ft_unset(t_data *data, char *prompt);
 //void	ft_unset(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
+=======
+int		ft_unset(t_data *data, char *prompt);
+//void	ft_unset(t_data *data, char *prompt);
+int		ft_lenvar(char *varName);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 void	ft_ctrl_c(int signal);
-void    ft_parsingg(t_data *data, char *prompt);
+void	ft_parsingg(t_data *data, char *prompt);
 void	delete_tmpfile(char *file, t_data *data);
 char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_reparg(t_data *data, int i, int j);
 char	*ft_strjoinc(char *s1, char s2);
 char	**ft_neosplit(char *str, char c);
+<<<<<<< HEAD
 int	ft_opentrunk(t_data *data, int i, int j);
 int	ft_openapp(t_data *data, int i, int j);
 int	ft_input(t_data *data, int i, int j);
 int	ft_limit(t_data *data, int i, int j);
+=======
+int		ft_opentrunk(t_data *data, int i, int j);
+int		ft_openapp(t_data *data, int i, int j);
+int		ft_input(t_data *data, int i, int j);
+int		ft_limit(t_data *data, int i, int j);
+char	*ft_get_arg(t_data *data, int j, char *res);
+void	ft_second_parse(t_data *data);
+int		ft_first_parse(t_data *data, char *prompt);
+void	is_builtin(t_data *data, char *cmd, int i);
+void	ft_exec(t_data *data, int i, int flag);
+int		ft_third_parse(t_data *data, int i);
+void	ft_execve(t_data *data, int i);
+char	*ft_strjoinfree(char *s1, char *s2);
+void	ft_getpath(t_data *data);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 
 #endif

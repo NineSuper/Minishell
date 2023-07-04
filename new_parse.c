@@ -1,12 +1,12 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   new_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/08 15:16:24 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/22 15:10:47 by jcasades         ###   ########.fr       */
+/*   Created: 2023/06/30 10:35:09 by ltressen          #+#    #+#             */
+/*   Updated: 2023/07/03 12:59:53 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	ft_execve(t_data *data, int i)
 {
 	char	*cmd;
-	pid_t	pid;
-	int	status;
 
-		cmd = ft_chk_cmd(data, i);
-		if (cmd)
+	cmd = ft_chk_cmd(data, i);
+	if (cmd)
+	{
+		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 		{
+<<<<<<< HEAD
 			if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
 			{
 				ft_printf("%d %s\n", errno, strerror(errno));
@@ -28,31 +29,49 @@ void	ft_execve(t_data *data, int i)
 				free(cmd);
 				exit(1);
 			}
+=======
+			data->errnum = errno;
+			perror("Error");
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 			free(cmd);
-			exit(1);		//ft_printf("%d, %s\n", errno, strerror(errno));
+			exit(0);
 		}
+<<<<<<< HEAD
 		else
 			exit(1) ;
+=======
+		free(cmd);
+		exit(0);
+	}
+	else
+		exit(0);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 }
 
 int	ft_third_parse(t_data *data, int i)
 {
 	char	*new_cmd;
-	char	*temp;
 	char	*arg;
+<<<<<<< HEAD
 	int	j;
 	int	k;
 	int	fd;
+=======
+	char	*error;
+	int		j;
+	int		k;
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 
 	j = 0;
 	k = 0;
+	error = ft_itoa(data->errnum >> 8);
 	new_cmd = ft_calloc(1, 1);
-	
-	// !!! Penser a realloc new_cmd avec une taille supplementaire apres injection des nouveaux arguments !!!//
 	while (data->cmd_full[i][j])
 	{
-		
-		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>' && data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' ' && data->cmd_full[i][j]) 
+		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>'
+			&& data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"'
+			&& data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' '
+			&& data->cmd_full[i][j])
 		{
 			new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j]);
 			j++;
@@ -70,14 +89,24 @@ int	ft_third_parse(t_data *data, int i)
 		{
 			if (data->cmd_full[i][j + 1] == '<')
 			{
+<<<<<<< HEAD
 				j = ft_limit(data, i , j); //fonction pour prendre un delimiteur et qui attends un input
+=======
+				j = ft_limit(data, i, j);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 				j++;
 			}
 			else
 			{
+<<<<<<< HEAD
 				j = ft_input(data, i , j); //fonction pour redirect l'entree
 				if (j == 0)
 					return(0);
+=======
+				j = ft_input(data, i, j);
+				if (j == 0)
+					return (0);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 				j++;
 			}
 		}
@@ -85,13 +114,22 @@ int	ft_third_parse(t_data *data, int i)
 		{
 			if (data->cmd_full[i][j + 1] == '>')
 			{
+<<<<<<< HEAD
 				j = ft_openapp(data, i , j); //fonction pour dup/open en APPEND et ecrire dans un fichier
+=======
+				j = ft_openapp(data, i, j);
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 				j++;
 			}
 			else
 			{
+<<<<<<< HEAD
 				j = ft_opentrunk(data, i , j);
 				j++; 
+=======
+				j = ft_opentrunk(data, i, j);
+				j++;
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 			}
 		}
 		if (data->cmd_full[i][j] == '\'')
@@ -119,42 +157,42 @@ int	ft_third_parse(t_data *data, int i)
 				{	
 					if (data->cmd_full[i][j + 1] != '?')
 					{
-						arg = ft_reparg(data, i, j); 
-						new_cmd = ft_strjoin(new_cmd, arg);
+						arg = ft_reparg(data, i, j);
+						new_cmd = ft_strjoinfree(new_cmd, arg);
 						if (arg)
 							free(arg);
 					}
 					else
-						new_cmd = ft_strjoin(new_cmd, ft_itoa(data->errnum >> 8));
-					while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"')
+						new_cmd = ft_strjoinfree(new_cmd, error);
+					while (data->cmd_full[i][j] != ' '
+					&& data->cmd_full[i][j] != '"')
 						j++;
 				}
 				j++;
 			}
-		
 		}
 		if (data->cmd_full[i][j] == '$')
 		{
 			if (data->cmd_full[i][j + 1] != '?')
 			{
-				arg = ft_reparg(data, i, j); 
-				new_cmd = ft_strjoin(new_cmd, arg);
+				arg = ft_reparg(data, i, j);
+				new_cmd = ft_strjoinfree(new_cmd, arg);
 				if (arg)
 					free(arg);
 			}
 			else
-				new_cmd = ft_strjoin(new_cmd, ft_itoa(data->errnum >> 8));
+				new_cmd = ft_strjoinfree(new_cmd, error);
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
-			
 		}
-		//j++;
 	}
+	free(error);
 	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
 	free(new_cmd);
 	return (1);
 }
+<<<<<<< HEAD
 
 
 
@@ -386,3 +424,5 @@ void	ft_parsingg(t_data *data, char *prompt)
 }
 
 
+=======
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99

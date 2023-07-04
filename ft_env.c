@@ -6,7 +6,11 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/28 14:08:28 by ltressen         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/03 12:21:49 by ltressen         ###   ########.fr       */
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +24,14 @@ void	ft_getenv(t_data *data, char **env)
 	while (env[i])
 		i++;
 	data->env_len = i;
-	data->env_cpy = ft_calloc(i + 1 ,sizeof(char *));
+	data->env_cpy = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while (env[i])
 	{
 		data->env_cpy[i] = ft_strdup(env[i]);
 		i++;
 	}
+	ft_getpath(data);
 }
 
 void	ft_gethome(t_data *data)
@@ -36,6 +41,7 @@ void	ft_gethome(t_data *data)
 
 	i = -1;
 	split = ft_split(data->pwd, '/');
+<<<<<<< HEAD
 	// if (data->home && split[0])
 	// 	free (data->home);
 	data->home = ft_strdup("/");
@@ -46,4 +52,27 @@ void	ft_gethome(t_data *data)
 			data->home = ft_strjoin(data->home, "/");
 	}
 	ft_freesplit(split);
+=======
+	data->home = ft_strdup("/");
+	while (split[++i] && i < 3)
+	{
+		data->home = ft_strjoinfree(data->home, split[i]);
+		if (i < 2)
+			data->home = ft_strjoinfree(data->home, "/");
+	}
+	ft_freesplit(split);
+}
+
+void	ft_getpath(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->env_cpy[i])
+	{
+		if (!ft_strncmp("PATH=", data->env_cpy[i], 5))
+			data->path = ft_strdup(data->env_cpy[i] + 5);
+		i++;
+	}
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 }

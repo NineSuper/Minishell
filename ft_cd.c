@@ -6,7 +6,11 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/28 14:08:15 by ltressen         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/30 10:25:30 by ltressen         ###   ########.fr       */
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +62,7 @@ void	ft_changepwd(t_data *data, char *old_pwd)
 	ft_check_pwd(data, str2);
 }
 
-int	ft_dollar_cd(t_data *data, char *arg)
+void	ft_dollar_cd(t_data *data, char *arg)
 {
 	int	i;
 	int	j;
@@ -68,7 +72,7 @@ int	ft_dollar_cd(t_data *data, char *arg)
 	while (arg[i] == '$')
 		i++;
 	if (i != 1)
-		return (ft_printf("cd: no such file or directory: %s\n", arg));
+		ft_printf("cd: no such file or directory: %s\n", arg);
 	arg++;
 	arg = ft_strjoin(arg, "=");
 	while (data->env_cpy[i])
@@ -80,7 +84,7 @@ int	ft_dollar_cd(t_data *data, char *arg)
 			if (chdir(data->env_cpy[i] + j + 1) == -1)
 				ft_printf("cd: no such file or directory: %s\n", \
 					data->env_cpy[i] + j + 1);
-			return (0);
+			return ;
 		}
 		i++;
 	}

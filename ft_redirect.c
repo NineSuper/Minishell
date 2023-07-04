@@ -6,12 +6,17 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/28 13:16:27 by ltressen         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/30 10:31:16 by ltressen         ###   ########.fr       */
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+<<<<<<< HEAD
 int    ft_opentrunk(t_data *data, int i , int j)
 {
 	int	k;
@@ -28,6 +33,24 @@ int    ft_opentrunk(t_data *data, int i , int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+=======
+int	ft_opentrunk(t_data *data, int i, int j)
+{
+	int		k;
+	int		l;
+	char	*cmd;
+	int		fd;
+
+	j++;
+	l = 0;
+	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+		j++;
+	k = j;
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+		j++;
+	cmd = malloc(j - k + 1);
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -43,6 +66,7 @@ int    ft_opentrunk(t_data *data, int i , int j)
 
 int	ft_openapp(t_data *data, int i, int j)
 {
+<<<<<<< HEAD
 	int	k;
 	int	l;
 	char	*cmd;
@@ -57,6 +81,22 @@ int	ft_openapp(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+=======
+	int		k;
+	int		l;
+	char	*cmd;
+	int		fd;
+
+	j += 2;
+	l = 0;
+	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+		j++;
+	k = j;
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+		j++;
+	cmd = malloc(j - k + 1);
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -72,6 +112,7 @@ int	ft_openapp(t_data *data, int i, int j)
 
 int	ft_input(t_data *data, int i, int j)
 {
+<<<<<<< HEAD
 	int	k;
 	int	l;
 	char	*cmd;
@@ -86,6 +127,22 @@ int	ft_input(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+=======
+	int		k;
+	int		l;
+	char	*cmd;
+	int		fd;
+
+	j++;
+	l = 0;
+	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+		j++;
+	k = j;
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+		j++;
+	cmd = malloc(j - k + 1);
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -110,6 +167,7 @@ int	ft_input(t_data *data, int i, int j)
 
 int	ft_limit(t_data *data, int i, int j)
 {
+<<<<<<< HEAD
 	int	k;
 	int	l;
 	char	*cmd;
@@ -126,6 +184,22 @@ int	ft_limit(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+=======
+	int		k;
+	int		l;
+	char	*cmd;
+	char	*new_prompt;
+
+	j += 2;
+	l = 0;
+	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+		j++;
+	k = j;
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+		j++;
+	cmd = malloc(j - k + 1);
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -145,4 +219,8 @@ int	ft_limit(t_data *data, int i, int j)
 			break ;
 	}
 	return (j);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
