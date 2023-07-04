@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2023/07/04 10:44:20 by jcasades         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/04 14:32:06 by ltressen         ###   ########.fr       */
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
-=======
-/*   Updated: 2023/07/04 14:53:09 by ltressen         ###   ########.fr       */
->>>>>>> ba91876769aa01766f82bab0b22b68e94fc0298c
+/*   Updated: 2023/07/04 10:44:20 by jcasades         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +62,11 @@ int	ft_first_parse(t_data *data, char *prompt)
 
 	i = 0;
 	if (prompt[0])
+	{
 		if (check_quote(prompt) == 1)
-<<<<<<< HEAD
 			data->cmd_full = ft_neosplit(prompt, '|', -1, 0);
 	}
 	if (!data->cmd_full)
-=======
-			data->cmd_full = ft_neosplit(prompt, '|', 0, 0);
-	if (prompt[0] == '\0')
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 		return (0);
 	while (data->cmd_full[i])
 		i++;
