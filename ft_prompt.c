@@ -6,11 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:52:22 by tde-los-          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/07/03 12:13:20 by jcasades         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/04 14:20:03 by ltressen         ###   ########.fr       */
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +34,6 @@ char	*ft_readline(void)
 	char	**split;
 	char	*name;
 	char	*temp;
-	char	*prompt;
 	int		i;
 
 	i = 0;
@@ -57,12 +52,6 @@ char	*ft_readline(void)
 		i++;
 	}
 	free(temp);
-<<<<<<< HEAD
 	temp = ft_strdup(name);
 	return (ft_readlines(temp, name, split[i]));
-=======
-	prompt = ft_readlines(temp, name, split[i]);
-	ft_freesplit(split);
-	return (prompt);
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 }

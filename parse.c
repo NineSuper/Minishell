@@ -6,11 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/07/04 10:44:20 by jcasades         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/04 14:32:06 by ltressen         ###   ########.fr       */
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +47,9 @@ int	ft_first_parse(t_data *data, char *prompt)
 	if (prompt[0])
 	{
 		if (check_quote(prompt) == 1)
-<<<<<<< HEAD
 			data->cmd_full = ft_neosplit(prompt, '|', -1, 0);
 	}
 	if (!data->cmd_full)
-=======
-			data->cmd_full = ft_neosplit(prompt, '|', 0, 0);
-	}
-	if (prompt[0] == '\0')
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 		return (0);
 	while (data->cmd_full[i])
 		i++;
