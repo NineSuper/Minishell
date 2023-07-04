@@ -31,7 +31,7 @@ char	*ft_reparg(t_data *data, int i, int j)
 	while (data->env_cpy[j])
 	{
 		if (!ft_strncmp(data->env_cpy[j], res, ft_strlen(res)))
-			ft_get_arg(data, j, res);
+			return (ft_get_arg(data, j, res));
 		j++;
 	}
 	if (res)
