@@ -12,33 +12,71 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/04 14:07:54 by ltressen         ###   ########.fr       */
 >>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
+=======
+/*   Updated: 2023/07/04 15:49:10 by ltressen         ###   ########.fr       */
+>>>>>>> ba91876769aa01766f82bab0b22b68e94fc0298c
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	ft_tp_quote(t_data *data, int i, int j)
+{
+	while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+	{
+		if (data->cmd_full[i][j] == '$')
+		{
+			if (data->cmd_full[i][j + 1] != '?')
+			{	
+				data->arg = ft_reparg(data, i, j);
+				data->new_cmd = ft_strjoinfree(data->new_cmd, data->arg);
+				if (data->arg)
+					free(data->arg);
+			}
+			else
+				data->new_cmd = ft_strjoinfree(data->new_cmd,
+						ft_itoa(data->errnum >> 8));
+			while (data->cmd_full[i][j] != ' '
+			&& data->cmd_full[i][j] != '"')
+				j++;
+		}
+		data->new_cmd = ft_strjoinc(data->new_cmd, data->cmd_full[i][j]);
+		j++;
+	}
+	return (j + 1);
+}
+
+static int	ft_tp_dollar(t_data *data, int i, int j)
+{
+	if (data->cmd_full[i][j + 1] != '?')
+	{
+		data->arg = ft_reparg(data, i, j);
+		data->new_cmd = ft_strjoinfree(data->new_cmd, data->arg);
+		if (data->arg)
+			free(data->arg);
+	}
+	else
+		data->new_cmd = ft_strjoinfree(data->new_cmd, ft_itoa(data->errnum >> 8));
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+		j++;
+	return (j);
+}
+
 int	ft_third_parse(t_data *data, int i, int j)
 {
-	char	*new_cmd;
-	char	*arg;
-
-	new_cmd = ft_calloc(1, 1);
+	data->new_cmd = ft_calloc(1, 1);
 	while (data->cmd_full[i][j])
 	{
-		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>'
-			&& data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"'
-			&& data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' '
-			&& data->cmd_full[i][j])
-			new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j++]);
 		if (data->cmd_full[i][j] == ' ' && j++ )
 		{
-			new_cmd = ft_strjoinc(new_cmd, ' ');
+			data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 			while (data->cmd_full[i][j] == ' ')
 				j++;
 		}
-		if (data->cmd_full[i][j] == '<' && j++)
+		else if (data->cmd_full[i][j] == '<' && j++)
 		{
 			if (data->cmd_full[i][j] == '<')
 				j = ft_limit(data, i, j + 1, 0) + 1;
@@ -49,56 +87,28 @@ int	ft_third_parse(t_data *data, int i, int j)
 					return (0);
 			}
 		}
-		if (data->cmd_full[i][j] == '>' && j++)
+		else if (data->cmd_full[i][j] == '>' && j++)
 		{
 			if (data->cmd_full[i][j] == '>')
 				j = ft_openapp(data, i, j);
 			else
 				j = ft_opentrunk(data, i, j) + 1;
 		}
-		if (data->cmd_full[i][j] == '\'' && j++)
+		else if (data->cmd_full[i][j] == '\'' && j++)
 		{
 			while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
-				new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j++]);
+				data->new_cmd = ft_strjoinc(data->new_cmd, data->cmd_full[i][j++]);
 			j++;
 		}
-		if (data->cmd_full[i][j] == '"' && j++)
-		{
-			while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
-			{
-				if (data->cmd_full[i][j] == '$' && data->cmd_full[i][j + 1] != '?')
-				{	
-					arg = ft_reparg(data, i, j);
-					new_cmd = ft_strjoin(new_cmd, arg);
-					if (arg)
-						free(arg);
-				}
-				else if (data->cmd_full[i][j] == '$')
-					new_cmd = ft_strjoin(new_cmd,
-							ft_itoa(data->errnum >> 8));
-				while (data->cmd_full[i][j] != ' '
-				&& data->cmd_full[i][j] != '"')
-					j++;
-			}
-			j++;
-		}
-		if (data->cmd_full[i][j] == '$')
-		{
-			if (data->cmd_full[i][j + 1] != '?')
-			{
-				arg = ft_reparg(data, i, j);
-				new_cmd = ft_strjoin(new_cmd, arg);
-				if (arg)
-					free(arg);
-			}
-			else
-				new_cmd = ft_strjoin(new_cmd, ft_itoa(data->errnum >> 8));
-			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
-				j++;
-		}
+		else if (data->cmd_full[i][j] == '"' && j++)
+			j = ft_tp_quote(data, i, j);
+		else if (data->cmd_full[i][j] == '$')
+			j = ft_tp_dollar(data, i, j);
+		else
+			data->new_cmd = ft_strjoinc(data->new_cmd, data->cmd_full[i][j++]);
 	}
 	free(data->cmd_full[i]);
-	data->cmd_full[i] = ft_strdup(new_cmd);
-	free(new_cmd);
+	data->cmd_full[i] = ft_strdup(data->new_cmd);
+	free(data->new_cmd);
 	return (1);
 }
