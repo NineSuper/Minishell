@@ -2,11 +2,7 @@ INC=/usr/include
 INCLIB=$(INC)/../lib
 
 NAME = minishell
-<<<<<<< HEAD
-SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c ft_reparg.c mini_utilis.c ft_redirect.c ft_unset.c
-=======
-SRC = main.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c new_parse.c ft_reparg.c mini_utilis.c ft_redirect.c ft_unset.c new_parse_deux.c new_parse_trois.c
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
+SRC = main.c exit.c exec.c ft_cd.c ft_cmds.c ft_echo.c ft_env.c ft_export.c ft_neosplit.c ft_prompt.c ft_pwd.c ft_redirect.c ft_reparg.c ft_unset.c parse.c pipe.c utils.c trolon.c
 OBJ = $(SRC:.c=.o)
 CC = gcc
 

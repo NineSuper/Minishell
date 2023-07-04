@@ -6,11 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/28 13:39:26 by ltressen         ###   ########.fr       */
-=======
-/*   Updated: 2023/07/03 10:23:03 by ltressen         ###   ########.fr       */
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
+/*   Updated: 2023/07/04 10:40:53 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +19,59 @@ void	ft_env_alpha(t_data *data)
 	int		pos;
 	char	**new_cpy;
 
-	i = 0;
+	i = -1;
 	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
-	while (i < data->env_len)
+	while (++i < data->env_len)
 	{
 		pos = 0;
-		j = 0;
-		while (j < data->env_len)
+		j = -1;
+		while (++j < data->env_len)
 		{
 			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], 10000) > 0)
 				pos++;
-			j++;
 		}
 		new_cpy[pos] = ft_strdup(data->env_cpy[i]);
-		i++;
 	}
-	i = 0;
-	while (i < data->env_len)
+	i = -1;
+	while (++i < data->env_len)
 	{
-		ft_printf("%s\n", new_cpy[i]);
+		ft_printf("declare -x %s\n", new_cpy[i]);
 		free(new_cpy[i]);
-		i++;
 	}
 	free(new_cpy);
+}
+
+void	ft_new_export(t_data *data, char *c)
+{
+	int		j;
+	char	**new_cpy;
+
+	j = 0;
+	data->env_len++;
+	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
+	while (data->env_cpy[j])
+	{
+		new_cpy[j] = ft_strdup(data->env_cpy[j]);
+		free (data->env_cpy[j]);
+		j++;
+	}
+	free(data->env_cpy);
+	new_cpy[j] = ft_strdup(c);
+	data->env_cpy = new_cpy;
 }
 
 void	ft_export(t_data *data, char *prompt)
 {
 	int		i;
 	char	**sp;
-	char	**new_cpy;
 	int		j;
 
 	j = 0;
 	sp = ft_split(prompt, ' ');
-	i = 1;
+	i = 0;
 	if (!sp[1])
 		ft_env_alpha(data);
-	while (sp[i])
+	while (sp[++i])
 	{
 		while (data->env_cpy[j])
 		{
@@ -73,87 +84,7 @@ void	ft_export(t_data *data, char *prompt)
 			j++;
 		}
 		if (!data->env_cpy[j])
-		{
-			data->env_len++;
-			new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
-			j = 0;
-			while (data->env_cpy[j])
-			{
-				new_cpy[j] = ft_strdup(data->env_cpy[j]);
-				free (data->env_cpy[j]);
-				j++;
-			}
-			free(data->env_cpy);
-			new_cpy[j] = ft_strdup(sp[i]);
-			free(sp[i]);
-			data->env_cpy = new_cpy;
-		}
-		i++;
+			ft_new_export(data, sp[i]);
 	}
-<<<<<<< HEAD
-	free(sp[0]);
-	free(sp);
-}
-
-// void	ft_unset(t_data *data, char *prompt)
-// {
-// 	int	i;
-// 	char	**sp;
-// 	char	**new_cpy;
-// 	int	j;
-// 	int	k;
-
-// 	sp = ft_split(prompt, ' ');
-// 	i = 1;
-// 	while (sp[i])
-// 	{
-// 		j = 0;
-// 		while (data->env_cpy[j])
-// 		{
-// 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i])))
-// 				break ;
-// 			j++;
-// 		}
-// 		if (data->env_cpy[j])
-// 		{	
-// 			data->env_len--;
-// 			new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
-// 			j = 0;
-// 			k = 0;
-// 			while (k < data->env_len)
-// 			{
-// 				if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i])))
-// 				{
-// 					free(data->env_cpy[j]);
-// 					j++;
-// 				}
-// 				else if (data->env_cpy[j])
-// 				{
-// 					new_cpy[k] = ft_strdup(data->env_cpy[j]);
-// 					free (data->env_cpy[j]);
-// 				}
-// 				j++;
-// 				k++;
-// 			}
-// 			free(data->env_cpy);
-// 			data->env_cpy = new_cpy;
-// 		}
-// 		i++;
-// 		free(sp[0]);
-// 		free(sp);
-// 	}
-// }
-=======
 	ft_freesplit(sp);
-}
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
-
-int	ft_lenvar(char *varName)
-{
-	int	i;
-
-	i = 0;
-	while (varName[i] != '=' && varName[i] != '\0')
-		i++;
-	return (i);
 }

@@ -6,11 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/28 14:08:15 by ltressen         ###   ########.fr       */
-=======
 /*   Updated: 2023/06/30 10:25:30 by ltressen         ###   ########.fr       */
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +115,6 @@ void	ft_cd(t_data *data, char *prompt)
 
 	parse = ft_split(prompt, ' ');
 	ft_getpwd(data);
-	//ft_gethome(data);
 	pwd_cpy = ft_strdup(data->pwd);
 	if (!parse[1])
 		chdir(data->home);

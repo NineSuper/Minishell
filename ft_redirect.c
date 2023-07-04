@@ -6,34 +6,12 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/28 13:16:27 by ltressen         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/30 10:31:16 by ltressen         ###   ########.fr       */
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
+/*   Updated: 2023/07/03 14:23:02 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-int    ft_opentrunk(t_data *data, int i , int j)
-{
-	int	k;
-	int	l;
-	char	*cmd;
-	int	fd;
-
-	j++;
-	l = 0;
-	while(data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
-		j++;
-	k = j;
-	while(data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
-		j++;
-	cmd = malloc(j - k + 1);
-	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-=======
 int	ft_opentrunk(t_data *data, int i, int j)
 {
 	int		k;
@@ -50,7 +28,6 @@ int	ft_opentrunk(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -66,22 +43,6 @@ int	ft_opentrunk(t_data *data, int i, int j)
 
 int	ft_openapp(t_data *data, int i, int j)
 {
-<<<<<<< HEAD
-	int	k;
-	int	l;
-	char	*cmd;
-	int	fd;
-
-	j += 2;
-	l = 0;
-	while(data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
-		j++;
-	k = j;
-	while(data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
-		j++;
-	cmd = malloc(j - k + 1);
-	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-=======
 	int		k;
 	int		l;
 	char	*cmd;
@@ -96,7 +57,6 @@ int	ft_openapp(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 	{
 		cmd[l] = data->cmd_full[i][k];
 		l++;
@@ -110,31 +70,12 @@ int	ft_openapp(t_data *data, int i, int j)
 	return (j);
 }
 
-int	ft_input(t_data *data, int i, int j)
+int	ft_limit(t_data *data, int i, int j, int l)
 {
-<<<<<<< HEAD
-	int	k;
-	int	l;
-	char	*cmd;
-	int	fd;
-
-	j++;
-	l = 0;
-	while(data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
-		j++;
-	k = j;
-	while(data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
-		j++;
-	cmd = malloc(j - k + 1);
-	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-=======
 	int		k;
-	int		l;
 	char	*cmd;
-	int		fd;
+	char	*new_prompt;
 
-	j++;
-	l = 0;
 	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
 		j++;
 	k = j;
@@ -142,74 +83,11 @@ int	ft_input(t_data *data, int i, int j)
 		j++;
 	cmd = malloc(j - k + 1);
 	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
-	{
-		cmd[l] = data->cmd_full[i][k];
-		l++;
-		k++;
-	}
-	cmd[l] = '\0';
-	fd = open(cmd, O_RDONLY);
-	if (fd < 0)
-	{
-		dup2(data->term, 1);
-		close(data->term);
-		ft_printf("error cpt mdr\n");
-		return (0);
-	}
-	else
-	{
-		dup2(fd, 0);
-		close(fd);
-	}
-	return (j);
-}
-
-int	ft_limit(t_data *data, int i, int j)
-{
-<<<<<<< HEAD
-	int	k;
-	int	l;
-	char	*cmd;
-	int	fd;
-	char	*new_prompt;
-
-
-	j += 2;
-	l = 0;
-	while(data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
-		j++;
-	k = j;
-	while(data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
-		j++;
-	cmd = malloc(j - k + 1);
-	while(data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-=======
-	int		k;
-	int		l;
-	char	*cmd;
-	char	*new_prompt;
-
-	j += 2;
-	l = 0;
-	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
-		j++;
-	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
-		j++;
-	cmd = malloc(j - k + 1);
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
-	{
-		cmd[l] = data->cmd_full[i][k];
-		l++;
-		k++;
-	}
+		cmd[l++] = data->cmd_full[i][k++];
 	cmd[l] = '\0';
 	if (!cmd[0])
 	{
-		dup2(data->term, 1);
-		ft_printf("empty delimiter\n");
+		ft_error(data, "empty delimiter\n");
 		return (j);
 	}
 	while (1)
@@ -219,8 +97,37 @@ int	ft_limit(t_data *data, int i, int j)
 			break ;
 	}
 	return (j);
-<<<<<<< HEAD
 }
-=======
+
+int	ft_input(t_data *data, int i, int j, int l)
+{
+	int		k;
+	char	*cmd;
+	int		fd;
+
+	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+		j++;
+	k = j;
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+		j++;
+	cmd = malloc(j - k + 1);
+	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+		cmd[l++] = data->cmd_full[i][k++];
+	cmd[l] = '\0';
+	fd = open(cmd, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_error(data, "error cpt mdr\n");
+		return (0);
+	}
+	dup2(fd, 0);
+	close(fd);
+	return (j);
 }
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
+
+void	ft_error(t_data *data, char *error)
+{
+	dup2(data->term, 1);
+	close(data->term);
+	ft_printf("%s", error);
+}

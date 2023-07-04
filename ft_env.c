@@ -6,11 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/28 14:08:28 by ltressen         ###   ########.fr       */
-=======
 /*   Updated: 2023/07/03 12:21:49 by ltressen         ###   ########.fr       */
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +37,6 @@ void	ft_gethome(t_data *data)
 
 	i = -1;
 	split = ft_split(data->pwd, '/');
-<<<<<<< HEAD
-	// if (data->home && split[0])
-	// 	free (data->home);
-	data->home = ft_strdup("/");
-	while (split[++i] && i < 3)
-	{
-		data->home = ft_strjoin(data->home, split[i]);
-		if (i < 2)
-			data->home = ft_strjoin(data->home, "/");
-	}
-	ft_freesplit(split);
-=======
 	data->home = ft_strdup("/");
 	while (split[++i] && i < 3)
 	{
@@ -74,5 +58,4 @@ void	ft_getpath(t_data *data)
 			data->path = ft_strdup(data->env_cpy[i] + 5);
 		i++;
 	}
->>>>>>> 5c98730e42ab3e9996f2c305fdab1d147595fa99
 }
