@@ -60,6 +60,7 @@ int	ft_dollar_cd(t_data *data, char *arg)
 		i++;
 	}
 	chdir(data->home);
+	return (0);
 }
 
 void	ft_arg_cd(t_data *data, char *arg, char *pwd_copy)
