@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/06/27 14:51:14 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:13:28 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,33 +112,38 @@ char	**ft_neosplit(char *str, char c)
 	int	index;
 	char	d;	
 	char	**split;
-	if (check_quote(str) == 1)
+	if (str[0])
 	{
-		split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
-		if (!str || !split)
-			return (0);
-		i = 0;
-		j = 0;
-		index = -1;
-		while (i <= ft_strlen(str))
+		if (check_quote(str) == 1)
 		{
-			if (str[i] != c && index < 0)
-				index = i;
-			if (str[i] == 34 || str[i] == 39)
+			split = malloc(((count_words(str, c) + 1) * sizeof(char *)));
+			if (!split)
+				return (0);
+			i = 0;
+			j = 0;
+			index = -1;
+			while (i <= ft_strlen(str))
 			{
-				d = str[i++];
-				while (str[i] != d)
-					i++;
+				if (str[i] != c && index < 0)
+					index = i;
+				if (str[i] == 34 || str[i] == 39)
+				{
+					d = str[i++];
+					while (str[i] != d)
+						i++;
+				}
+				else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
+				{
+					split[j++] = word_dup(str, index, i);
+					index = -1;
+				}
+				i++;
 			}
-			else if ((str[i] == c || i == ft_strlen(str)) && index >= 0)
-			{
-				split[j++] = word_dup(str, index, i);
-				index = -1;
-			}
-			i++;
+			split[j] = 0;
+			return (split);
 		}
-		split[j] = 0;
-		return (split);
+		else
+			return (NULL);
 	}
 	else
 		return (NULL);

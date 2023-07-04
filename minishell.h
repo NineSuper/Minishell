@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/27 15:51:21 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:39:17 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	int	fd1;
 	int	fd2;
 	int	term;
+	int	termo;
 	int	*builtin;
 	char	*oldstatus;
 	int	old_pipe[2];
@@ -73,7 +74,8 @@ int	ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
-void	ft_unset(t_data *data, char *prompt);
+int	ft_unset(t_data *data, char *prompt);
+//void	ft_unset(t_data *data, char *prompt);
 int	ft_lenvar(char *varName);
 void	ft_ctrl_c(int signal);
 void    ft_parsingg(t_data *data, char *prompt);
@@ -82,6 +84,9 @@ char	*ft_chk_cmd(t_data *data, int i);
 char	*ft_reparg(t_data *data, int i, int j);
 char	*ft_strjoinc(char *s1, char s2);
 char	**ft_neosplit(char *str, char c);
-void	ft_opentrunk(t_data *data, int i, int j);
+int	ft_opentrunk(t_data *data, int i, int j);
+int	ft_openapp(t_data *data, int i, int j);
+int	ft_input(t_data *data, int i, int j);
+int	ft_limit(t_data *data, int i, int j);
 
 #endif
