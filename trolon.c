@@ -6,11 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2023/07/04 11:26:10 by jcasades         ###   ########          */
-=======
-/*   Updated: 2023/07/04 15:49:10 by ltressen         ###   ########.fr       */
->>>>>>> ba91876769aa01766f82bab0b22b68e94fc0298c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +48,10 @@ static int	ft_tp_dollar(t_data *data, int i, int j)
 			free(data->arg);
 	}
 	else
-		data->new_cmd = ft_strjoinfree(data->new_cmd, ft_itoa(data->errnum >> 8));
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
+		data->new_cmd = ft_strjoinfree(data->new_cmd,
+				ft_itoa(data->errnum >> 8));
+	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"'
+			&& data->cmd_full[i][j] != '\0')
 		j++;
 	return (j);
 }
@@ -63,7 +61,7 @@ int	ft_third_parse(t_data *data, int i, int j)
 	data->new_cmd = ft_calloc(1, 1);
 	while (data->cmd_full[i][j])
 	{
-		if (data->cmd_full[i][j] == ' ' && j++ )
+		if (data->cmd_full[i][j] == ' ' && j++)
 		{
 			data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 			while (data->cmd_full[i][j] == ' ')
@@ -89,8 +87,10 @@ int	ft_third_parse(t_data *data, int i, int j)
 		}
 		else if (data->cmd_full[i][j] == '\'' && j++)
 		{
-			while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
-				data->new_cmd = ft_strjoinc(data->new_cmd, data->cmd_full[i][j++]);
+			while (data->cmd_full[i][j] != '\''
+					&& data->cmd_full[i][j] != '\0')
+				data->new_cmd = ft_strjoinc(data->new_cmd,
+						data->cmd_full[i][j++]);
 			j++;
 		}
 		else if (data->cmd_full[i][j] == '"' && j++)

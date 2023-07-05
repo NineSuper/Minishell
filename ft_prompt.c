@@ -34,7 +34,6 @@ char	*ft_readline(void)
 	char	**split;
 	char	*name;
 	char	*temp;
-	char	*prompt;
 	int		i;
 
 	i = 0;

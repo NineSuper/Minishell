@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/04 11:27:19 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:58:59 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_data
 	char	*home;
 	char	**cmd;
 	char	**cmd_full;
+	char	*arg;
+	char	*new_cmd;
 	int		pipenum;
 	int		**pipes;
 	int		fd1;
