@@ -18,7 +18,7 @@ static void	ft_exit_free(t_data *data)
 	free(data->path);
 	ft_freesplit(data->env_cpy);
 	ft_freesplit(data->cmd);
-	ft_freesplit(data->cmd_full);
+	ft_freesplit(data->full);
 	free(data->pipes);
 	free(data->pwd);
 	free(data);
@@ -32,7 +32,7 @@ void	ft_exit(t_data *data, char *prompt)
 	exit_code = 0;
 	if (prompt)
 	{
-		sp = ft_split(data->cmd_full[0], ' ');
+		sp = ft_split(data->full[0], ' ');
 		if (sp[1])
 			exit_code = ft_atoi(sp[1]);
 		free(prompt);

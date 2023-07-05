@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:37:16 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 10:38:01 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:56:55 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ pid_t	ft_piping(t_data *data, int i)
 
 void	ft_go_pipe(t_data *data, int i)
 {
-	while (data->cmd_full[i])
+	while (data->full[i])
 	{
 		ft_piping(data, i);
 		i++;
