@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 11:26:10 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:11:48 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,13 @@ int	ft_third_parse(t_data *data, int i, int j)
 	new_cmd = ft_calloc(1, 1);
 	while (data->cmd_full[i][j])
 	{
-		while (data->cmd_full[i][j] != '<' && data->cmd_full[i][j] != '>'
-			&& data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '"'
-			&& data->cmd_full[i][j] != '$' && data->cmd_full[i][j] != ' '
-			&& data->cmd_full[i][j])
-			new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j++]);
 		if (data->cmd_full[i][j] == ' ' && j++ )
 		{
 			new_cmd = ft_strjoinc(new_cmd, ' ');
 			while (data->cmd_full[i][j] == ' ')
 				j++;
 		}
-		if (data->cmd_full[i][j] == '<' && j++)
+		else if (data->cmd_full[i][j] == '<' && j++)
 		{
 			if (data->cmd_full[i][j] == '<')
 				j = ft_limit(data, i, j + 1, 0) + 1;
@@ -42,20 +37,20 @@ int	ft_third_parse(t_data *data, int i, int j)
 					return (0);
 			}
 		}
-		if (data->cmd_full[i][j] == '>' && j++)
+		else if (data->cmd_full[i][j] == '>' && j++)
 		{
 			if (data->cmd_full[i][j] == '>')
 				j = ft_openapp(data, i, j);
 			else
 				j = ft_opentrunk(data, i, j) + 1;
 		}
-		if (data->cmd_full[i][j] == '\'' && j++)
+		else if (data->cmd_full[i][j] == '\'' && j++)
 		{
 			while (data->cmd_full[i][j] != '\'' && data->cmd_full[i][j] != '\0')
 				new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j++]);
 			j++;
 		}
-		if (data->cmd_full[i][j] == '"' && j++)
+		else if (data->cmd_full[i][j] == '"' && j++)
 		{
 			while (data->cmd_full[i][j] != '"' && data->cmd_full[i][j] != '\0')
 			{
@@ -75,7 +70,7 @@ int	ft_third_parse(t_data *data, int i, int j)
 			}
 			j++;
 		}
-		if (data->cmd_full[i][j] == '$')
+		else if (data->cmd_full[i][j] == '$')
 		{
 			if (data->cmd_full[i][j + 1] != '?')
 			{
@@ -89,6 +84,8 @@ int	ft_third_parse(t_data *data, int i, int j)
 			while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '\0')
 				j++;
 		}
+		else 
+			new_cmd = ft_strjoinc(new_cmd, data->cmd_full[i][j++]);
 	}
 	free(data->cmd_full[i]);
 	data->cmd_full[i] = ft_strdup(new_cmd);
