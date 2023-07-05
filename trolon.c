@@ -46,6 +46,8 @@ static int	ft_sgl_quote(t_data *data, int i, int j)
 
 static int	ft_tp_quote(t_data *data, int i, int j)
 {
+	if (data->full[i][j - 1] == '"')
+		data->new_cmd = ft_strjoinc(data->new_cmd, '\a');
 	while (data->full[i][j] != '"' && data->full[i][j] != '\0')
 	{
 		if (data->full[i][j] == '$')
@@ -61,10 +63,11 @@ static int	ft_tp_quote(t_data *data, int i, int j)
 				data->new_cmd = ft_strjoinfree(data->new_cmd,
 						ft_itoa(data->errnum >> 8));
 			while (data->full[i][j] != ' '
-			&& data->full[i][j] != '"')
+			&& data->full[i][j] != '"' && data->full[i][j] != '\'')
 				j++;
 		}
-		data->new_cmd = ft_strjoinc(data->new_cmd, data->full[i][j]);
+		if (data->full[i][j] != '"')
+			data->new_cmd = ft_strjoinc(data->new_cmd, data->full[i][j]);
 		j++;
 	}
 	return (j + 1);
