@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_neosplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 10:29:54 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:29:27 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 
 	split = malloc(((count_words(str, c, 0, 0) + 1) * sizeof(char *)));
 	index = -1;
-	while ((size_t)++i <= ft_strlen(str))
+	while ((size_t)i <= ft_strlen(str))
 	{
 		if (str[i] != c && index < 0)
 			index = i;
@@ -98,12 +98,12 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 			while (str[i] != d)
 				i++;
 		}
-		else if ((str[i] == c
-				|| (size_t)i == ft_strlen(str)) && index >= 0)
+		else if ((str[i] == c || (size_t)i == ft_strlen(str)) && index >= 0)
 		{
 			split[j++] = word_dup(str, index, i);
 			index = -1;
 		}
+		i++;
 	}
 	split[j] = 0;
 	return (split);

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/04 10:40:06 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:44:07 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_check_n(char **tab)
 	}
 	return (i);
 }
+
+//todo enlever le split par ' '
 
 int	ft_echo(t_data *data, char *prompt)
 {

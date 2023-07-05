@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:35:29 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 14:24:29 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:15:05 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_reparg(t_data *data, int i, int j)
 	while (data->env_cpy[j])
 	{
 		if (!ft_strncmp(data->env_cpy[j], res, ft_strlen(res)))
-			ft_get_arg(data, j, res);
+			return (ft_get_arg(data, j, res));
 		j++;
 	}
 	if (res)

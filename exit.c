@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:30 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 11:29:17 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:43:59 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_exit_free(t_data *data)
 void	ft_exit(t_data *data, char *prompt)
 {
 	char	**sp;
-	int	exit_code;
+	int		exit_code;
 
 	exit_code = 0;
 	if (prompt)
