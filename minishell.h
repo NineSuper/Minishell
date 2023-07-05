@@ -51,7 +51,7 @@ typedef struct s_data
 	int		env_len;
 	char	*home;
 	char	**cmd;
-	char	**cmd_full;
+	char	**full;
 	char	*arg;
 	char	*new_cmd;
 	int		pipenum;

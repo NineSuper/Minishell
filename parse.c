@@ -42,12 +42,12 @@ static int	ft_fp_suite(t_data *data, int i)
 {
 	char	**tmp;
 
-	tmp = ft_split(data->cmd_full[i], ' ');
+	tmp = ft_split(data->full[i], ' ');
 	if (tmp[0])
 		data->cmd[i] = ft_strdup(tmp[0]);
 	else
 	{
-		ft_freesplit(data->cmd_full);
+		ft_freesplit(data->full);
 		ft_freesplit(data->cmd);
 		ft_freesplit(tmp);
 		return (0);
@@ -63,15 +63,15 @@ int	ft_first_parse(t_data *data, char *prompt)
 	i = 0;
 	if (prompt[0])
 		if (check_quote(prompt) == 1)
-			data->cmd_full = ft_neosplit(prompt, '|', 0, 0);
+			data->full = ft_neosplit(prompt, '|', 0, 0);
 	if (prompt[0] == '\0')
 		return (0);
-	while (data->cmd_full[i])
+	while (data->full[i])
 		i++;
 	data->pipenum = i;
 	data->cmd = ft_calloc((i + 1), sizeof(char *));
 	i = 0;
-	while (data->cmd_full[i])
+	while (data->full[i])
 		if (!ft_fp_suite(data, i++))
 			return (0);
 	return (i);
@@ -93,6 +93,6 @@ void	ft_parsingg(t_data *data, char *prompt)
 		ft_go_pipe(data, 0);
 	dup2(data->term, 1);
 	dup2(data->termo, 0);
-	ft_freesplit(data->cmd_full);
+	ft_freesplit(data->full);
 	ft_freesplit(data->cmd);
 }

@@ -49,7 +49,7 @@ pid_t	ft_piping(t_data *data, int i)
 
 void	ft_go_pipe(t_data *data, int i)
 {
-	while (data->cmd_full[i])
+	while (data->full[i])
 	{
 		ft_piping(data, i);
 		i++;

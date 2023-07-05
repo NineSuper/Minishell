@@ -18,14 +18,14 @@ char	*ft_reparg(t_data *data, int i, int j)
 	int		k;
 
 	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
 	res = malloc(j - k + 1);
 	j = 0;
 	k++;
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k] != '"'
-		&& data->cmd_full[i][k] != '\'' && data->cmd_full[i][k])
-		res[j++] = data->cmd_full[i][k++];
+	while (data->full[i][k] != ' ' && data->full[i][k] != '"'
+		&& data->full[i][k] != '\'' && data->full[i][k])
+		res[j++] = data->full[i][k++];
 	res[j] = '\0';
 	j = 0;
 	while (data->env_cpy[j])

@@ -28,7 +28,7 @@ char	*ft_chk_cmd(t_data *data, int i, int j)
 	char	*new_cmd;
 	char	*temp;
 
-	if (data->cmd_full[i][j] == '.' || data->cmd_full[i][j] == '/')
+	if (data->full[i][j] == '.' || data->full[i][j] == '/')
 		return (data->cmd[i]);
 	spt = ft_split(data->path, ':');
 	j = -1;
@@ -84,13 +84,13 @@ void	ft_exec(t_data *data, int i, int flag)
 	if (!data->cmd[0])
 		exit(1);
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
-		ft_cd(data, data->cmd_full[i]);
+		ft_cd(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
-		ft_echo(data, data->cmd_full[i]);
+		ft_echo(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "export", 7))
-		ft_export(data, data->cmd_full[i]);
+		ft_export(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "unset", 6))
-		ft_unset(data, data->cmd_full[i]);
+		ft_unset(data, data->full[i]);
 	else
 		ft_suite(data, i, flag);
 }
@@ -102,7 +102,7 @@ void	ft_execve(t_data *data, int i)
 	cmd = ft_chk_cmd(data, i, 0);
 	if (cmd)
 	{
-		if (execve(cmd, ft_split(data->cmd_full[i], ' '), data->env_cpy) == -1)
+		if (execve(cmd, ft_split(data->full[i], ' '), data->env_cpy) == -1)
 		{
 			ft_printf("%d %s\n", errno, strerror(errno));
 			perror("Error is :");

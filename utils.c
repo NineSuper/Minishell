@@ -64,7 +64,7 @@ char	*ft_strjoinc(char *s1, char s2)
 
 void	ft_pludeplass(t_data *data, int i)
 {
-	free(data->cmd_full[i]);
-	data->cmd_full[i] = ft_strdup(data->new_cmd);
+	free(data->full[i]);
+	data->full[i] = ft_strdup(data->new_cmd);
 	free(data->new_cmd);
 }
