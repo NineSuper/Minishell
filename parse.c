@@ -6,64 +6,93 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/20 15:55:09 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:53:09 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_parsing(t_data *data, char *prompt, char **env)
+int	ft_no_built(char *str)
+{
+	if (((!ft_strncmp(str, "cd", 3)
+				|| !ft_strncmp(str, "echo", 5)
+				|| !ft_strncmp(str, "export", 7)
+				|| !ft_strncmp(str, "unset", 6)
+				|| !ft_strncmp(str, "env", 4)
+				|| !ft_strncmp(str, "pwd", 4))))
+		return (1);
+	return (0);
+}
+
+void	ft_second_parse(t_data *data)
 {
 	int	i;
-	char **parsed;
 
-	parsed = ft_split(prompt, ' ');
-	if (!parsed[0])
-		return ;
 	i = 0;
-	if (!ft_strncmp(parsed[0], "pwd", 4))
+	data->pipes = ft_calloc(data->pipenum, sizeof(int *));
+	while (i < data->pipenum - 1)
 	{
-		ft_getpwd(data);
-		ft_printf("%s\n", data->pwd);
-	}		
-	if (!ft_strncmp(parsed[0], "env", 4))
-	{
-		while (data->env_cpy[i])
-			ft_printf("%s\n", data->env_cpy[i++]);
-		i = 0;
+		data->pipes[i] = malloc(sizeof(int) * 2);
+		pipe(data->pipes[i]);
+		i++;
 	}
-	if (!ft_strncmp(parsed[0], "cd", 3))
-		ft_cd(data, prompt);
-	if (!ft_strncmp(parsed[0], "echo", 5))
-		ft_echo(data, prompt);
-	if (!ft_strncmp(parsed[0], "exit", 5))
-		ft_exit(data, prompt);
-	if (!ft_strncmp(parsed[0], "export", 7))
-		ft_export(data, prompt);
-	if (!ft_strncmp(parsed[0], "unset", 6))
-		ft_unset(data, prompt);
-	ft_freesplit(parsed);
 }
 
-void	ft_exit(t_data *data, char *prompt)
+static int	ft_fp_suite(t_data *data, int i)
 {
-	free(data->home);
-	ft_freesplit(data->env_cpy);
-	ft_freesplit(data->cmd);
-	ft_freesplit(data->cmd_full);
-	free(data->pipes);
-	free(data);
-	free(prompt);
-	//rl_clear_history();
-	exit(1);
+	char	**tmp;
+
+	tmp = ft_split(data->full[i], ' ');
+	if (tmp[0])
+		data->cmd[i] = ft_strdup(tmp[0]);
+	else
+	{
+		ft_freesplit(data->full);
+		ft_freesplit(data->cmd);
+		ft_freesplit(tmp);
+		return (0);
+	}
+	ft_freesplit(tmp);
+	return (1);
 }
 
-void	ft_freesplit(char **split)
+int	ft_first_parse(t_data *data, char *prompt)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while(split[i])
-		free(split[i++]);
-	free(split);
+	if (prompt[0])
+		if (check_quote(prompt) == 1)
+			data->full = ft_neosplit(prompt, '|', 0, 0);
+	if (prompt[0] == '\0')
+		return (0);
+	while (data->full[i])
+		i++;
+	data->pipenum = i;
+	data->cmd = ft_calloc((i + 1), sizeof(char *));
+	i = 0;
+	while (data->full[i])
+		if (!ft_fp_suite(data, i++))
+			return (0);
+	return (i);
+}
+
+void	ft_parsingg(t_data *data, char *prompt)
+{
+	if (!ft_first_parse(data, prompt))
+		return ;
+	if (data->pipenum > 1)
+		ft_second_parse(data);
+	if (data->pipenum == 1 && !ft_strncmp(data->cmd[0], "exit", 5))
+		ft_exit(data, prompt);
+	else if (data->pipenum == 1 && (ft_no_built(data->cmd[0])))
+		ft_exec(data, 0, 0);
+	else if (data->pipenum == 1)
+		single_cmd(data);
+	else
+		ft_go_pipe(data, 0);
+	dup2(data->term, 1);
+	dup2(data->termo, 0);
+	ft_freesplit(data->full);
+	ft_freesplit(data->cmd);
 }
