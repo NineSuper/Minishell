@@ -6,7 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:30:11 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 10:42:18 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:06:13 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,11 @@ char	*ft_strjoinc(char *s1, char s2)
 	str[i] = '\0';
 	free(s1);
 	return (str);
+}
+
+void	ft_pludeplass(t_data *data, int i)
+{
+	free(data->cmd_full[i]);
+	data->cmd_full[i] = ft_strdup(data->new_cmd);
+	free(data->new_cmd);
 }

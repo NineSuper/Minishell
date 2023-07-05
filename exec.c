@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:44:53 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 11:24:57 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:13:37 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,12 @@ char	*ft_chk_cmd(t_data *data, int i, int j)
 	return (NULL);
 }
 
-void	ft_exec(t_data *data, int i, int flag)
+static void	ft_suite(t_data *data, int i, int flag)
 {
 	int	j;
 
 	j = 0;
-	if (!ft_third_parse(data, i, 0))
-		exit(1);
-	if (!data->cmd[0])
-		exit(1);
-	if (!ft_strncmp(data->cmd[i], "cd", 3))
-		ft_cd(data, data->cmd_full[i]);
-	else if (!ft_strncmp(data->cmd[i], "echo", 5))
-		ft_echo(data, data->cmd_full[i]);
-	else if (!ft_strncmp(data->cmd[i], "export", 7))
-		ft_export(data, data->cmd_full[i]);
-	else if (!ft_strncmp(data->cmd[i], "unset", 6))
-		ft_unset(data, data->cmd_full[i]);
-	else if (!ft_strncmp(data->cmd[i], "env", 4))
+	if (!ft_strncmp(data->cmd[i], "env", 4))
 		while (data->env_cpy[j])
 			ft_printf("%s\n", data->env_cpy[j++]);
 	else if (!ft_strncmp(data->cmd[i], "pwd", 4))
@@ -86,6 +74,25 @@ void	ft_exec(t_data *data, int i, int flag)
 			|| !ft_strncmp(data->cmd[i], "pwd", 4))
 		&& flag == 1)
 		exit(1);
+}
+
+void	ft_exec(t_data *data, int i, int flag)
+{
+	data->new_cmd = ft_calloc(1, 1);
+	if (!ft_third_parse(data, i, 0))
+		exit(1);
+	if (!data->cmd[0])
+		exit(1);
+	if (!ft_strncmp(data->cmd[i], "cd", 3))
+		ft_cd(data, data->cmd_full[i]);
+	else if (!ft_strncmp(data->cmd[i], "echo", 5))
+		ft_echo(data, data->cmd_full[i]);
+	else if (!ft_strncmp(data->cmd[i], "export", 7))
+		ft_export(data, data->cmd_full[i]);
+	else if (!ft_strncmp(data->cmd[i], "unset", 6))
+		ft_unset(data, data->cmd_full[i]);
+	else
+		ft_suite(data, i, flag);
 }
 
 void	ft_execve(t_data *data, int i)
