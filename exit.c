@@ -27,7 +27,7 @@ static void	ft_exit_free(t_data *data)
 void	ft_exit(t_data *data, char *prompt)
 {
 	char	**sp;
-	int	exit_code;
+	int		exit_code;
 
 	exit_code = 0;
 	if (prompt)
