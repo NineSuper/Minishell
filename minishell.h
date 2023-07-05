@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/04 11:58:59 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:06:45 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 	int		env_len;
 	char	*home;
 	char	**cmd;
-	char	**cmd_full;
+	char	**full;
 	char	*arg;
 	char	*new_cmd;
 	int		pipenum;
@@ -108,5 +108,6 @@ void	ft_getpath(t_data *data);
 char	*ft_strjoinfree(char *s1, char *s2);
 void	ft_go_pipe(t_data *data, int i);
 void	single_cmd(t_data *data);
+void	ft_pludeplass(t_data *data, int i);
 
 #endif
