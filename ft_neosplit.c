@@ -1,26 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_neosplit.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 10:29:54 by jcasades         ###   ########.fr       */
-=======
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-<<<<<<<< HEAD:ft_neosplit.c
-/*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 14:29:27 by ltressen         ###   ########.fr       */
-========
-/*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/03 15:37:19 by jcasades         ###   ########.fr       */
->>>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8:mini_utilis.c
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -100,15 +77,7 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 
 	split = malloc(((count_words(str, c, 0, 0) + 1) * sizeof(char *)));
 	index = -1;
-<<<<<<< HEAD
 	while ((size_t)++i <= ft_strlen(str))
-=======
-<<<<<<<< HEAD:ft_neosplit.c
-	while ((size_t)i <= ft_strlen(str))
-========
-	while ((size_t)++i <= ft_strlen(str))
->>>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8:mini_utilis.c
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 	{
 		if (str[i] != c && index < 0)
 			index = i;
@@ -117,9 +86,6 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 			d = str[i++];
 			while (str[i] != d)
 				i++;
-<<<<<<< HEAD
-=======
-<<<<<<<< HEAD:ft_neosplit.c
 		}
 		else if ((str[i] == c || (size_t)i == ft_strlen(str)) && index >= 0)
 		{
@@ -127,19 +93,6 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 			index = -1;
 		}
 		i++;
-========
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
-		}
-		else if ((str[i] == c
-				|| (size_t)i == ft_strlen(str)) && index >= 0)
-		{
-			split[j++] = word_dup(str, index, i);
-			index = -1;
-		}
-<<<<<<< HEAD
-=======
->>>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8:mini_utilis.c
->>>>>>> 0818ad934bc4e728a12667a9ed7a27be4d9e24d8
 	}
 	split[j] = 0;
 	return (split);
