@@ -78,7 +78,7 @@ comp_start:
 
 clean:
 	$(CLEANED)
-	rm -f $(NAME) $(OBJ) *~ core *.core
+	rm -f $(OBJ) *~ core *.core
 
 fclean: 
 	rm -f $(NAME) $(OBJ) *~ core *.core
