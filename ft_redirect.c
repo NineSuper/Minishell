@@ -21,15 +21,15 @@ int	ft_opentrunk(t_data *data, int i, int j)
 
 	j++;
 	l = 0;
-	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
 	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
 	cmd = malloc(j - k + 1);
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+	while (data->full[i][k] != ' ' && data->full[i][k])
 	{
-		cmd[l] = data->cmd_full[i][k];
+		cmd[l] = data->full[i][k];
 		l++;
 		k++;
 	}
@@ -50,15 +50,15 @@ int	ft_openapp(t_data *data, int i, int j)
 
 	j += 2;
 	l = 0;
-	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
 	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
 	cmd = malloc(j - k + 1);
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
+	while (data->full[i][k] != ' ' && data->full[i][k])
 	{
-		cmd[l] = data->cmd_full[i][k];
+		cmd[l] = data->full[i][k];
 		l++;
 		k++;
 	}
@@ -76,14 +76,14 @@ int	ft_limit(t_data *data, int i, int j, int l)
 	char	*cmd;
 	char	*new_prompt;
 
-	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
 	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
 	cmd = malloc(j - k + 1);
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-		cmd[l++] = data->cmd_full[i][k++];
+	while (data->full[i][k] != ' ' && data->full[i][k])
+		cmd[l++] = data->full[i][k++];
 	cmd[l] = '\0';
 	if (!cmd[0])
 	{
@@ -105,14 +105,14 @@ int	ft_input(t_data *data, int i, int j, int l)
 	char	*cmd;
 	int		fd;
 
-	while (data->cmd_full[i][j] == ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
 	k = j;
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j])
+	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
 	cmd = malloc(j - k + 1);
-	while (data->cmd_full[i][k] != ' ' && data->cmd_full[i][k])
-		cmd[l++] = data->cmd_full[i][k++];
+	while (data->full[i][k] != ' ' && data->full[i][k])
+		cmd[l++] = data->full[i][k++];
 	cmd[l] = '\0';
 	fd = open(cmd, O_RDONLY);
 	if (fd < 0)

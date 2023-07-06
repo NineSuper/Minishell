@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/03 17:54:34 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/05 14:56:39 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data				*data;
 	char				*prompt;
-	struct sigaction	sig;
-
+	struct sigaction		sig;
+	
 	(void)argc;
 	(void)argv;
 	sig.sa_handler = ft_ctrl_c;
