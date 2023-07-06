@@ -2,7 +2,25 @@ INC=/usr/include
 INCLIB=$(INC)/../lib
 
 NAME = minishell
-SRC = main.c exec.c exit.c ft_neosplit.c utils.c pipe.c trolon.c ft_pwd.c ft_env.c ft_cd.c parse.c ft_export.c ft_prompt.c ft_echo.c ft_cmds.c ft_reparg.c ft_redirect.c ft_unset.c
+SRC = main.c \
+		exit.c \
+		exec.c \
+		ft_cd.c \
+		ft_cmds.c \
+		ft_echo.c \
+		ft_env.c \
+		ft_export.c \
+		ft_neosplit.c \
+		ft_prompt.c \
+		ft_pwd.c \
+		ft_redirect.c \
+		ft_reparg.c \
+		ft_unset.c \
+		parse.c \
+		pipe.c \
+		utils.c \
+		trolon.c \
+
 OBJ = $(SRC:.c=.o)
 CC = gcc
 
@@ -29,13 +47,13 @@ COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de c
 
 EXE_READY       =       echo "\n\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
-CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o \n"
+CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
 FCLEANED        =       echo "\n🧼 $(BOLD_YELLOW)Fclean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
-NORM			= 		echo "\n📢 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme de tous les fichiers en .c ! \n$(BOLD_PURPLE)"
+NORM			= 		echo "\n📢 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme de tous les fichiers en .c !\n$(BOLD_PURPLE)"
 
-NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme du .h \n$(BOLD_PURPLE)"
+NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme du .h\n$(BOLD_PURPLE)"
 
 # ------------------------------ Rules ------------------------------
 MAKEFLAGS += --silent
@@ -60,7 +78,7 @@ comp_start:
 
 clean:
 	$(CLEANED)
-	rm -f $(OBJ) *~ core *.core
+	rm -f $(NAME) $(OBJ) *~ core *.core
 
 fclean: 
 	rm -f $(NAME) $(OBJ) *~ core *.core

@@ -66,6 +66,8 @@ int	ft_first_parse(t_data *data, char *prompt)
 			data->full = ft_neosplit(prompt, '|', 0, 0);
 	if (prompt[0] == '\0')
 		return (0);
+	if (!check_quote(prompt))
+		return (0);
 	while (data->full[i])
 		i++;
 	data->pipenum = i;
