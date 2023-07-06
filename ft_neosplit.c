@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 14:29:27 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:39:31 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 	{
 		if (str[i] != c && index < 0)
 			index = i;
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == 34 || str[i] == 39 || str[i] == 7)
 		{
 			d = str[i++];
 			while (str[i] != d)

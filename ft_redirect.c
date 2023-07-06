@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/03 14:23:02 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:05:57 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	ft_input(t_data *data, int i, int j, int l)
 	fd = open(cmd, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_error(data, "error cpt mdr\n");
+		ft_error(data, strerror(errno));
 		return (0);
 	}
 	dup2(fd, 0);

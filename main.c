@@ -6,27 +6,31 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:05:15 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/05 14:56:39 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/06 10:51:16 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_ff;
 
 void	ft_init(t_data *data, char **env)
 {
 	ft_getenv(data, env);
 	ft_getpwd(data);
 	ft_gethome(data);
+	g_ff = 0;
 	data->term = dup(1);
 	data->termo = dup(0);
+	data->errnum = 0;
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data				*data;
 	char				*prompt;
-	struct sigaction		sig;
-	
+	struct sigaction	sig;
+
 	(void)argc;
 	(void)argv;
 	sig.sa_handler = ft_ctrl_c;
