@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 14:39:31 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:28:50 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	count_words(const char *str, char c, int i, int trigger)
 				str++;
 				while (*str != d)
 					str++;
-				str++;
+				if (*str + 1 != c)
+					str++;
 				if (!*str)
 					return (i);
 			}
@@ -59,7 +60,7 @@ static int	count_words(const char *str, char c, int i, int trigger)
 				i++;
 			trigger = 1;
 		}
-		else if (*str == c)
+		if (*str == c)
 			trigger = 0;
 		str++;
 	}
@@ -106,5 +107,9 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 		i++;
 	}
 	split[j] = 0;
+	j = 0;
+	i = 0;
+	while (split[j])
+		ft_printf("%s:%d \n", split[j++], i++);
 	return (split);
 }

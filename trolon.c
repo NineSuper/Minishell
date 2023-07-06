@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 14:13:24 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:36:11 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_third_parse(t_data *data, int i, int j)
 			if (data->full[i][j])
 				data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 		}
-		else if ((data->full[i][j] == '>' || data->full[i][j] == '<') && j)
+		else if ((data->full[i][j] == '>' || data->full[i][j] == '<'))
 		{
 			j = ft_redirect(data, i, j);
 			if (j == 0)
