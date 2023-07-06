@@ -6,16 +6,7 @@
 /*   By: jcasades <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
 /*   Updated: 2023/07/04 11:26:10 by jcasades         ###   ########          */
-=======
-/*   Updated: 2023/07/05 14:14:46 by ltressen         ###   ########.fr       */
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
-=======
-/*   Updated: 2023/07/05 14:14:46 by ltressen         ###   ########.fr       */
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
-/*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -91,23 +82,14 @@ static int	ft_tp_dollar(t_data *data, int i, int j)
 			free(data->arg);
 	}
 	else
-<<<<<<< HEAD
-<<<<<<< HEAD
 		data->new_cmd = ft_strjoinfree(data->new_cmd,
 				ft_itoa(data->errnum >> 8));
-	while (data->cmd_full[i][j] != ' ' && data->cmd_full[i][j] != '"'
-			&& data->cmd_full[i][j] != '\0')
-=======
-=======
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
+	while (data->full[i][j] != ' ' && data->full[i][j] != '"'
+			&& data->full[i][j] != '\0')
 		data->new_cmd = ft_strjoinfree
 			(data->new_cmd, ft_itoa(data->errnum >> 8));
 	while (data->full[i][j] != ' '
 			&& data->full[i][j] != '"' && data->full[i][j] != '\0')
-<<<<<<< HEAD
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
-=======
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
 		j++;
 	return (j);
 }
@@ -116,15 +98,7 @@ int	ft_third_parse(t_data *data, int i, int j)
 {
 	while (data->full[i][j])
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
-		if (data->cmd_full[i][j] == ' ' && j++)
-=======
 		if (data->full[i][j] == ' ' && j++)
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
-=======
-		if (data->full[i][j] == ' ' && j++)
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
 		{
 			data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 			while (data->full[i][j] == ' ')
@@ -132,23 +106,17 @@ int	ft_third_parse(t_data *data, int i, int j)
 		}
 		else if ((data->full[i][j] == '>' || data->full[i][j] == '<') && j)
 		{
-<<<<<<< HEAD
-<<<<<<< HEAD
-			while (data->cmd_full[i][j] != '\''
-					&& data->cmd_full[i][j] != '\0')
+			while (data->full[i][j] != '\''
+					&& data->full[i][j] != '\0')
 				data->new_cmd = ft_strjoinc(data->new_cmd,
-						data->cmd_full[i][j++]);
+						data->full[i][j++]);
 			j++;
-=======
 			j = ft_redirect(data, i, j);
 			if (j == 0)
 				return (0);
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
-=======
 			j = ft_redirect(data, i, j);
 			if (j == 0)
 				return (0);
->>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
 		}
 		else if (data->full[i][j] == '\'' && j++)
 			j = ft_sgl_quote(data, i, j);
