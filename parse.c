@@ -65,10 +65,13 @@ int	ft_first_parse(t_data *data, char *prompt)
 	{
 		if (check_quote(prompt) == 1)
 <<<<<<< HEAD
+<<<<<<< HEAD
 			data->cmd_full = ft_neosplit(prompt, '|', -1, 0);
 	}
 	if (!data->cmd_full)
 =======
+=======
+>>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
 			data->full = ft_neosplit(prompt, '|', 0, 0);
 	if (prompt[0] == '\0')
 >>>>>>> 3241d2638dc1bf7d7374cb72339e62cc5185bee2
