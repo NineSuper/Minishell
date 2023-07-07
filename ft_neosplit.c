@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 18:45:12 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:34:11 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static int	count_words(const char *str, char c, int i, int trigger)
 
 	while (*str)
 	{
-		if ((*str != c && trigger == 0) || *str == 34 || *str == 39)
+		if ((*str != c && trigger == 0) || *str == 34 || *str == 39 || *str == 7)
 		{
-			if (*str == 34 || *str == 39)
+			if (*str == 34 || *str == 39 || *str == 7)
 			{
 				d = *str;
 				str++;
@@ -93,7 +93,7 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 	{
 		if (str[i] != c && index < 0)
 			index = i;
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == 34 || str[i] == 39 || str[i] == 7)
 		{
 			d = str[i++];
 			while (str[i] != d)
@@ -107,9 +107,9 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 		i++;
 	}
 	split[j] = 0;
-	j = 0;
-	i = 0;
-	while (split[j])
-		ft_printf("%s:%d \n", split[j++], i++);
+	// j = 0;
+	// i = 0;
+	// while (split[j])
+	// 	ft_printf("%s:%d \n", split[j++], i++);
 	return (split);
 }

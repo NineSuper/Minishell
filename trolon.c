@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 18:45:12 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:26:49 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	ft_redirect(t_data *data, int i, int j)
 
 static int	ft_sgl_quote(t_data *data, int i, int j)
 {
+	if (!ft_strncmp(data->cmd[i], "echo", 5))
+		data->new_cmd = ft_strjoinc(data->new_cmd, '\a');
 	while (data->full[i][j] != '\'' && data->full[i][j] != '\0')
 		data->new_cmd = ft_strjoinc
 			(data->new_cmd, data->full[i][j++]);
@@ -46,6 +48,8 @@ static int	ft_sgl_quote(t_data *data, int i, int j)
 
 static int	ft_tp_quote(t_data *data, int i, int j)
 {
+	if (!ft_strncmp(data->cmd[i], "echo", 5))
+		data->new_cmd = ft_strjoinc(data->new_cmd, '\a');
 	while (data->full[i][j] != '"' && data->full[i][j] != '\0')
 	{
 		if (data->full[i][j] == '$')
