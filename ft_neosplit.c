@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 14:39:31 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:10:04 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static int	count_words(const char *str, char c, int i, int trigger)
 
 	while (*str)
 	{
-		if ((*str != c && trigger == 0) || *str == 34 || *str == 39)
+		if ((*str != c && trigger == 0) || *str == 34 || *str == 39 || *str == 7)
 		{
-			if (*str == 34 || *str == 39)
+			if (*str == 34 || *str == 39 || *str == 7)
 			{
 				d = *str;
 				str++;

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/07 09:52:37 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/07 11:08:12 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,33 @@ int	ft_check_n(char **tab)
 // 	}
 // 	return (new_prompt);
 // }
+
+void	ft_echoing(char *str, int flag)
+{
+	int	i;
+	char	*res;
+
+	i = 0;
+	if (str[i] == '\a')
+	{
+		i++;
+		while (str[i] != '\a' && str[i])
+			i++;
+		res = malloc(i + 1);
+		ft_strlcpy(res, str + 1, i);
+		if (flag == 0)
+			ft_printf("%s ", res);
+		if (flag == 1)
+			ft_printf("%s", res);
+		free(res);
+		return ;
+	}
+	if (flag == 0)
+		ft_printf("%s ", str);
+	if (flag == 1)
+		ft_printf("%s", str);
+}
+
 int	ft_echo(t_data *data, char *prompt)
 {
 	char		**split;
@@ -124,9 +151,9 @@ int	ft_echo(t_data *data, char *prompt)
 	while (split[i])
 	{
 		if (split[i + 1])
-			ft_printf("%s ", split[i]);
+			ft_echoing(split[i], 0);
 		else
-			ft_printf("%s", split[i]);
+			ft_echoing(split[i], 1);
 		i++;
 	}
 	if (flag < 2)
