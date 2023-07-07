@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/07 09:26:49 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:13:24 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static int	ft_redirect(t_data *data, int i, int j)
 
 static int	ft_sgl_quote(t_data *data, int i, int j)
 {
-	if (!ft_strncmp(data->cmd[i], "echo", 5))
-		data->new_cmd = ft_strjoinc(data->new_cmd, '\a');
 	while (data->full[i][j] != '\'' && data->full[i][j] != '\0')
 		data->new_cmd = ft_strjoinc
 			(data->new_cmd, data->full[i][j++]);
@@ -64,14 +62,15 @@ static int	ft_tp_quote(t_data *data, int i, int j)
 			else
 				data->new_cmd = ft_strjoinfree(data->new_cmd,
 						ft_itoa(data->errnum >> 8));
-			while (data->full[i][j] != ' '
-			&& data->full[i][j] != '"')
+			while (data->full[i][j] != ' ' && data->full[i][j] != '"'
+				&& data->full[i][j] != '\'')
 				j++;
 		}
-		data->new_cmd = ft_strjoinc(data->new_cmd, data->full[i][j]);
+		if (data->full[i][j] != '"')
+			data->new_cmd = ft_strjoinc(data->new_cmd, data->full[i][j]);
 		j++;
 	}
-	return (j + 1);
+	return (j);
 }
 
 static int	ft_tp_dollar(t_data *data, int i, int j)
@@ -98,11 +97,12 @@ int	ft_third_parse(t_data *data, int i, int j)
 	{
 		if (data->full[i][j] == ' ' && j++)
 		{
-			data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 			while (data->full[i][j] == ' ')
 				j++;
+			if (data->full[i][j])
+				data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 		}
-		else if ((data->full[i][j] == '>' || data->full[i][j] == '<'))
+		else if ((data->full[i][j] == '>' || data->full[i][j] == '<') && j)
 		{
 			j = ft_redirect(data, i, j);
 			if (j == 0)

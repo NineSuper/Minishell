@@ -6,8 +6,7 @@
 
 ## 🔭 Roadmap
 
-- Mettre a la norme 42 les fichiers *.c
-- Verifier tous les cas d'erreurs possibles
+- Création du projet Minishell
 
 ## 🎮 Lance notre Minishell !
 
