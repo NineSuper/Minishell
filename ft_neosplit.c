@@ -29,7 +29,7 @@ int	check_quote(char *str)
 			str++;
 			while (*str && *str != 39)
 				str++;
-			if (!str)
+			if (!*str)
 				return (0);
 		}
 		str++;
