@@ -38,15 +38,6 @@ void	ft_exit(t_data *data, char *prompt)
 		free(prompt);
 		ft_freesplit(sp);
 	}
-	else
-	{
-		free(data->home);
-		free(data->pwd);
-		free(data->path);
-		ft_freesplit(data->env_cpy);
-		free(data);
-		exit(exit_code);
-	}
 	ft_exit_free(data);
 	exit(exit_code);
 }
