@@ -19,18 +19,20 @@ void	ft_env_alpha(t_data *data)
 	int		pos;
 	char	**new_cpy;
 
-	i = -1;
-	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
-	while (++i < data->env_len)
+	i = 0;
+	new_cpy = ft_calloc((data->env_len), sizeof(char *));
+	while (data->env_cpy[i])
 	{
 		pos = 0;
-		j = -1;
-		while (++j < data->env_len)
+		j = 0;
+		while (data->env_cpy[j])
 		{
-			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], 10000) > 0)
+			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], (ft_strlen(data->env_cpy[j]) + 1)) > 0)
 				pos++;
+			j++;
 		}
 		new_cpy[pos] = ft_strdup(data->env_cpy[i]);
+		i++;
 	}
 	i = -1;
 	while (++i < data->env_len)

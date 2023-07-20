@@ -109,10 +109,12 @@ void	ft_execve(t_data *data, int i)
 		{
 			data->errnum = errno >> 8;
 			free(cmd);
+			ft_exit_free(data);
 			exit(data->errnum);
 		}
 		data->errnum = 0;
 		free(cmd);
+		ft_exit_free(data);
 		exit(data->errnum);
 	}
 	else

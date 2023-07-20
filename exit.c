@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	ft_exit_free(t_data *data)
+void	ft_exit_free(t_data *data)
 {
 	free(data->home);
 	free(data->path);
@@ -38,6 +38,16 @@ void	ft_exit(t_data *data, char *prompt)
 		free(prompt);
 		ft_freesplit(sp);
 		ft_printf("exit\n");
+	}
+	else
+	{
+		free(data->home);
+		free(data->pwd);
+		free(data->path);
+		ft_freesplit(data->env_cpy);
+		free(data);
+		ft_printf("exit\n");
+		exit(exit_code);
 	}
 	ft_exit_free(data);
 	exit(exit_code);

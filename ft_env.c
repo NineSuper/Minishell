@@ -19,7 +19,7 @@ void	ft_getenv(t_data *data, char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	data->env_len = i;
+	data->env_len = i;	
 	data->env_cpy = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while (env[i])
@@ -55,7 +55,11 @@ void	ft_getpath(t_data *data)
 	while (data->env_cpy[i])
 	{
 		if (!ft_strncmp("PATH=", data->env_cpy[i], 5))
+		{
+			if (data->path != NULL)
+				free(data->path);
 			data->path = ft_strdup(data->env_cpy[i] + 5);
+		}
 		i++;
 	}
 }

@@ -77,6 +77,7 @@ void	ft_cd(t_data *data, char *prompt);
 void	ft_gethome(t_data *data);
 int		ft_echo(t_data *data, char *prompt);
 void	ft_exit(t_data *data, char *prompt);
+void	ft_exit_free(t_data *data);
 void	ft_freesplit(char **split);
 void	ft_export(t_data *data, char *prompt);
 void	ft_new_export(t_data *data, char *c);

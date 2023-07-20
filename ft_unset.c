@@ -18,13 +18,16 @@ void	ft_cpy_env(t_data *data, int i)
 	int		j;
 	int		k;
 
-	unset_cpy = ft_calloc(data->env_len + 1, sizeof(char *));
+	unset_cpy = ft_calloc(data->env_len, sizeof(char *));
 	j = 0;
 	k = 0;
 	while (data->env_cpy[j])
 	{
 		if (i == j)
+		{	
 			j++;
+			data->env_len--;
+		}
 		if (data->env_cpy[j])
 			unset_cpy[k++] = ft_strdup(data->env_cpy[j++]);
 	}
@@ -43,6 +46,7 @@ int	ft_arg_unset(t_data *data, char *arg)
 			break ;
 	if (data->env_cpy[i])
 		ft_cpy_env(data, i);
+	free(arg);
 	return (0);
 }
 
