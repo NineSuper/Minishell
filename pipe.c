@@ -59,7 +59,7 @@ void	ft_go_pipe(t_data *data, int i)
 	}
 	close_pipes(data);
 	i = 0;
-	while (i < data->pipenum - 1)
+	while (i < data->pipenum)
 	{
 		waitpid(-1, &data->errnum, 0);
 		i++;
