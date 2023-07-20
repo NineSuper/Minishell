@@ -37,6 +37,7 @@ void	ft_exit(t_data *data, char *prompt)
 			exit_code = ft_atoi(sp[1]);
 		free(prompt);
 		ft_freesplit(sp);
+		ft_printf("exit\n");
 	}
 	else
 	{
@@ -45,6 +46,7 @@ void	ft_exit(t_data *data, char *prompt)
 		free(data->path);
 		ft_freesplit(data->env_cpy);
 		free(data);
+		ft_printf("exit\n");
 		exit(exit_code);
 	}
 	ft_exit_free(data);
