@@ -52,14 +52,22 @@ pid_t	ft_piping(t_data *data, int i)
 
 void	ft_go_pipe(t_data *data, int i)
 {
+	int	j;
+
+	j = 0;
 	while (data->full[i])
 	{
-		ft_piping(data, i);
+		if (!ft_strncmp(data->full[i], "cd", 3) || !ft_strncmp(data->full[i], " cd ", 4) || !ft_strncmp(data->full[i], " cd", 3) || !ft_strncmp(data->full[i], "cd ", 3))
+		{
+			j++;
+		}
+		else
+			ft_piping(data, i);
 		i++;
 	}
 	close_pipes(data);
 	i = 0;
-	while (i < data->pipenum)
+	while (i < data->pipenum - 1)
 	{
 		waitpid(-1, &data->errnum, 0);
 		i++;

@@ -39,16 +39,6 @@ void	ft_exit(t_data *data, char *prompt)
 		ft_freesplit(sp);
 		ft_printf("exit\n");
 	}
-	else
-	{
-		free(data->home);
-		free(data->pwd);
-		free(data->path);
-		ft_freesplit(data->env_cpy);
-		free(data);
-		ft_printf("exit\n");
-		exit(exit_code);
-	}
 	ft_exit_free(data);
 	exit(exit_code);
 }
