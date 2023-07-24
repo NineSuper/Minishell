@@ -45,18 +45,18 @@ static int	count_words(const char *str, char c, int i, int trigger)
 	{
 		if ((*str != c && trigger == 0) || *str == 34 || *str == 39 || *str == 7)
 		{
+			if (trigger == 0)
+				i++;
 			if (*str == 34 || *str == 39 || *str == 7)
 			{
 				d = *str;
 				str++;
-				while (*str != d)
+				while (*str && *str != d)
 					str++;
 				str++;
 				if (!*str)
 					return (i);
 			}
-			if (trigger == 0)
-				i++;
 			trigger = 1;
 		}
 		else if (*str == c)
@@ -95,7 +95,7 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 		if (str[i] == 34 || str[i] == 39 || str[i] == 7)
 		{
 			d = str[i++];
-			while (str[i] != d)
+			while (str[i] && str[i] != d)
 				i++;
 		}
 		else if ((str[i] == c || (size_t)i == ft_strlen(str)) && index >= 0)
