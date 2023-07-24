@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/07 11:08:12 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:45:36 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ int	ft_check_n(char **tab)
 void	ft_echoing(char *str, int flag)
 {
 	int	i;
-	char	*res;
+//	char	*res;
 
 	i = 0;
-	if (str[i] == '\a')
+/*	if (str[i] == '\a')
 	{
 		i++;
 		while (str[i] != '\a' && str[i])
@@ -128,10 +128,17 @@ void	ft_echoing(char *str, int flag)
 		free(res);
 		return ;
 	}
+	*/
+	while (str[i])
+	{
+		if (str[i] != '\a')
+			ft_printf("%c", str[i]);
+		i++;
+	}
 	if (flag == 0)
-		ft_printf("%s ", str);
-	if (flag == 1)
-		ft_printf("%s", str);
+	 	ft_printf(" ", str);
+	// if (flag == 1)
+	// 	ft_printf("%s", str);
 }
 
 int	ft_echo(t_data *data, char *prompt)
