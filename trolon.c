@@ -65,7 +65,7 @@ static int	ft_tp_quote(t_data *data, int i, int j)
 			}
 			else
 				data->new_cmd = ft_strjoinfree(data->new_cmd,
-						ft_itoa(data->errnum >> 8));
+						data->errnuma);
 			while (data->full[i][j] != ' ' && data->full[i][j] != '"'
 				&& data->full[i][j] != '\'')
 				j++;
@@ -93,7 +93,7 @@ static int	ft_tp_dollar(t_data *data, int i, int j)
 	}
 	else
 		data->new_cmd = ft_strjoinfree
-			(data->new_cmd, ft_itoa(data->errnum >> 8));
+			(data->new_cmd, data->errnuma);
 	return (j + 2);
 	
 }

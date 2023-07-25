@@ -118,6 +118,11 @@ void	ft_cd(t_data *data, char *prompt)
 	pwd_cpy = ft_strdup(data->pwd);
 	if (!parse[1])
 		chdir(data->home);
+	else if (parse[2])
+	{
+		ft_printf("cd: too many arguments\n");
+		data->errnum = 1;
+	}
 	else if (parse[1][0] != '$')
 	{
 		if (parse[1][0] == '~' && parse[1][1] == '\0')
@@ -126,7 +131,10 @@ void	ft_cd(t_data *data, char *prompt)
 			ft_arg_cd(data, parse[1], pwd_cpy);
 		else
 			if (chdir(parse[1]) == -1)
+			{
 				ft_printf("cd: no such file or directory: %s\n", parse[1]);
+				data->errnum = 1;
+			}
 	}
 	else
 		ft_arg_cd(data, parse[1], pwd_cpy);

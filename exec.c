@@ -83,10 +83,15 @@ static void	ft_suite(t_data *data, int i, int flag)
 void	ft_exec(t_data *data, int i, int flag)
 {
 	data->new_cmd = ft_calloc(1, 1);
+	if (data->errnuma)
+		free(data->errnuma);
+	data->errnuma = ft_itoa(data->errnum);
 	if (!ft_third_parse(data, i, 0))
-		exit(0);
+		exit(1);
+		//ft_exit(data, data->full[i]);
 	if (!data->cmd[0])
-		exit(0);
+		exit(1);
+		//ft_exit(data, data->full[i]);
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 		ft_cd(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))

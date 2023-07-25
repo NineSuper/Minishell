@@ -35,11 +35,17 @@ void	ft_exit(t_data *data, char *prompt)
 		sp = ft_split(data->full[0], ' ');
 		if (sp[1])
 			exit_code = ft_atoi(sp[1]);
+		if (sp[2])
+		{
+			ft_printf("exit: too many arguments\n");
+			return ;
+		}
 		free(prompt);
 		ft_freesplit(sp);
 	}
 	else
 	{
+		exit_code = data->errnum;
 		free(data->home);
 		free(data->pwd);
 		free(data->path);
@@ -50,3 +56,4 @@ void	ft_exit(t_data *data, char *prompt)
 	ft_exit_free(data);
 	exit(exit_code);
 }
+

@@ -65,6 +65,7 @@ typedef struct s_data
 	int		old_pipe[2];
 	int		new_pipe[2];
 	int		errnum;
+	char	*errnuma;
 	char	*path;
 	t_arg	args;
 }	t_data;
