@@ -19,6 +19,7 @@ SRC = main.c \
 		parse.c \
 		pipe.c \
 		utils.c \
+		utilis.c \
 		trolon.c \
 
 OBJ = $(SRC:.c=.o)

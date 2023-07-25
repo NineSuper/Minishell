@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/24 14:03:29 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:17:06 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_quote(char *str)
 			str++;
 			while (*str && *str != 39)
 				str++;
-			if (!str)
+			if (!*str)
 				return (0);
 		}
 		str++;

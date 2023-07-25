@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/24 14:49:08 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:04:26 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static int	ft_tp_quote(t_data *data, int i, int j)
 					free(data->arg);
 			}
 			else
-				data->new_cmd = ft_strjoinfree(data->new_cmd,
-						data->errnuma);
+				data->new_cmd = ft_strjoinfrfr(data->new_cmd,
+						ft_itoa(data->errnum >> 8));
 			while (data->full[i][j] != ' ' && data->full[i][j] != '"'
 				&& data->full[i][j] != '\'')
 				j++;
@@ -92,8 +92,8 @@ static int	ft_tp_dollar(t_data *data, int i, int j)
 		return (j);
 	}
 	else
-		data->new_cmd = ft_strjoinfree
-			(data->new_cmd, data->errnuma);
+		data->new_cmd = ft_strjoinfrfr
+			(data->new_cmd, ft_itoa(data->errnum >> 8));
 	return (j + 2);
 	
 }
