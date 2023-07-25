@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/06/30 10:25:30 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:12:06 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,36 @@
 
 void	ft_check_pwd(t_data *data, char *str)
 {
-	char	**env_cpy;
-	int		i;
+	int		j;
 
-	i = -1;
-	while (data->env_cpy[++i])
-		if (!ft_strncmp(data->env_cpy[i], str, ft_strlen(str)))
-			return ;
-	env_cpy = ft_calloc(data->env_len + 1, sizeof(char *));
-	i = -1;
-	while (data->env_cpy[++i])
-		env_cpy[i] = data->env_cpy[i];
-	env_cpy[i] = str;
-	data->env_cpy = env_cpy;
+	j = 0;
+	while (data->env_cpy[j])
+	{
+		if (!strncmp(data->env_cpy[j], str, ft_lenvar(str) + 1))
+		{
+			free(data->env_cpy[j]);
+			data->env_cpy[j] = ft_strdup(str);
+			break ;
+		}
+		j++;
+	}
+	if (!data->env_cpy[j])
+		ft_new_export(data, str);
+	free(str);
+	//char	**env_cpy;
+	// int		i;
+
+	// i = -1;
+	// while (data->env_cpy[++i])
+	// 	if (!ft_strncmp(data->env_cpy[i], str, ft_strlen(str)))
+	// 		return ;
+	// ft_new_export(data, str);
+	// env_cpy = ft_calloc(data->env_len + 1, sizeof(char *));
+	// i = -1;
+	// while (data->env_cpy[++i])
+	// 	env_cpy[i] = data->env_cpy[i];
+	// env_cpy[i] = ft_strdup(str);
+	// data->env_cpy = env_cpy;
 }
 
 void	ft_changepwd(t_data *data, char *old_pwd)
@@ -46,46 +63,46 @@ void	ft_changepwd(t_data *data, char *old_pwd)
 		if (!ft_strncmp(data->env_cpy[i], "PWD", 3))
 		{
 			free(data->env_cpy[i]);
-			data->env_cpy[i] = str;
+			data->env_cpy[i] = ft_strdup(str);
 		}
 		if (!ft_strncmp(data->env_cpy[i], "OLDPWD", 6))
 		{
 			free(data->env_cpy[i]);
-			data->env_cpy[i] = str2;
+			data->env_cpy[i] = ft_strdup(str2);
 		}
 	}
 	ft_check_pwd(data, str);
 	ft_check_pwd(data, str2);
 }
 
-void	ft_dollar_cd(t_data *data, char *arg)
-{
-	int	i;
-	int	j;
+// void	ft_dollar_cd(t_data *data, char *arg)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 1;
-	j = 0;
-	while (arg[i] == '$')
-		i++;
-	if (i != 1)
-		ft_printf("cd: no such file or directory: %s\n", arg);
-	arg++;
-	arg = ft_strjoin(arg, "=");
-	while (data->env_cpy[i])
-	{
-		if (!ft_strncmp(data->env_cpy[i], arg, ft_strlen(arg)))
-		{
-			while (data->env_cpy[i][j] != '=')
-				j++;
-			if (chdir(data->env_cpy[i] + j + 1) == -1)
-				ft_printf("cd: no such file or directory: %s\n", \
-					data->env_cpy[i] + j + 1);
-			return ;
-		}
-		i++;
-	}
-	chdir(data->home);
-}
+// 	i = 1;
+// 	j = 0;
+// 	while (arg[i] == '$')
+// 		i++;
+// 	if (i != 1)
+// 		ft_printf("cd: no such file or directory: %s\n", arg);
+// 	arg++;
+// 	arg = ft_strjoin(arg, "=");
+// 	while (data->env_cpy[i])
+// 	{
+// 		if (!ft_strncmp(data->env_cpy[i], arg, ft_strlen(arg)))
+// 		{
+// 			while (data->env_cpy[i][j] != '=')
+// 				j++;
+// 			if (chdir(data->env_cpy[i] + j + 1) == -1)
+// 				ft_printf("cd: no such file or directory: %s\n", 
+// 					data->env_cpy[i] + j + 1);
+// 			return ;
+// 		}
+// 		i++;
+// 	}
+// 	chdir(data->home);
+// }
 
 void	ft_arg_cd(t_data *data, char *arg, char *pwd_copy)
 {
@@ -94,8 +111,8 @@ void	ft_arg_cd(t_data *data, char *arg, char *pwd_copy)
 		ft_printf("cd: no such file or directory: %s\n", arg);
 		return ;
 	}
-	else if (arg[0] == '$')
-		ft_dollar_cd(data, arg);
+	// else if (arg[0] == '$')
+	// 	ft_dollar_cd(data, arg);
 	else
 	{
 		chdir(data->home);
