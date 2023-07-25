@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/25 12:33:12 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:10:52 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_data
 {
 	char	*pwd;
 	char	**env_cpy;
-	char	**env_exec;
 	int		env_len;
 	char	*home;
 	char	**cmd;
@@ -66,7 +65,6 @@ typedef struct s_data
 	int		old_pipe[2];
 	int		new_pipe[2];
 	int		errnum;
-	char	*errnuma;
 	char	*path;
 	t_arg	args;
 }	t_data;
