@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:31:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/03 12:21:49 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:50:58 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_getenv(t_data *data, char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	data->env_len = i;	
+	data->env_len = i;
 	data->env_cpy = ft_calloc(i + 1, sizeof(char *));
 	i = 0;
 	while (env[i])
@@ -27,7 +27,6 @@ void	ft_getenv(t_data *data, char **env)
 		data->env_cpy[i] = ft_strdup(env[i]);
 		i++;
 	}
-	ft_getpath(data);
 }
 
 void	ft_gethome(t_data *data)
@@ -56,10 +55,10 @@ void	ft_getpath(t_data *data)
 	{
 		if (!ft_strncmp("PATH=", data->env_cpy[i], 5))
 		{
-			if (data->path != NULL)
-				free(data->path);
 			data->path = ft_strdup(data->env_cpy[i] + 5);
+			return ;
 		}
 		i++;
 	}
+	data->path = ft_calloc(1, 1);
 }

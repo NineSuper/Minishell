@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/04 10:40:53 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:09:59 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,18 @@ void	ft_env_alpha(t_data *data)
 	int		pos;
 	char	**new_cpy;
 
-	i = 0;
+	i = -1;
 	new_cpy = ft_calloc((data->env_len), sizeof(char *));
-	while (data->env_cpy[i])
+	while (++i < data->env_len)
 	{
 		pos = 0;
-		j = 0;
-		while (data->env_cpy[j])
+		j = -1;
+		while (++j < data->env_len)
 		{
-			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], (ft_strlen(data->env_cpy[j]) + 1)) > 0)
+			if (ft_strncmp(data->env_cpy[i], data->env_cpy[j], 10000) > 0)
 				pos++;
-			j++;
 		}
 		new_cpy[pos] = ft_strdup(data->env_cpy[i]);
-		i++;
 	}
 	i = -1;
 	while (++i < data->env_len)
@@ -80,7 +78,7 @@ void	ft_export(t_data *data, char *prompt)
 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i]) + 1))
 			{
 				free(data->env_cpy[j]);
-				data->env_cpy[j] = sp[i];
+				data->env_cpy[j] = ft_strdup(sp[i]);
 				break ;
 			}
 			j++;

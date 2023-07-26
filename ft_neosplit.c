@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/07 11:10:04 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:37:56 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,31 @@ int	check_quote(char *str)
 	return (1);
 }
 
-static int	count_words(const char *str, char c, int i, int trigger)
+static int	count_words(const char *s, char c, int i, int trigger)
 {
 	char	d;
 
-	while (*str)
+	while (*s)
 	{
-		if ((*str != c && trigger == 0) || *str == 34 || *str == 39 || *str == 7)
+		if ((*s != c && trigger == 0) || *s == 34 || *s == 39 || *s == 7)
 		{
 			if (trigger == 0)
 				i++;
-			if (*str == 34 || *str == 39 || *str == 7)
+			if (*s == 34 || *s == 39 || *s == 7)
 			{
-				d = *str;
-				str++;
-				while (*str && *str != d)
-					str++;
-				str++;
-				if (!*str)
+				d = *s;
+				s++;
+				while (*s != d)
+					s++;
+				s++;
+				if (!*s)
 					return (i);
 			}
 			trigger = 1;
 		}
-		else if (*str == c)
+		if (*s && *s == c)
 			trigger = 0;
-		str++;
+		s++;
 	}
 	return (i);
 }
@@ -88,14 +88,14 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 
 	split = malloc(((count_words(str, c, 0, 0) + 1) * sizeof(char *)));
 	index = -1;
-	while ((size_t)i <= ft_strlen(str))
+	while (j < (count_words(str, c, 0, 0)))
 	{
 		if (str[i] != c && index < 0)
 			index = i;
 		if (str[i] == 34 || str[i] == 39 || str[i] == 7)
 		{
 			d = str[i++];
-			while (str[i] && str[i] != d)
+			while (str[i] != d && str[i])
 				i++;
 		}
 		else if ((str[i] == c || (size_t)i == ft_strlen(str)) && index >= 0)

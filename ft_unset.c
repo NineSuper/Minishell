@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:35:30 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/06/29 13:52:54 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:28:15 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_cpy_env(t_data *data, int i)
 	while (data->env_cpy[j])
 	{
 		if (i == j)
-		{	
+		{
 			j++;
 			data->env_len--;
 		}
@@ -60,7 +60,7 @@ int	ft_unset(t_data *data, char *prompt)
 	if (!split[1])
 	{
 		ft_freesplit(split);
-		return (printf("unset: not enough arguments\n"));
+		return (0);
 	}
 	while (split[++i])
 		ft_arg_unset(data, split[i]);

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:44:53 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/06 12:11:25 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:49:35 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*ft_chk_cmd(t_data *data, int i, int j)
 
 	if (data->full[i][j] == '.' || data->full[i][j] == '/')
 		return (data->cmd[i]);
+	ft_getpath(data);
 	spt = ft_split(data->path, ':');
 	j = -1;
 	while (spt[++j])
@@ -84,9 +85,9 @@ void	ft_exec(t_data *data, int i, int flag)
 {
 	data->new_cmd = ft_calloc(1, 1);
 	if (!ft_third_parse(data, i, 0))
-		exit(0);
+		exit(1);
 	if (!data->cmd[0])
-		exit(0);
+		exit(1);
 	if (!ft_strncmp(data->cmd[i], "cd", 3))
 		ft_cd(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "echo", 5))
@@ -109,12 +110,10 @@ void	ft_execve(t_data *data, int i)
 		{
 			data->errnum = errno >> 8;
 			free(cmd);
-			ft_exit_free(data);
 			exit(data->errnum);
 		}
 		data->errnum = 0;
 		free(cmd);
-		ft_exit_free(data);
 		exit(data->errnum);
 	}
 	else

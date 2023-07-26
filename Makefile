@@ -19,6 +19,7 @@ SRC = main.c \
 		parse.c \
 		pipe.c \
 		utils.c \
+		utilis.c \
 		trolon.c \
 
 OBJ = $(SRC:.c=.o)
@@ -47,7 +48,7 @@ COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de c
 
 EXE_READY       =       echo "\n\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
-CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o \n"
+CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
 FCLEANED        =       echo "\n🧼 $(BOLD_YELLOW)Fclean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
@@ -78,13 +79,13 @@ comp_start:
 
 clean:
 	$(CLEANED)
-	rm -f $(OBJ) *~ core *.core
+	rm -f $(NAME) $(OBJ) *~ core *.core
 
 fclean: 
 	rm -f $(NAME) $(OBJ) *~ core *.core
 	$(FCLEANED)
 
-re: fclean all clean
+re: clean all
 
 %.o: %.c
 	@printf "🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Compilation des fichiers : %-33.33s\r$(NO_COLOR)" $@
