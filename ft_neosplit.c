@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:29:48 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/24 14:03:29 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:37:56 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,31 @@ int	check_quote(char *str)
 	return (1);
 }
 
-static int	count_words(const char *str, char c, int i, int trigger)
+static int	count_words(const char *s, char c, int i, int trigger)
 {
 	char	d;
 
-	while (*str)
+	while (*s)
 	{
-		if ((*str != c && trigger == 0) || *str == 34 || *str == 39 || *str == 7)
-		{	
+		if ((*s != c && trigger == 0) || *s == 34 || *s == 39 || *s == 7)
+		{
 			if (trigger == 0)
 				i++;
-			if (*str == 34 || *str == 39 || *str == 7)
+			if (*s == 34 || *s == 39 || *s == 7)
 			{
-				d = *str;
-				str++;
-				while (*str != d)
-					str++;
-				str++;
-				if (!*str)
+				d = *s;
+				s++;
+				while (*s != d)
+					s++;
+				s++;
+				if (!*s)
 					return (i);
 			}
-
 			trigger = 1;
 		}
-		if (*str && *str == c)
+		if (*s && *s == c)
 			trigger = 0;
-		//ft_printf("%c\n", *str);
-		str++;
+		s++;
 	}
 	return (i);
 }
@@ -108,11 +106,5 @@ char	**ft_neosplit(char *str, char c, int i, int j)
 		i++;
 	}
 	split[j] = 0;
-	// j = 0;
-	// while (split[j])
-	// {
-	// 	ft_printf("%s$\n", split[j++]);
-	// }
-	//ft_printf("%d\n",(count_words(str, c, 0, 0)));
 	return (split);
 }

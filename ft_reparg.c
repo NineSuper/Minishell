@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 16:35:29 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/06 13:14:40 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:47:19 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ char	*ft_reparg(t_data *data, int i, int j)
 	char	*res;
 	int		k;
 
-	k = j;
+	k = j + 1;
 	if (data->full[i][j + 1] == ' ' || data->full[i][j + 1] == '"'
 	|| !data->full[i][j + 1])
 		return (ft_strdup("$"));
 	while (data->full[i][j] != ' ' && data->full[i][j])
 		j++;
-	res = malloc(j - k + 1);
+	res = malloc(j - k + 2);
 	j = 0;
-	k++;
 	while (data->full[i][k] != ' ' && data->full[i][k] != '"'
 		&& data->full[i][k] != '\'' && data->full[i][k])
 		res[j++] = data->full[i][k++];

@@ -6,23 +6,12 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/24 14:45:36 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:50:47 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	ft_check_n(char *prompt, int i)
-// {
-// 	while (prompt[i] == 'n')
-// 		i++;
-// 	while (prompt[i] == ' ')
-// 		i++;
-// 	if (!(prompt[i] == '-' && prompt[i + 1] == 'n'))
-// 		return (i);
-// 	else
-// 		return (ft_check_n(prompt, i + 1));
-// }
 int	ft_check_n(char **tab)
 {
 	int	i;
@@ -44,91 +33,12 @@ int	ft_check_n(char **tab)
 	}
 	return (i);
 }
-// int	check_arg(char	*prompt, int i)
-// {
-// 	if (prompt[i] == 'n')
-// 		return (1);
-// 	return (0);
-// }
-// char	*ft_new_prompt_n(char *prompt)
-// {
-// 	int	j;
-// 	char	*new_prompt;
-// 	int	trigger;
-
-// 	j = 0;
-// 	trigger = 0;
-// 	new_prompt = ft_calloc(1, 1);
-// 	while (prompt[j] != '\a' && prompt[j])
-// 		j++;
-// 	while (prompt[j])
-// 	{
-// 		if (prompt[j] == '\a' && trigger == 0)
-// 		{
-// 			trigger = 1;
-// 			j++;
-// 		}	
-// 		if (prompt[j] == '\a' && trigger == 1)
-// 		{
-// 			j++;
-// 			trigger = 0;
-// 		}
-// 		new_prompt = ft_strjoinc(new_prompt, prompt[j]);
-// 		j++;
-// 	}
-// 	if (trigger == 0)
-// 		return (new_prompt);	
-// 	return (NULL);
-// }
-
-// char	*ft_new_prompt(char *prompt)
-// {
-// 	int	i;
-// 	char	*new_prompt;
-
-// 	i = 0;
-// 	new_prompt = ft_calloc(1, 1);
-// 	if (prompt[i] == ' ')
-// 		i++;
-// 	while (prompt[i] != ' ' && prompt[i])
-// 		i++;
-// 	if (prompt[i])
-// 		i++;
-// 	while (prompt[i])
-// 	{
-// 		while (prompt[i] != ' ' && prompt[i])
-// 		{
-// 			new_prompt = ft_strjoinc(new_prompt, prompt[i]);
-// 			i++;
-// 		}
-// 		if (prompt[i] == ' ' && prompt[i + 1] != ' ' && prompt[i + 1])
-// 			new_prompt = ft_strjoinc(new_prompt, prompt[i]);
-// 		i++;
-// 	}
-// 	return (new_prompt);
-// }
 
 void	ft_echoing(char *str, int flag)
 {
 	int	i;
-//	char	*res;
 
 	i = 0;
-/*	if (str[i] == '\a')
-	{
-		i++;
-		while (str[i] != '\a' && str[i])
-			i++;
-		res = malloc(i + 1);
-		ft_strlcpy(res, str + 1, i);
-		if (flag == 0)
-			ft_printf("%s ", res);
-		if (flag == 1)
-			ft_printf("%s", res);
-		free(res);
-		return ;
-	}
-	*/
 	while (str[i])
 	{
 		if (str[i] != '\a')
@@ -136,9 +46,7 @@ void	ft_echoing(char *str, int flag)
 		i++;
 	}
 	if (flag == 0)
-	 	ft_printf(" ", str);
-	// if (flag == 1)
-	// 	ft_printf("%s", str);
+		ft_printf(" ", str);
 }
 
 int	ft_echo(t_data *data, char *prompt)

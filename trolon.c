@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/25 15:08:57 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:50:03 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 static int	ft_redirect(t_data *data, int i, int j)
 {
-	if (data->full[i][j] == '<' && j++)
+	if (data->full[i][j] == '<')
 	{
-		if (data->full[i][j] == '<')
-			j = ft_limit(data, i, j + 1, 0) + 1;
+		if (data->full[i][j + 1] == '<')
+			j = ft_limit(data, i, j + 2, 0) + 1;
 		else
 		{
-			j = ft_input(data, i, j, 0) + 1;
+			j = ft_input(data, i, j + 1, 0) + 1;
 			if (j == 1)
 				return (0);
 		}
 	}
-	else if (data->full[i][j] == '>' && j++)
+	else if (data->full[i][j] == '>')
 	{
-		if (data->full[i][j] == '>')
-			j = ft_openapp(data, i, j);
+		if (data->full[i][j + 1] == '>')
+			j = ft_openapp(data, i, j + 1);
 		else
-			j = ft_opentrunk(data, i, j) + 1;
+			j = ft_opentrunk(data, i, j + 1) + 1;
 	}
 	return (j);
 }
@@ -57,15 +57,14 @@ static int	ft_tp_quote(t_data *data, int i, int j)
 		if (data->full[i][j] == '$')
 		{
 			if (data->full[i][j + 1] != '?')
-			{	
+			{
 				data->arg = ft_reparg(data, i, j);
 				data->new_cmd = ft_strjoinfree(data->new_cmd, data->arg);
 				if (data->arg)
 					free(data->arg);
 			}
 			else
-				data->new_cmd = ft_strjoinfrfr(data->new_cmd,
-						ft_itoa(data->errnum));
+				data->new_cmd = ft_sj(data->new_cmd, ft_itoa(data->errnum));
 			while (data->full[i][j] != ' ' && data->full[i][j] != '"'
 				&& data->full[i][j] != '\'')
 				j++;
@@ -92,10 +91,9 @@ static int	ft_tp_dollar(t_data *data, int i, int j)
 		return (j);
 	}
 	else
-		data->new_cmd = ft_strjoinfrfr
+		data->new_cmd = ft_sj
 			(data->new_cmd, ft_itoa(data->errnum >> 8));
 	return (j + 2);
-	
 }
 
 int	ft_third_parse(t_data *data, int i, int j)
@@ -109,21 +107,20 @@ int	ft_third_parse(t_data *data, int i, int j)
 			if (data->full[i][j])
 				data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 		}
-		else if ((data->full[i][j] == '>' || data->full[i][j] == '<') && j)
-		{
-			j = ft_redirect(data, i, j);
-			if (j == 0)
-				return (0);
-		}
 		else if (data->full[i][j] == '\'' && j++)
 			j = ft_sgl_quote(data, i, j);
 		else if (data->full[i][j] == '"' && j++)
 			j = ft_tp_quote(data, i, j);
 		else if (data->full[i][j] == '$')
 			j = ft_tp_dollar(data, i, j);
+		else if ((data->full[i][j] == '>' || data->full[i][j] == '<'))
+		{
+			j = ft_redirect(data, i, j);
+			if (j == 0)
+				return (0);
+		}
 		else
 			data->new_cmd = ft_strjoinc(data->new_cmd, data->full[i][j++]);
 	}
-	ft_pludeplass(data, i);
-	return (1);
+	return (ft_pludeplass(data, i));
 }

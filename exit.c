@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:30 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 11:43:59 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:29:36 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@ static void	ft_exit_free(t_data *data)
 	free(data);
 }
 
+int	is_str_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			ft_printf("%s: numeric argument required", str);
+			return (2);
+		}
+		i++;
+	}
+	return (ft_atoi(str));
+}
+
 void	ft_exit(t_data *data, char *prompt)
 {
 	char	**sp;
@@ -34,12 +51,7 @@ void	ft_exit(t_data *data, char *prompt)
 	{
 		sp = ft_split(data->full[0], ' ');
 		if (sp[1])
-			exit_code = ft_atoi(sp[1]);
-		if (sp[2])
-		{
-			ft_printf("exit: too many arguments\n");
-			return ;
-		}
+			exit_code = is_str_alpha(sp[1]);
 		free(prompt);
 		ft_freesplit(sp);
 	}
@@ -56,4 +68,3 @@ void	ft_exit(t_data *data, char *prompt)
 	ft_exit_free(data);
 	exit(exit_code);
 }
-

@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 14:38:43 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/24 10:43:32 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:52:31 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_first_parse(t_data *data, char *prompt)
 			data->full = ft_neosplit(prompt, '|', 0, 0);
 		else
 			return (0);
-	}	
+	}
 	if (prompt[0] == '\0')
 		return (0);
 	while (data->full[i])
