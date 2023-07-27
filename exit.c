@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:30 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/26 15:29:36 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:27:53 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	ft_exit_free(t_data *data)
 	ft_freesplit(data->env_cpy);
 	ft_freesplit(data->cmd);
 	ft_freesplit(data->full);
-	free(data->pipes);
 	free(data->pwd);
 	free(data);
 }
