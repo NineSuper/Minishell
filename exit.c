@@ -65,6 +65,7 @@ void	ft_exit(t_data *data, char *prompt)
 		free(data);
 		exit(exit_code);
 	}
+	ft_printf("exit\n");
 	ft_exit_free(data);
 	exit(exit_code);
 }

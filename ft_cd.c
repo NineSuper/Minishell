@@ -80,6 +80,15 @@ void	ft_arg_cd(t_data *data, char *arg, char *pwd_copy)
 	}
 }
 
+static void ft_go_home(t_data *data, char **parse, char *pwd_cpy)
+{
+		chdir(data->home);
+		ft_changepwd(data, pwd_cpy);
+		free(pwd_cpy);
+		ft_freesplit(parse);
+		return ;
+}
+
 void	ft_cd(t_data *data, char *prompt)
 {
 	char	**parse;
@@ -89,7 +98,7 @@ void	ft_cd(t_data *data, char *prompt)
 	ft_getpwd(data);
 	pwd_cpy = ft_strdup(data->pwd);
 	if (!parse[1])
-		chdir(data->home);
+		return(ft_go_home(data, parse, pwd_cpy)) ;
 	else if (parse[2])
 	{
 		ft_printf("cd: too many arguments\n");
