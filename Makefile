@@ -48,13 +48,13 @@ COMP_START      =       printf "\n🚧 $(BOLD_YELLOW)Make: $(NO_COLOR)Debut de c
 
 EXE_READY       =       echo "\n\n📟 Compilation de $(BOLD_YELLOW)MINISHELL$(NO_COLOR) reussi !\n"
 
-CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
+CLEANED         =       echo "\n💧 $(BOLD_YELLOW)Clean: $(NO_COLOR)Suppression des fichiers .o \n"
 
 FCLEANED        =       echo "\n🧼 $(BOLD_YELLOW)Fclean: $(NO_COLOR)Suppression des fichiers .o et de l'executable \n"
 
 NORM			= 		echo "\n📢 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme de tous les fichiers en .c !\n$(BOLD_PURPLE)"
 
-NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme du .h\n$(BOLD_PURPLE)"
+NORM_H			=		echo "\n📣 $(BOLD_CYAN)NORMINETTE: $(BOLD_YELLOW)Verification de la norme du .h \n$(BOLD_PURPLE)"
 
 # ------------------------------ Rules ------------------------------
 MAKEFLAGS += --silent
@@ -68,7 +68,7 @@ all: $(NAME) norminette
 
 norminette:
 	$(NORM)
-	norminette *.c
+	norminette ./*.c
 	$(NORM_H)
 	norminette -R checkDefine minishell.h
 	echo "\n"
@@ -79,7 +79,7 @@ comp_start:
 
 clean:
 	$(CLEANED)
-	rm -f $(NAME) $(OBJ) *~ core *.core
+	rm -f $(OBJ) *~ core *.core
 
 fclean: 
 	rm -f $(NAME) $(OBJ) *~ core *.core
