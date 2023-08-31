@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:31:30 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/04 11:43:59 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:37:33 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,25 @@ static void	ft_exit_free(t_data *data)
 	ft_freesplit(data->env_cpy);
 	ft_freesplit(data->cmd);
 	ft_freesplit(data->full);
-	free(data->pipes);
 	free(data->pwd);
 	free(data);
+}
+
+int	is_str_alpha(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			ft_printf("%s: numeric argument required", str);
+			return (2);
+		}
+		i++;
+	}
+	return (ft_atoi(str));
 }
 
 void	ft_exit(t_data *data, char *prompt)
@@ -34,12 +50,13 @@ void	ft_exit(t_data *data, char *prompt)
 	{
 		sp = ft_split(data->full[0], ' ');
 		if (sp[1])
-			exit_code = ft_atoi(sp[1]);
+			exit_code = is_str_alpha(sp[1]);
 		free(prompt);
 		ft_freesplit(sp);
 	}
 	else
 	{
+		exit_code = data->errnum;
 		free(data->home);
 		free(data->pwd);
 		free(data->path);

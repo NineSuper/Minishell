@@ -6,20 +6,24 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:44:53 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/05 11:13:37 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:49:35 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_ff;
 
 void	single_cmd(t_data *data)
 {
 	pid_t	pid;
 
 	pid = fork();
+	g_ff = 1;
 	if (pid == 0)
 		ft_exec(data, 0, 1);
 	waitpid(-1, &data->errnum, 0);
+	g_ff = 0;
 }
 
 char	*ft_chk_cmd(t_data *data, int i, int j)
@@ -30,6 +34,7 @@ char	*ft_chk_cmd(t_data *data, int i, int j)
 
 	if (data->full[i][j] == '.' || data->full[i][j] == '/')
 		return (data->cmd[i]);
+	ft_getpath(data);
 	spt = ft_split(data->path, ':');
 	j = -1;
 	while (spt[++j])
@@ -64,7 +69,7 @@ static void	ft_suite(t_data *data, int i, int flag)
 	}
 	else if (!ft_strncmp(data->cmd[i], "exit", 5))
 		ft_exit(data, NULL);
-	else
+	else if (!ft_no_built(data->cmd[i]))
 		ft_execve(data, i);
 	if ((!ft_strncmp(data->cmd[i], "cd", 3)
 			|| !ft_strncmp(data->cmd[i], "echo", 5)
@@ -73,7 +78,7 @@ static void	ft_suite(t_data *data, int i, int flag)
 			|| !ft_strncmp(data->cmd[i], "env", 4)
 			|| !ft_strncmp(data->cmd[i], "pwd", 4))
 		&& flag == 1)
-		exit(1);
+		exit(0);
 }
 
 void	ft_exec(t_data *data, int i, int flag)
@@ -91,8 +96,7 @@ void	ft_exec(t_data *data, int i, int flag)
 		ft_export(data, data->full[i]);
 	else if (!ft_strncmp(data->cmd[i], "unset", 6))
 		ft_unset(data, data->full[i]);
-	else
-		ft_suite(data, i, flag);
+	ft_suite(data, i, flag);
 }
 
 void	ft_execve(t_data *data, int i)
@@ -104,14 +108,18 @@ void	ft_execve(t_data *data, int i)
 	{
 		if (execve(cmd, ft_split(data->full[i], ' '), data->env_cpy) == -1)
 		{
-			ft_printf("%d %s\n", errno, strerror(errno));
-			perror("Error is :");
+			data->errnum = errno >> 8;
 			free(cmd);
-			exit(1);
+			exit(data->errnum);
 		}
+		data->errnum = 0;
 		free(cmd);
-		exit(1);
+		exit(data->errnum);
 	}
 	else
-		exit(1);
+	{
+		data->errnum = 127;
+		ft_printf("%s: command not found\n", data->cmd[i]);
+		exit(127);
+	}
 }

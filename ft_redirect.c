@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 10:18:59 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/03 14:23:02 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:42:34 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_opentrunk(t_data *data, int i, int j)
 	char	*cmd;
 	int		fd;
 
-	j++;
 	l = 0;
 	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
@@ -38,7 +37,7 @@ int	ft_opentrunk(t_data *data, int i, int j)
 	dup2(fd, 1);
 	close(fd);
 	free(cmd);
-	return (j);
+	return (j - 1);
 }
 
 int	ft_openapp(t_data *data, int i, int j)
@@ -48,7 +47,7 @@ int	ft_openapp(t_data *data, int i, int j)
 	char	*cmd;
 	int		fd;
 
-	j += 2;
+	j += 1;
 	l = 0;
 	while (data->full[i][j] == ' ' && data->full[i][j])
 		j++;
@@ -86,17 +85,15 @@ int	ft_limit(t_data *data, int i, int j, int l)
 		cmd[l++] = data->full[i][k++];
 	cmd[l] = '\0';
 	if (!cmd[0])
-	{
-		ft_error(data, "empty delimiter\n");
-		return (j);
-	}
+		return (ft_error(data, cmd, "empty delimiter\n"), j - 1);
 	while (1)
 	{
 		new_prompt = readline(">");
 		if (!ft_strncmp(new_prompt, cmd, ft_strlen(cmd)))
 			break ;
 	}
-	return (j);
+	free(cmd);
+	return (j - 1);
 }
 
 int	ft_input(t_data *data, int i, int j, int l)
@@ -117,17 +114,19 @@ int	ft_input(t_data *data, int i, int j, int l)
 	fd = open(cmd, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_error(data, "error cpt mdr\n");
+		ft_error(data, cmd, strerror(errno));
 		return (0);
 	}
 	dup2(fd, 0);
 	close(fd);
-	return (j);
+	free(cmd);
+	return (j - 1);
 }
 
-void	ft_error(t_data *data, char *error)
+void	ft_error(t_data *data, char *cmd, char *error)
 {
 	dup2(data->term, 1);
 	close(data->term);
+	free(cmd);
 	ft_printf("%s", error);
 }

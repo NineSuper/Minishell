@@ -6,52 +6,72 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 10:30:03 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/07/05 12:48:05 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:50:47 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_n(char *prompt, int i)
+int	ft_check_n(char **tab)
 {
-	while (prompt[i] == 'n')
+	int	i;
+	int	j;
+
+	i = 1;
+	while (tab[i])
+	{
+		if (tab[i][0] != '-')
+			return (i);
+		j = 1;
+		while (tab[i][j])
+		{
+			if (tab[i][j] != 'n')
+				return (i);
+			j++;
+		}
 		i++;
-	while (prompt[i] == ' ')
+	}
+	return (i);
+}
+
+void	ft_echoing(char *str, int flag)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\a')
+			ft_printf("%c", str[i]);
 		i++;
-	if (!(prompt[i] == '-' && prompt[i + 1] == 'n'))
-		return (i);
-	else
-		return (ft_check_n(prompt, i + 1));
+	}
+	if (flag == 0)
+		ft_printf(" ", str);
 }
 
 int	ft_echo(t_data *data, char *prompt)
 {
-//	char		**split;
-//	int			i;
-//	int			flag;
+	char		**split;
+	int			i;
+	int			flag;
 
 	(void)data;
-	if ((ft_strlen(prompt) > 7) && prompt[5] == '-' && prompt [6] == 'n')
-		ft_printf("%s", prompt + ft_check_n(prompt, 7));
-	else
-		ft_printf("%s\n", prompt + 5);
-//	split = ft_split(prompt, ' ');
-//	if (!split[1])
-//		return (ft_freesplit(split), ft_printf("\n"));
-//	i = ft_check_n(split);
-//	flag = i;
-//	if (!split[i])
-//		return (ft_freesplit(split), 0);
-//	while (split[i])
-//	{
-//		if (split[i + 1])
-//			ft_printf("%s ", split[i]);
-//		else
-//			ft_printf("%s", split[i]);
-//		i++;
-//	}
-//	if (flag < 2)
-//		ft_printf("\n");
-//	return (ft_freesplit(split), 0);
-	return (0);
+	split = ft_neosplit(prompt, ' ', 0, 0);
+	if (!split[1])
+		return (ft_freesplit(split), ft_printf("\n"));
+	i = ft_check_n(split);
+	flag = i;
+	if (!split[i])
+		return (ft_freesplit(split), 0);
+	while (split[i])
+	{
+		if (split[i + 1])
+			ft_echoing(split[i], 0);
+		else
+			ft_echoing(split[i], 1);
+		i++;
+	}
+	if (flag < 2)
+		ft_printf("\n");
+	return (ft_freesplit(split), 0);
 }

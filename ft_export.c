@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/04 10:40:53 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:09:59 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env_alpha(t_data *data)
 	char	**new_cpy;
 
 	i = -1;
-	new_cpy = ft_calloc((data->env_len + 1), sizeof(char *));
+	new_cpy = ft_calloc((data->env_len), sizeof(char *));
 	while (++i < data->env_len)
 	{
 		pos = 0;
@@ -78,7 +78,7 @@ void	ft_export(t_data *data, char *prompt)
 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i]) + 1))
 			{
 				free(data->env_cpy[j]);
-				data->env_cpy[j] = sp[i];
+				data->env_cpy[j] = ft_strdup(sp[i]);
 				break ;
 			}
 			j++;

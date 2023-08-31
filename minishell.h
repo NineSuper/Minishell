@@ -6,7 +6,7 @@
 /*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 10:32:06 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/05 11:06:45 by jcasades         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:30:21 by jcasades         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/gnl/get_next_line.h"
 /*      NAME        */
-# define NAME "\033[1;36m☁️  Minichibre "
+# define NAME "\033[1;36m☁️  Minichill "
 /*	STRUCTS	    */
 
 typedef struct s_arg
@@ -100,14 +100,15 @@ void	is_builtin(t_data *data, char *cmd, int i);
 void	ft_exec(t_data *data, int i, int flag);
 int		ft_third_parse(t_data *data, int i, int j);
 void	ft_execve(t_data *data, int i);
-void	ft_error(t_data *data, char *error);
+void	ft_error(t_data *data, char *cmd, char *error);
 void	ft_init(t_data *data, char **env);
 int		check_quote(char *str);
 int		ft_no_built(char *str);
 void	ft_getpath(t_data *data);
 char	*ft_strjoinfree(char *s1, char *s2);
+char	*ft_sj(char *s1, char *s2);
 void	ft_go_pipe(t_data *data, int i);
 void	single_cmd(t_data *data);
-void	ft_pludeplass(t_data *data, int i);
+int		ft_pludeplass(t_data *data, int i);
 
 #endif
