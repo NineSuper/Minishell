@@ -6,7 +6,7 @@
 /*   By: tde-los- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:09:54 by tde-los-          #+#    #+#             */
-/*   Updated: 2023/02/13 09:25:19 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:29:56 by ltressen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_removeset(char c, char const *set)
 		i++;
 	}
 	return (0);
-}	
+}
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
