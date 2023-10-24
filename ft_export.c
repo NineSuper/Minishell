@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/07/25 16:09:59 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:26:04 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,38 @@ void	ft_new_export(t_data *data, char *c)
 	data->env_cpy = new_cpy;
 }
 
+void	ft_data_env(t_data *data, int j, char *sp)
+{
+	if (data->env_cpy[j])
+		free(data->env_cpy[j]);
+	data->env_cpy[j] = ft_strdup(sp);
+}
+
 void	ft_export(t_data *data, char *prompt)
 {
 	int		i;
 	char	**sp;
 	int		j;
 
-	j = 0;
+	j = -1;
 	sp = ft_split(prompt, ' ');
 	i = 0;
 	if (!sp[1])
 		ft_env_alpha(data);
 	while (sp[++i])
 	{
-		while (data->env_cpy[j])
+		while (data->env_cpy[++j])
 		{
+			if (ft_strrchr("0123456789", sp[i][0]))
+				break ;
 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i]) + 1))
 			{
-				free(data->env_cpy[j]);
-				data->env_cpy[j] = ft_strdup(sp[i]);
+				ft_data_env(data, j, sp[i]);
 				break ;
 			}
-			j++;
 		}
 		if (!data->env_cpy[j])
 			ft_new_export(data, sp[i]);
 	}
-	ft_freesplit(sp);
+	return ((void) ft_freesplit(sp));
 }
