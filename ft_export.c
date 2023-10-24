@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:24:42 by ltressen          #+#    #+#             */
-/*   Updated: 2023/10/24 14:26:04 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:27:54 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_export(t_data *data, char *prompt)
 	{
 		while (data->env_cpy[++j])
 		{
-			if (ft_strrchr("0123456789", sp[i][0]))
+			if (ft_strrchr("0123456789", sp[i][0]) || !ft_strrchr(sp[1], '='))
 				break ;
 			if (!strncmp(data->env_cpy[j], sp[i], ft_lenvar(sp[i]) + 1))
 			{
