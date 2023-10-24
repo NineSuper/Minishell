@@ -6,7 +6,7 @@
 /*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 12:06:22 by ltressen          #+#    #+#             */
-/*   Updated: 2023/10/24 14:01:30 by tde-los-         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:05:24 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void	ft_parse_one(t_data *data, char **parse, char *pwd_cpy)
 	if (parse[1])
 	{
 		if (parse[1][0] == '~' && parse[1][1] == '\0')
-	 		chdir(data->home);
+			chdir(data->home);
 		else if (parse[1][0] == '~' && parse[1][1] != '\0')
-	 		ft_arg_cd(data, parse[1], pwd_cpy);
+			ft_arg_cd(data, parse[1], pwd_cpy);
 		else if (chdir(parse[1]) == -1)
 		{
-		 	ft_printf("cd: no such file or directory: %s\n", parse[1]);
-		 	data->errnum = 1;
+			ft_printf("cd: no such file or directory: %s\n", parse[1]);
+			data->errnum = 1;
 		}
 	}
 }
@@ -105,7 +105,7 @@ void	ft_cd(t_data *data, char *prompt)
 	ft_getpwd(data);
 	pwd_cpy = ft_strdup(data->pwd);
 	if (!parse[1])
-	 	chdir(data->home);
+		chdir(data->home);
 	else if (parse[2])
 	{
 		ft_printf("cd: too many arguments\n");
