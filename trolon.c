@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trolon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltressen <ltressen@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: tde-los- <tde-los-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:56:52 by jcasades          #+#    #+#             */
-/*   Updated: 2023/07/26 15:50:03 by ltressen         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:52:26 by tde-los-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ int	ft_third_parse(t_data *data, int i, int j)
 			if (data->full[i][j])
 				data->new_cmd = ft_strjoinc(data->new_cmd, ' ');
 		}
-		else if (data->full[i][j] == '\'' && j++)
-			j = ft_sgl_quote(data, i, j);
-		else if (data->full[i][j] == '"' && j++)
-			j = ft_tp_quote(data, i, j);
+		else if (data->full[i][j] == '\'')
+			j = ft_sgl_quote(data, i, j++);
+		else if (data->full[i][j] == '"')
+			j = ft_tp_quote(data, i, j++);
 		else if (data->full[i][j] == '$')
 			j = ft_tp_dollar(data, i, j);
 		else if ((data->full[i][j] == '>' || data->full[i][j] == '<'))
