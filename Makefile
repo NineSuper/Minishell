@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 CC = gcc
 
 LFLAGS = -lreadline
-FLAGS = 
+FLAGS = -Wall -Werror -Wextra
 
 # ------------------------------ Colors ------------------------------
 
